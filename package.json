@@ -1,0 +1,38 @@
+{
+  "name": "nextjs-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "keywords": [
+    "boilerplate",
+    "react",
+    "next"
+  ],
+  "author": "nikita.kirdiapin@gmail.com",
+  "license": "MIT",
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  },
+  "dependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.4.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "next": "^12.1.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.21",
+    "@types/react": "^17.0.39",
+    "@typescript-eslint/eslint-plugin": "^5.13.0",
+    "eslint-config-next": "^12.1.0",
+    "eslint-plugin-import": "^2.25.4",
+    "prettier": "2.5.1",
+    "typescript": "^4.6.2"
+  }
+}
