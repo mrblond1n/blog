@@ -5,6 +5,8 @@
     "prettier" // Add "prettier" last. This will turn off eslint rules conflicting with prettier. This is not what will format our code.
   ],
   "rules": {
+    "import/no-anonymous-default-export": [2, {"allowArrowFunction": true}],
+
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
@@ -52,6 +54,7 @@
       {"blankLine": "always", "prev": "*", "next": "return"},
       {"blankLine": "always", "prev": "import", "next": "export"},
       {"blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"]}
-    ]
+    ],
+    "semi": "error"
   }
 }
