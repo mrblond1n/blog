@@ -17,5 +17,5 @@ jobs:
           path: '**/node_modules'
           key: node-16-modules-${{ hashFiles('**/yarn.lock') }}
       - if: steps.yarn-cache.outputs.cache-hit != 'true'
-        run: npm run install --frozen-lockfile
+        run: npm install --frozen-lockfile
       - run: npm run test
