@@ -1,8 +1,7 @@
 export const ROUTES = {
     HOME: '/',
-    ABOUT: '/about',
-    EFFECTOR: '/effector',
     POSTS: '/posts',
+    AUTH: '/auth',
 } as const;
 
 const routesList = Object.values(ROUTES);
