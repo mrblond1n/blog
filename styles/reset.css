@@ -1,3 +1,14 @@
+* {
+    margin:0;
+    box-sizing:border-box;
+}
+
+body > *:first-child {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 ul {
     padding: 0;
     list-style: none;
