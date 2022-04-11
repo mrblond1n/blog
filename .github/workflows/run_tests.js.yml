@@ -1,0 +1,21 @@
+name: tests
+
+on:
+  push:
+    paths:
+      - '*/**'
+jobs:
+  tests:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with: {node-version: 16}
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: node-16-modules-${{ hashFiles('**/yarn.lock') }}
+      - if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: npm install --frozen-lockfile
+      - run: npm run test
