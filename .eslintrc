@@ -1,6 +1,9 @@
 {
+  "plugins": ["effector"],
   "extends": [
     "next",
+    "plugin:effector/recommended",
+    "plugin:effector/scope",
     "plugin:@typescript-eslint/recommended",
     "prettier" // Add "prettier" last. This will turn off eslint rules conflicting with prettier. This is not what will format our code.
   ],
@@ -28,6 +31,8 @@
     ],
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-use-before-define": "off",
+
+    "effector/prefer-sample-over-forward-with-mapping": "off",
 
     "react-hooks/rules-of-hooks": "error", // Check rules of Hooks
     "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
