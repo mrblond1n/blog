@@ -1,4 +1,5 @@
 import React from 'react';
+import {Page} from 'ui/organisms/Page';
 
 export default () => {
     const handleSubmit = React.useCallback(e => {
@@ -7,7 +8,7 @@ export default () => {
     }, []);
 
     return (
-        <div>
+        <Page>
             <h1>{'Auth page'}</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="mail">
@@ -23,6 +24,6 @@ export default () => {
 
                 <button type="submit">{'Отправить'}</button>
             </form>
-        </div>
+        </Page>
     );
 };

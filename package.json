@@ -1,16 +1,12 @@
 {
   "name": "blog",
   "version": "1.0.0",
-  "description": "",
   "scripts": {
     "dev": "next dev",
     "firebase:emulators": "firebase emulators:start",
     "build": "next build && next export -o build/",
-    "start": "next start",
     "lint": "eslint './**/*.{ts, tsx}'",
-    "lint:fix": "eslint --fix --ext './**/*.{ts,tsx}'",
     "prettier": "prettier --check './**/*.{ts,tsx}'",
-    "prettier:fix": "prettier --write './**/*.{ts,tsx}'",
     "test": "npm run lint && npm run prettier && jest --forceExit",
     "test:watch": "jest --watch",
     "prepare": "husky install"
