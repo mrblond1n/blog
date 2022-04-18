@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
-import {getAuth} from 'firebase/auth';
 import {initializeApp} from 'firebase/app';
+import {Auth, connectAuthEmulator, getAuth, User} from 'firebase/auth';
 import {connectFirestoreEmulator, getFirestore} from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -22,9 +22,21 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore();
 
+export const auth = getAuth(app);
+
 if (process.env.NODE_ENV === 'development') {
     connectFirestoreEmulator(db, 'localhost', 8080);
+    connectAuthEmulator(auth, 'http://localhost:9099');
 }
-export const auth = getAuth(app);
+
+// todo find correct resolve for check auth request
+export function getCurrentUser(auth: Auth) {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = auth.onAuthStateChanged((user: User | null) => {
+            unsubscribe();
+            resolve(user);
+        }, reject);
+    });
+}
 
 export default db;
