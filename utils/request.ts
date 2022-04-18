@@ -1,4 +1,6 @@
-import db from 'config';
+import {createUserWithEmailAndPassword, signOut} from '@firebase/auth';
+import db, {auth, getCurrentUser} from 'config';
+import {signInWithEmailAndPassword} from 'firebase/auth';
 import {addDoc, collection, deleteDoc, doc, getDoc, getDocs} from 'firebase/firestore';
 
 export type TInterceptor = (data: any) => any;
@@ -56,6 +58,49 @@ export const firebaseRequest = async <Result>(
             if (!config.id) break;
             await deleteDoc(doc(db, config.collection, config.id));
             response = config.id;
+            break;
+        }
+    }
+
+    return interceptorToUse(response);
+};
+
+export type TFirebaseAuthRequestConfig = {
+    data?: any;
+    type: 'CHECK' | 'SIGN_IN' | 'SIGN_OUT' | 'SIGN_UP';
+};
+
+export const createFirebaseAuthRequest = ({type, data}: TFirebaseAuthRequestConfig) => ({type, data});
+
+export const firebaseAuthRequest = async <Result>(
+    config: TFirebaseAuthRequestConfig,
+    interceptor?: TInterceptor
+): Promise<TResponse<Result>> => {
+    const interceptorToUse = interceptor || defaultInterceptor;
+    let response;
+
+    switch (config.type) {
+        case 'CHECK': {
+            response = await getCurrentUser(auth);
+
+            break;
+        }
+        case 'SIGN_IN': {
+            const data = await signInWithEmailAndPassword(auth, config.data.email, config.data.password);
+
+            response = data.user;
+            break;
+        }
+        case 'SIGN_OUT': {
+            await signOut(auth);
+
+            break;
+        }
+
+        case 'SIGN_UP': {
+            const data = await createUserWithEmailAndPassword(auth, config.data.email, config.data.password);
+
+            response = data.user;
             break;
         }
     }
