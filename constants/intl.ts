@@ -11,5 +11,6 @@ export const INTL = {
     POSTS: {
         OPEN: 'Open',
         REMOVE: 'Remove',
+        UPDATE: 'Update posts',
     },
 };
