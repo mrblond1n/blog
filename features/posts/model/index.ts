@@ -1,13 +1,13 @@
 import {forward} from 'effector';
 import {createGate} from 'effector-react';
 import {addPostFx, getPostsFx, removePostFx} from 'features/posts/model/effects';
-import {addNewPost, addPost, getPosts, onClick, removePost, setMode} from 'features/posts/model/events';
+import {addNewPost, addPost, getPosts, removePost, setMode, updatePosts} from 'features/posts/model/events';
 import {iterate} from 'utils/effector/iterate';
 
 export const Gate = createGate();
 
 forward({
-    from: [Gate.open, onClick],
+    from: [Gate.open, updatePosts],
     to: getPosts,
 });
 
