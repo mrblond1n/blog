@@ -1,7 +1,7 @@
 import * as t from 'utils/validation';
 
 const UserDto = t.type({
-    displayName: t.string,
+    displayName: t.nullable(t.string),
     email: t.string,
     photoUrl: t.nullable(t.string),
     uid: t.string,
