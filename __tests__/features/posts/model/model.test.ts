@@ -62,6 +62,6 @@ describe('$disabledIndex', () => {
         addPost({...post, id: newId});
         removePost(newId);
 
-        expect($disabledIndex.getState()).toEqual({[newId]: false});
+        expect($disabledIndex.getState()).toEqual({[newId]: true});
     });
 });

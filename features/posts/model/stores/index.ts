@@ -15,7 +15,7 @@ export const $postsIndex = createStore(createIndex<TPostDto>())
 
 export const $disabledIndex = createStore(createIndex<boolean>())
     .on(addPost, (index, post) => index.set({key: post.id, value: false}))
-    .on(removePost, (index, id) => index.set({key: id, value: true}))
+    .on(removePost, (index, id) => index.set({key: id, value: false}))
     .on(removePostFx.doneData, (index, id) => index.remove({key: id}))
     .on(removePostFx.fail, (index, {params}) => index.set({key: params, value: false}))
     .on(Gate.close, index => index.clear())
