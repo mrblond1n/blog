@@ -1,4 +1,5 @@
-import {fireEvent, render, screen} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {PostsContainer} from 'features/posts/containers/PostsContainer';
 import {getPostsFx, removePostFx} from 'features/posts/model/effects';
 import {$postsIndex} from 'features/posts/model/stores';
@@ -17,11 +18,11 @@ describe('<PostsContainer />', () => {
         expect(divElement).toBeInTheDocument();
     });
 
-    test('disabled button if it clicked', () => {
+    test('disabled button if it clicked', async () => {
         render(<PostsContainer />);
         const buttonElement = screen.getByRole('button');
 
-        fireEvent.click(buttonElement);
+        await userEvent.click(buttonElement);
         expect(buttonElement).toHaveAttribute('disabled');
     });
 
