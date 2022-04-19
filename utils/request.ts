@@ -93,6 +93,7 @@ export const firebaseAuthRequest = async <Result>(
         }
         case 'SIGN_OUT': {
             await signOut(auth);
+            response = true;
 
             break;
         }
