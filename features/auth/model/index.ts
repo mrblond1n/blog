@@ -3,8 +3,18 @@ import {createGate} from 'effector-react';
 import {forward} from 'effector/effector.mjs';
 import {setAppState} from 'features/app/model/events';
 import {$appState} from 'features/app/model/stores';
-import {signInFx, signUpFx} from 'features/auth/model/effects';
-import {fieldSet, onChange, onReset, onSubmit, onSwitch, setState, signIn, signUp} from 'features/auth/model/events';
+import {signInFx, signOutFx, signUpFx} from 'features/auth/model/effects';
+import {
+    fieldSet,
+    onChange,
+    onReset,
+    onSubmit,
+    onSwitch,
+    setState,
+    signIn,
+    signOut,
+    signUp,
+} from 'features/auth/model/events';
 import {$form, $state} from 'features/auth/model/stores';
 import {toMain} from 'features/navigation/model/events';
 
@@ -68,4 +78,14 @@ forward({
 forward({
     from: [signInFx.doneData, signUpFx.doneData, onSwitch, Gate.open],
     to: onReset,
+});
+
+forward({
+    from: signOut,
+    to: signOutFx,
+});
+
+forward({
+    from: signOutFx.doneData,
+    to: setAppState.prepend(() => 'UNAUTHORIZED'),
 });
