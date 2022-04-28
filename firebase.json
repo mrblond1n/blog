@@ -12,5 +12,11 @@
     "database": {
       "port": 9000
     }
+  },
+  "hosting": {
+    "rewrites": [ {
+      "source": "**",
+      "destination": "/index.html"
+    } ]
   }
 }
