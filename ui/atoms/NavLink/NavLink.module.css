@@ -1,6 +1,7 @@
 .container > * {
     cursor: pointer;
     transition: 0.4s;
+    margin: 10px 0;
 }
 
 .container > *:hover {
