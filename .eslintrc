@@ -1,5 +1,5 @@
 {
-  "plugins": ["effector"],
+  "plugins": ["effector", "prettier"],
   "extends": [
     "next",
     "plugin:effector/recommended",
@@ -61,6 +61,7 @@
       {"blankLine": "always", "prev": "import", "next": "export"},
       {"blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"]}
     ],
-    "semi": "error"
+    "semi": "error",
+    "prettier/prettier": "error"
   }
 }
