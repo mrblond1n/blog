@@ -1,5 +1,7 @@
-import {forward} from 'effector';
+import {forward, sample} from 'effector';
 import {createGate} from 'effector-react';
+import {onSubmit} from 'features/form/model/events';
+import {$form, $inputsApi} from 'features/form/model/stores';
 import {addPostFx, getPostsFx, removePostFx} from 'features/posts/model/effects';
 import {addNewPost, addPost, getPosts, removePost, setMode, updatePosts} from 'features/posts/model/events';
 import {iterate} from 'utils/effector/iterate';
@@ -8,7 +10,7 @@ export const Gate = createGate();
 
 forward({
     from: [Gate.open, updatePosts],
-    to: getPosts,
+    to: [getPosts, $inputsApi.setCreatePostInputs],
 });
 
 const newPostEvent = iterate(getPostsFx.doneData);
@@ -21,6 +23,13 @@ forward({
 forward({
     from: getPosts,
     to: [getPostsFx, setMode.prepend(() => 'LOADING')],
+});
+
+sample({
+    clock: onSubmit,
+    source: $form,
+    filter: Gate.status,
+    target: addPostFx,
 });
 
 forward({

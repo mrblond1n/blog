@@ -1,6 +1,6 @@
 import {createFirebaseRequest} from 'utils/request';
 
-export const addPostRequest = (data: {title: string; text: string}) =>
+export const addPostRequest = (data: {[key: string]: string}) =>
     createFirebaseRequest({type: 'ADD', collection: 'posts', data});
 
 export const getPostsRequest = () => createFirebaseRequest({type: 'GET_LIST', collection: 'posts'});
