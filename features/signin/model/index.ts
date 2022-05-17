@@ -3,19 +3,12 @@ import {createGate} from 'effector-react';
 import {forward} from 'effector/effector.mjs';
 import {setAppState} from 'features/app/model/events';
 import {$appState} from 'features/app/model/stores';
-import {signInFx, signOutFx, signUpFx} from 'features/auth/model/effects';
-import {
-    fieldSet,
-    onChange,
-    onReset,
-    onSubmit,
-    onSwitch,
-    setState,
-    signIn,
-    signOut,
-    signUp,
-} from 'features/auth/model/events';
-import {$form, $state} from 'features/auth/model/stores';
+import {signInFx, signOutFx, signUpFx} from 'features/signin/model/effects';
+import {onSwitch, setState, signIn, signOut, signUp} from 'features/signin/model/events';
+import {$state} from 'features/signin/model/stores';
+import {$formElem} from 'features/form/model';
+import {onReset, onSubmit} from 'features/form/model/events';
+import {$form, $inputsApi} from 'features/form/model/stores';
 import {toMain} from 'features/navigation/model/events';
 
 export const Gate = createGate();
@@ -27,16 +20,21 @@ guard({
     target: toMain,
 });
 
-sample({
-    clock: onChange,
-    fn: e => ({key: e.target.name, value: e.target.value}),
-    target: fieldSet,
+forward({
+    from: Gate.open,
+    to: $inputsApi.setSignInInputs,
+});
+
+forward({
+    from: Gate.close,
+    to: $inputsApi.resetInputs,
 });
 
 split({
     source: sample({
         clock: onSubmit,
         source: $state,
+        filter: Gate.status,
     }),
     match: {
         isSignInState: state => state === 'SIGN_IN',
@@ -70,14 +68,27 @@ sample({
     target: setState,
 });
 
+split({
+    source: setState,
+    match: {
+        isSignInState: state => state === 'SIGN_IN',
+    },
+    cases: {
+        isSignInState: $inputsApi.setSignInInputs,
+        __: $inputsApi.setSignUpInputs,
+    },
+});
+
 forward({
     from: [signInFx.doneData, signUpFx.doneData],
     to: [setAppState.prepend(() => 'AUTHORIZED'), toMain],
 });
 
-forward({
-    from: [signInFx.doneData, signUpFx.doneData, onSwitch, Gate.open],
-    to: onReset,
+sample({
+    clock: Gate.open,
+    source: $formElem,
+    filter: Boolean,
+    target: onReset,
 });
 
 forward({

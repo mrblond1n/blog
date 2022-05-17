@@ -1,19 +1,18 @@
-import React, {InputHTMLAttributes} from 'react';
+import React, {FormEvent, InputHTMLAttributes} from 'react';
 import style from './style.module.css';
 
-export const Form = React.memo(({onSubmit, children, ...props}: InputHTMLAttributes<HTMLFormElement>) => {
-    const ref = React.useRef<HTMLFormElement>(null);
-    const handleSubmit = (e: any) => {
+interface IProps extends InputHTMLAttributes<HTMLFormElement> {
+    refWrapper: React.RefObject<HTMLFormElement>;
+}
+
+export const Form = React.memo(({children, onSubmit, refWrapper, ...props}: IProps) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         onSubmit?.(e);
     };
 
-    React.useEffect(() => {
-        ref.current?.reset();
-    }, [ref.current?.elements]);
-
     return (
-        <form ref={ref} aria-label="form" {...props} className={style.container} onSubmit={handleSubmit}>
+        <form {...props} ref={refWrapper} aria-label="form" className={style.container} onSubmit={handleSubmit}>
             {children}
         </form>
     );

@@ -1,4 +1,4 @@
-import {LogoutButtonContainer} from 'features/auth/containers/LogoutButtonContainer';
+import {LogoutButtonContainer} from 'features/signin/containers/LogoutButtonContainer';
 import {NavigationContainer} from 'features/navigation/containers/NavigationContainer';
 import React from 'react';
 import {Row} from 'ui/atoms/Row';

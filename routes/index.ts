@@ -1,7 +1,9 @@
 export const ROUTES = {
     HOME: '/',
     POSTS: '/posts',
-    AUTH: '/auth',
+    SIGN_IN: '/signin',
+    SIGN_UP: '/signup',
+    AUTH: '/signin',
 } as const;
 
 const routesList = Object.values(ROUTES);

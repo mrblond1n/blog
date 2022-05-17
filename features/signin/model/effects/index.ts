@@ -1,4 +1,4 @@
-import {signInRequest, signOutRequest, signUpRequest} from 'features/auth/model/requests';
+import {signInRequest, signOutRequest, signUpRequest} from 'features/signin/model/requests';
 import {UserCodec} from 'types/dtos/user.dto';
 import {createFirebaseAuthEffect} from 'utils/requestEffect';
 import {t} from 'utils/validation';

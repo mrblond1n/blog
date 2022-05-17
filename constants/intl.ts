@@ -13,8 +13,9 @@ export const INTL = {
     HOME: {
         PATH: {
             [ROUTES.HOME]: 'Main',
-            [ROUTES.AUTH]: 'Auth',
             [ROUTES.POSTS]: 'Posts',
+            [ROUTES.SIGN_IN]: 'Sign In',
+            [ROUTES.SIGN_UP]: 'Sign Up',
         },
     },
     POSTS: {
