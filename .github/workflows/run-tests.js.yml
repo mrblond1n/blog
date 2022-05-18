@@ -5,6 +5,25 @@ on:
     paths:
       - '*/**'
 jobs:
+  create-envfile:
+    name: Create .env file
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: SpicyPizza/create-envfile@v1
+      - with:
+          envkey_DEBUG: false
+          envkey_NEXT_PUBLIC_AUTH_DOMAIN: "nikita-kirdiapin-blog.firebaseapp.com"
+          envkey_NEXT_PUBLIC_DATABASE_URL: "https://nikita-kirdiapin-blog-default-rtdb.europe-west1.firebasedatabase.app"
+          envkey_NEXT_PUBLIC_PROJECT_ID: "nikita-kirdiapin-blog"
+          envkey_NEXT_PUBLIC_STORAGE_BUCKET: "nikita-kirdiapin-blog.appspot.com"
+          envkey_NEXT_PUBLIC_MESSAGING_SENDER_ID: "477241621412"
+          envkey_NEXT_PUBLIC_APP_ID: "1:477241621412:web:6fc6bec00c5bcc580c9f31"
+          envkey_NEXT_PUBLIC_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+          envkey_NEXT_PUBLIC_MEASUREMENT_ID: "G-PFHYTY91VL"
+
+          file_name: .env
+
   tests:
     name: Test
     runs-on: ubuntu-latest
