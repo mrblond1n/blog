@@ -8,7 +8,7 @@ import {onSwitch, setState, signIn, signOut, signUp} from 'features/signin/model
 import {$state} from 'features/signin/model/stores';
 import {$formElem} from 'features/form/model';
 import {onReset, onSubmit} from 'features/form/model/events';
-import {$form, $inputsApi} from 'features/form/model/stores';
+import {$form, $inputsApi, changeButtonText} from 'features/form/model/stores';
 import {toMain} from 'features/navigation/model/events';
 
 export const Gate = createGate();
@@ -22,12 +22,7 @@ guard({
 
 forward({
     from: Gate.open,
-    to: $inputsApi.setSignInInputs,
-});
-
-forward({
-    from: Gate.close,
-    to: $inputsApi.resetInputs,
+    to: [changeButtonText.toSignIn, $inputsApi.setSignInInputs],
 });
 
 split({

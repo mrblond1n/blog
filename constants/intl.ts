@@ -19,6 +19,7 @@ export const INTL = {
         },
     },
     POSTS: {
+        CREATE: 'Create',
         OPEN: 'Open',
         REMOVE: 'Remove',
         UPDATE: 'Update posts',
