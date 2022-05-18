@@ -1,6 +1,6 @@
 import {useGate, useStore} from 'effector-react';
 import {$appState} from 'features/common/app/model/stores';
-import {LinkButtonContainer} from 'features/signup/containers/LinkButtonContainer';
+import {LinkContainer} from 'features/signup/containers/LinkContainer';
 import {Gate} from 'features/signup/model';
 import {FormContainer} from 'features/common/form/containers/FormContainer';
 import React from 'react';
@@ -20,7 +20,7 @@ export default () => {
                 <SubmitButtonContainer />
             </FormContainer>
 
-            <LinkButtonContainer />
+            <LinkContainer />
         </React.Fragment>
     );
 };
