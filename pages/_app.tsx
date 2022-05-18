@@ -1,8 +1,8 @@
 import {useGate, useStore} from 'effector-react';
 import 'features';
-import {HeaderContainer} from 'features/app/containers/HeaderContainer';
-import {Gate} from 'features/app/model';
-import {$appState} from 'features/app/model/stores';
+import {HeaderContainer} from 'features/common/app/containers/HeaderContainer';
+import {Gate} from 'features/common/app/model';
+import {$appState} from 'features/common/app/model/stores';
 import type {AppProps} from 'next/app';
 import 'normalize.css/normalize.css';
 import React from 'react';

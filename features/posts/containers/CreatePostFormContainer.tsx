@@ -1,6 +1,6 @@
 import {useStore} from 'effector-react';
-import {$appState} from 'features/app/model/stores';
-import {FormContainer} from 'features/form/containers/FormContainer';
+import {$appState} from 'features/common/app/model/stores';
+import {FormContainer} from 'features/common/form/containers/FormContainer';
 import {SubmitButtonContainer} from 'features/posts/containers/SubmitButtonContainer';
 import React from 'react';
 

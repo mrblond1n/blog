@@ -1,10 +1,10 @@
 import {forward, guard, sample} from 'effector';
 import {createGate} from 'effector-react';
-import {setAppState} from 'features/app/model/events';
-import {$appState} from 'features/app/model/stores';
-import {onSubmit} from 'features/form/model/events';
-import {$form, $inputsApi} from 'features/form/model/stores';
-import {toMain} from 'features/navigation/model/events';
+import {setAppState} from 'features/common/app/model/events';
+import {$appState} from 'features/common/app/model/stores';
+import {onSubmit} from 'features/common/form/model/events';
+import {$form, $inputsApi} from 'features/common/form/model/stores';
+import {toMain} from 'features/common/navigation/model/events';
 import {signInFx, signOutFx} from 'features/signin/model/effects';
 import {signOut} from 'features/signin/model/events';
 
