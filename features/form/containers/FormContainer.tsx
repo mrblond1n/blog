@@ -15,10 +15,6 @@ export const FormContainer = React.memo(() => {
     const handleSubmit = React.useCallback(e => onSubmit(e), []);
     const handleChange = React.useCallback(e => onChange(e), []);
 
-    React.useEffect(() => {
-        ref?.current?.reset();
-    }, [ref?.current?.children]);
-
     return (
         <Form onSubmit={handleSubmit} refWrapper={ref}>
             {useList($inputs, input => (
