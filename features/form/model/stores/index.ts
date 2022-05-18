@@ -1,6 +1,8 @@
+import {INTL} from 'constants/intl';
 import {createApi, createStore, restore} from 'effector';
-import {fieldSet, onReset, setInputs} from 'features/form/model/events';
+import {fieldSet, onReset, setButtonText, setInputs} from 'features/form/model/events';
 import {FormGate} from 'features/form/model/index';
+import {intl} from 'utils/intl';
 import {createIndex} from 'utils/stack';
 
 export const $form = createStore(createIndex<string>())
@@ -31,5 +33,11 @@ export const $inputsApi = createApi($inputs, {
     setSignInInputs: () => signInInputs,
     setSignUpInputs: () => signUpInputs,
     setCreatePostInputs: () => createPostInputs,
-    resetInputs: () => [],
+});
+
+export const $buttonText = restore(setButtonText, '');
+export const changeButtonText = createApi($buttonText, {
+    toCreatePost: () => intl(INTL.POSTS.CREATE),
+    toSignIn: () => intl(INTL.AUTH.SIGN_IN),
+    toSignUp: () => intl(INTL.AUTH.SIGN_UP),
 });
