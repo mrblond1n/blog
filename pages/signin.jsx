@@ -4,6 +4,7 @@ import {LinkContainer} from 'features/signin/containers/LinkContainer';
 import {Gate} from 'features/signin/model';
 import {FormContainer} from 'features/form/containers/FormContainer';
 import React from 'react';
+import {SubmitButtonContainer} from 'features/signin/containers/SubmitButtonContainer';
 
 export default () => {
     useGate(Gate);
@@ -14,7 +15,11 @@ export default () => {
     return (
         <React.Fragment>
             <h1>{'SIGN IN PAGE'}</h1>
-            <FormContainer />
+
+            <FormContainer>
+                <SubmitButtonContainer />
+            </FormContainer>
+
             <LinkContainer />
         </React.Fragment>
     );
