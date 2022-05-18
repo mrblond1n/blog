@@ -5,5 +5,5 @@ import {NavLink} from 'ui/atoms/NavLink';
 import {intl} from 'utils/intl';
 
 export const LinkContainer = React.memo(() => {
-    return <NavLink href={ROUTES.SIGN_UP}>{intl(INTL.AUTH.NOT.SIGN_UP)}</NavLink>;
+    return <NavLink href={ROUTES.SIGN_UP}>{intl(INTL.SIGN_IN.TO)}</NavLink>;
 });

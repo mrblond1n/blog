@@ -1,12 +1,13 @@
 import {guard, sample} from 'effector';
 import {createGate} from 'effector-react';
 import {forward} from 'effector/effector.mjs';
+import {setAppState} from 'features/app/model/events';
 import {$appState} from 'features/app/model/stores';
 import {$formElem} from 'features/form/model';
 import {onReset, onSubmit} from 'features/form/model/events';
-import {$form, $inputsApi, changeButtonText} from 'features/form/model/stores';
+import {$form, $inputsApi} from 'features/form/model/stores';
 import {toMain} from 'features/navigation/model/events';
-import {signUpFx} from 'features/signin/model/effects';
+import {signUpFx} from 'features/signup/model/effects';
 
 export const Gate = createGate();
 
@@ -19,7 +20,7 @@ guard({
 
 forward({
     from: Gate.open,
-    to: [changeButtonText.toSignUp, $inputsApi.setSignUpInputs],
+    to: $inputsApi.setSignUpInputs,
 });
 
 sample({
@@ -31,6 +32,11 @@ sample({
         throw new Error('no correct data');
     },
     target: signUpFx,
+});
+
+forward({
+    from: signUpFx.doneData,
+    to: [setAppState.prepend(() => 'AUTHORIZED'), toMain],
 });
 
 sample({
