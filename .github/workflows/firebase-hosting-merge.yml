@@ -8,6 +8,13 @@ name: Deploy to Firebase Hosting on merge
       - develop
 env:
  NEXT_PUBLIC_API_KEY: '${{ secrets.FIREBASE_API_KEY }}'
+ NEXT_PUBLIC_AUTH_DOMAIN: "nikita-kirdiapin-blog.firebaseapp.com"
+ NEXT_PUBLIC_DATABASE_URL: "https://nikita-kirdiapin-blog-default-rtdb.europe-west1.firebasedatabase.app"
+ NEXT_PUBLIC_PROJECT_ID: "nikita-kirdiapin-blog"
+ NEXT_PUBLIC_STORAGE_BUCKET: "nikita-kirdiapin-blog.appspot.com"
+ NEXT_PUBLIC_MESSAGING_SENDER_ID: "477241621412"
+ NEXT_PUBLIC_APP_ID: "1:477241621412:web:6fc6bec00c5bcc580c9f31"
+ NEXT_PUBLIC_MEASUREMENT_ID: "G-PFHYTY91VL"
 jobs:
   create_envfile:
     name: Create .env file
