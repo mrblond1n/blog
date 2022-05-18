@@ -1,8 +1,9 @@
 .container {
     display: flex;
     flex-direction: column;
+    margin: 12px 0;
 }
 
-.container > * {
+.container > *:not(:last-child) {
     margin-bottom: 12px;
 }
