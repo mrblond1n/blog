@@ -23,17 +23,17 @@ describe('$form', () => {
 });
 
 describe('$inputs', () => {
-    test('should be signInInputs on start', () => {
+    test('should be inputs for sign in', () => {
         $inputsApi.setSignInInputs();
         expect($inputs.getState()).toEqual(signInInputs);
     });
 
-    test('should be signUpInputs on start', () => {
+    test('should be inputs for sign up', () => {
         $inputsApi.setSignUpInputs();
         expect($inputs.getState()).toEqual(signUpInputs);
     });
 
-    test('should be signUpInputs on start', () => {
+    test('should be inputs for create post', () => {
         $inputsApi.setCreatePostInputs();
         expect($inputs.getState()).toEqual(createPostInputs);
     });
