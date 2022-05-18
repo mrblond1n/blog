@@ -1,7 +1,7 @@
 import {forward, sample} from 'effector';
 import {createGate} from 'effector-react';
-import {onSubmit} from 'features/form/model/events';
-import {$form, $inputsApi} from 'features/form/model/stores';
+import {onSubmit} from 'features/common/form/model/events';
+import {$form, $inputsApi} from 'features/common/form/model/stores';
 import {addPostFx, getPostsFx, removePostFx} from 'features/posts/model/effects';
 import {addNewPost, addPost, getPosts, removePost, setMode, updatePosts} from 'features/posts/model/events';
 import {iterate} from 'utils/effector/iterate';

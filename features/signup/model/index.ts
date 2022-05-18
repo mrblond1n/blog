@@ -1,12 +1,12 @@
 import {guard, sample} from 'effector';
 import {createGate} from 'effector-react';
 import {forward} from 'effector/effector.mjs';
-import {setAppState} from 'features/app/model/events';
-import {$appState} from 'features/app/model/stores';
-import {$formElem} from 'features/form/model';
-import {onReset, onSubmit} from 'features/form/model/events';
-import {$form, $inputsApi} from 'features/form/model/stores';
-import {toMain} from 'features/navigation/model/events';
+import {setAppState} from 'features/common/app/model/events';
+import {$appState} from 'features/common/app/model/stores';
+import {$formElem} from 'features/common/form/model';
+import {onReset, onSubmit} from 'features/common/form/model/events';
+import {$form, $inputsApi} from 'features/common/form/model/stores';
+import {toMain} from 'features/common/navigation/model/events';
 import {signUpFx} from 'features/signup/model/effects';
 
 export const Gate = createGate();

@@ -1,6 +1,6 @@
-import './app/model';
-import './form/model';
-import './navigation/model';
+import './common/app/model';
+import './common/form/model';
+import './common/navigation/model';
 import './post/model';
 import './posts/model';
 import './signin/model';
