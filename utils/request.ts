@@ -1,7 +1,8 @@
 import {createUserWithEmailAndPassword, signOut} from '@firebase/auth';
+import {FieldPath} from '@firebase/firestore';
 import db, {auth, getCurrentUser} from 'config';
 import {signInWithEmailAndPassword} from 'firebase/auth';
-import {addDoc, collection, deleteDoc, doc, getDoc, getDocs} from 'firebase/firestore';
+import {addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, where, WhereFilterOp} from 'firebase/firestore';
 
 export type TInterceptor = (data: any) => any;
 
@@ -13,12 +14,13 @@ export const defaultInterceptor: TInterceptor = (response: any): any => {
 
 export type TRequestConfig = {
     collection: 'posts';
+    condition?: [fieldPath: string | FieldPath, opString: WhereFilterOp, value: unknown];
     id?: string;
     data?: any;
     type: 'ADD' | 'GET' | 'GET_LIST' | 'REMOVE';
 };
 
-export const createFirebaseRequest = ({collection, id, data, type}: TRequestConfig) => ({collection, id, data, type});
+export const createFirebaseRequest = (props: TRequestConfig) => props;
 
 export type TResponse<Result> = {
     response: Response;
@@ -49,7 +51,13 @@ export const firebaseRequest = async <Result>(
             break;
         }
         case 'GET_LIST': {
-            const querySnapshot = await getDocs(collection(db, config.collection));
+            let neededData = query(collection(db, config.collection));
+
+            if (config.condition) {
+                neededData = query(collection(db, config.collection), where(...config.condition));
+            }
+
+            const querySnapshot = await getDocs(neededData);
 
             response = querySnapshot.docs.map(doc => ({...doc.data(), id: doc.id}));
             break;
