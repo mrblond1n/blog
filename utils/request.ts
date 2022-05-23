@@ -13,7 +13,7 @@ export const defaultInterceptor: TInterceptor = (response: any): any => {
 };
 
 export type TRequestConfig = {
-    collection: 'posts';
+    collection: 'posts' | 'comments';
     condition?: [fieldPath: string | FieldPath, opString: WhereFilterOp, value: unknown];
     id?: string;
     data?: any;
