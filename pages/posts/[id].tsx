@@ -1,6 +1,6 @@
 import {useGate} from 'effector-react';
-import {ContentContainer} from 'features/post/containers/ContentContainer';
-import {Gate} from 'features/post/model';
+import {ContentContainer} from 'features/post/state/containers/ContentContainer';
+import {Gate} from 'features/post';
 import {useRouter} from 'next/router';
 import React from 'react';
 
