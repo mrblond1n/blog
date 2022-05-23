@@ -9,4 +9,4 @@ const CommentDto = t.type({
 
 export const CommentCodec = CommentDto;
 export const CommentsCodec = t.array(CommentDto);
-export type TComment = t.TypeOf<typeof CommentDto>;
+export type TCommentDto = t.TypeOf<typeof CommentDto>;

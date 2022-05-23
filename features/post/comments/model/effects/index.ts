@@ -1,10 +1,10 @@
-import {addCommentRequest, getCommentsRequest} from 'features/post/comments/model/requests';
+import {sendCommentRequest, getCommentsRequest} from 'features/post/comments/model/requests';
 import {CommentCodec, CommentsCodec} from 'types/dtos/comments.dto';
 import {createFirebaseEffect} from 'utils/requestEffect';
 
-export const addCommentFx = createFirebaseEffect({
+export const sendCommentFx = createFirebaseEffect({
     codec: CommentCodec,
-    request: addCommentRequest,
+    request: sendCommentRequest,
 });
 
 export const getCommentsFx = createFirebaseEffect({
