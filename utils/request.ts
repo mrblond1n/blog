@@ -1,4 +1,4 @@
-import {createUserWithEmailAndPassword, signOut} from '@firebase/auth';
+import {createUserWithEmailAndPassword, signOut, updateProfile} from '@firebase/auth';
 import {FieldPath} from '@firebase/firestore';
 import db, {auth, getCurrentUser} from 'config';
 import {signInWithEmailAndPassword} from 'firebase/auth';
@@ -38,9 +38,14 @@ export const firebaseRequest = async <Result>(
 
     switch (config.type) {
         case 'ADD': {
-            const querySnapshot = await addDoc(collection(db, config.collection), config.data);
+            const data = {
+                ...config.data,
+                created_at: new Date().getTime(),
+            };
 
-            response = {...config.data, id: querySnapshot.id};
+            const querySnapshot = await addDoc(collection(db, config.collection), data);
+
+            response = {...data, id: querySnapshot.id};
             break;
         }
         case 'GET': {
@@ -86,17 +91,18 @@ export const firebaseAuthRequest = async <Result>(
 ): Promise<TResponse<Result>> => {
     const interceptorToUse = interceptor || defaultInterceptor;
     let response;
+    const {data, type} = config;
 
-    switch (config.type) {
+    switch (type) {
         case 'CHECK': {
             response = await getCurrentUser(auth);
 
             break;
         }
         case 'SIGN_IN': {
-            const data = await signInWithEmailAndPassword(auth, config.data.email, config.data.password);
+            const credential = await signInWithEmailAndPassword(auth, data.email, data.password);
 
-            response = data.user;
+            response = credential.user;
             break;
         }
         case 'SIGN_OUT': {
@@ -107,9 +113,14 @@ export const firebaseAuthRequest = async <Result>(
         }
 
         case 'SIGN_UP': {
-            const data = await createUserWithEmailAndPassword(auth, config.data.email, config.data.password);
+            const displayName = data.displayName;
+            const credential = await createUserWithEmailAndPassword(auth, data.email, data.password).then(userCrd => {
+                updateProfile(userCrd.user, {displayName});
 
-            response = data.user;
+                return userCrd;
+            });
+
+            response = {...credential.user, displayName};
             break;
         }
     }
