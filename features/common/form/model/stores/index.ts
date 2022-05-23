@@ -26,10 +26,12 @@ export const createPostInputs = [
     {name: 'text', placeholder: 'Text', required: true, type: 'text'},
 ];
 
+export const addCommentInputs = [{name: 'text', placeholder: 'Comment', required: true, type: 'textarea'}];
+
 export const $inputs = restore(setInputs, []).reset(FormGate.close);
 export const $inputsApi = createApi($inputs, {
     setSignInInputs: () => signInInputs,
     setSignUpInputs: () => signUpInputs,
     setCreatePostInputs: () => createPostInputs,
-    setAddCommentInputs: () => createPostInputs,
+    setAddCommentInputs: () => addCommentInputs,
 });
