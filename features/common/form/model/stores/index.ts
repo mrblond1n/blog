@@ -31,4 +31,5 @@ export const $inputsApi = createApi($inputs, {
     setSignInInputs: () => signInInputs,
     setSignUpInputs: () => signUpInputs,
     setCreatePostInputs: () => createPostInputs,
+    setAddCommentInputs: () => createPostInputs,
 });

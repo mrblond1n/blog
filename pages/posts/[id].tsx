@@ -1,5 +1,6 @@
 import {useGate} from 'effector-react';
-import {ContentContainer} from 'features/post/state/containers/ContentContainer';
+import {ContentContainer as CommentsContainer} from 'features/post/comments/containers/ContentContainer';
+import {ContentContainer as PostContainer} from 'features/post/state/containers/ContentContainer';
 import {Gate} from 'features/post';
 import {useRouter} from 'next/router';
 import React from 'react';
@@ -11,7 +12,8 @@ export default () => {
 
     return (
         <React.Fragment>
-            <ContentContainer />
+            <PostContainer />
+            <CommentsContainer />
         </React.Fragment>
     );
 };
