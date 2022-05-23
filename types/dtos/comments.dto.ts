@@ -7,4 +7,6 @@ const CommentDto = t.type({
     title: t.string,
 });
 
+export const CommentCodec = CommentDto;
 export const CommentsCodec = t.array(CommentDto);
+export type TComment = t.TypeOf<typeof CommentDto>;

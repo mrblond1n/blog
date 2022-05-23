@@ -1,6 +1,9 @@
 import {ROUTES} from 'routes';
 
 export const INTL = {
+    COMMENT: {
+        ADD: 'Add',
+    },
     HOME: {
         PATH: {
             [ROUTES.HOME]: 'Main',
