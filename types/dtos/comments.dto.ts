@@ -5,7 +5,6 @@ const CommentDto = t.type({
     id: t.string,
     post: t.string,
     text: t.string,
-    title: t.string,
     created_at: t.number,
 });
 
