@@ -1,7 +1,7 @@
 import {guard, sample} from 'effector';
 import {createGate} from 'effector-react';
 import {forward} from 'effector/effector.mjs';
-import {setAppState} from 'features/common/app/model/events';
+import {setAppState, setUser} from 'features/common/app/model/events';
 import {$appState} from 'features/common/app/model/stores';
 import {$formElem} from 'features/common/form/model';
 import {onReset, onSubmit} from 'features/common/form/model/events';
@@ -28,7 +28,7 @@ sample({
     source: $form,
     filter: Gate.status,
     fn: data => {
-        if (data.password === data.confirmPassword) return data;
+        if (data.password === data.confirmPassword) return {...data, displayName: `${data.firstName} ${data.lastName}`};
         throw new Error('no correct data');
     },
     target: signUpFx,
@@ -37,6 +37,11 @@ sample({
 forward({
     from: signUpFx.doneData,
     to: [setAppState.prepend(() => 'AUTHORIZED'), toMain],
+});
+
+forward({
+    from: signUpFx.doneData,
+    to: setUser,
 });
 
 sample({
