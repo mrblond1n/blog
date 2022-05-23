@@ -12,5 +12,5 @@ export const LogoutButtonContainer = React.memo(() => {
 
     if (state === 'UNAUTHORIZED') return null;
 
-    return <Button onClick={handleClick}>{intl(INTL.AUTH.SIGN_OUT)}</Button>;
+    return <Button onClick={handleClick}>{intl(INTL.SIGN_OUT)}</Button>;
 });
