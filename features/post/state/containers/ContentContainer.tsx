@@ -1,12 +1,12 @@
 import {useStore} from 'effector-react';
-import {PostContainer} from 'features/post/containers/PostContainer';
-import {$postMode} from 'features/post/model/stores';
+import {PostContainer} from 'features/post/state/containers/PostContainer';
+import {$mode} from 'features/post/state/model/stores';
 import {Error} from 'features/posts/ui/Error';
 import {Loader} from 'features/posts/ui/Loader';
 import React from 'react';
 
 export const ContentContainer = () => {
-    const mode = useStore($postMode);
+    const mode = useStore($mode);
 
     return (
         <div>

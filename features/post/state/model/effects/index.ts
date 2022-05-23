@@ -1,4 +1,4 @@
-import {getPostRequest} from 'features/post/model/requests';
+import {getPostRequest} from 'features/post/state/model/requests';
 import {PostCodec} from 'types/dtos/posts.dto';
 import {createFirebaseEffect} from 'utils/requestEffect';
 

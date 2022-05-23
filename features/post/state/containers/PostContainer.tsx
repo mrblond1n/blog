@@ -1,5 +1,5 @@
 import {useStore} from 'effector-react';
-import {$body, $title} from 'features/post/model/stores';
+import {$body, $title} from 'features/post/state/model/stores';
 import {ROUTES} from 'routes';
 import {NavLink} from 'ui/atoms/NavLink';
 
