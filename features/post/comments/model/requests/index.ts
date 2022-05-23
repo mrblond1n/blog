@@ -1,7 +1,7 @@
-import {TComment} from 'types/dtos/comments.dto';
+import {TCommentDto} from 'types/dtos/comments.dto';
 import {createFirebaseRequest} from 'utils/request';
 
-export const addCommentRequest = (data: Omit<TComment, 'id'>) =>
+export const sendCommentRequest = (data: Omit<TCommentDto, 'id'>) =>
     createFirebaseRequest({
         collection: 'comments',
         data,

@@ -2,7 +2,7 @@ import {guard, sample} from 'effector';
 import {createGate} from 'effector-react';
 import {onSubmit} from 'features/common/form/model/events';
 import {$inputsApi} from 'features/common/form/model/stores';
-import {addComment} from 'features/post/comments/model/events';
+import {sendComment} from 'features/post/comments/model/events';
 import {getPostFx} from 'features/post/state/model/effects';
 import {setMode} from 'features/post/state/model/events';
 
@@ -29,5 +29,5 @@ sample({
         filter: Boolean,
     }),
     filter: Gate.status,
-    target: addComment,
+    target: sendComment,
 });
