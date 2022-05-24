@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default () => {
-    return <React.Fragment>{'test'}</React.Fragment>;
+    return <React.Fragment>{'test 4'}</React.Fragment>;
 };

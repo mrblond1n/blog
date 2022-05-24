@@ -20,6 +20,12 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "rewrites": [
+      {
+        "destination": "/posts/[id].html",
+        "regex": "^/posts/([^/]+?)(?:/)?$"
+      }
+    ],
     "cleanUrls": true
   }
 }
