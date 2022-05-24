@@ -1,5 +1,5 @@
 import {createUserWithEmailAndPassword, signOut, updateProfile} from '@firebase/auth';
-import {FieldPath} from '@firebase/firestore';
+import {FieldPath, orderBy, OrderByDirection} from '@firebase/firestore';
 import db, {auth, getCurrentUser} from 'config';
 import {signInWithEmailAndPassword} from 'firebase/auth';
 import {addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, where, WhereFilterOp} from 'firebase/firestore';
@@ -15,9 +15,10 @@ export const defaultInterceptor: TInterceptor = (response: any): any => {
 export type TRequestConfig = {
     collection: 'posts' | 'comments';
     condition?: [fieldPath: string | FieldPath, opString: WhereFilterOp, value: unknown];
-    id?: string;
     data?: any;
-    type: 'ADD' | 'GET' | 'GET_LIST' | 'REMOVE';
+    id?: string;
+    order?: [fieldPath: string | FieldPath, directionStr: OrderByDirection];
+    type: 'ADD' | 'GET' | 'GET_LIST' | 'REMOVE' | 'REMOVE_LIST';
 };
 
 export const createFirebaseRequest = (props: TRequestConfig) => props;
@@ -56,10 +57,11 @@ export const firebaseRequest = async <Result>(
             break;
         }
         case 'GET_LIST': {
-            let neededData = query(collection(db, config.collection));
+            const order = config.order ? orderBy(...config.order) : orderBy('created_at', 'desc');
+            let neededData = query(collection(db, config.collection), order);
 
             if (config.condition) {
-                neededData = query(collection(db, config.collection), where(...config.condition));
+                neededData = query(collection(db, config.collection), where(...config.condition), order);
             }
 
             const querySnapshot = await getDocs(neededData);
