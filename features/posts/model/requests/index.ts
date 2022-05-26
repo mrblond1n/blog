@@ -1,6 +1,7 @@
+import {TPostDto} from 'types/dtos/posts.dto';
 import {createFirebaseRequest} from 'utils/request';
 
-export const addPostRequest = (data: {[key: string]: string}) =>
+export const addPostRequest = (data: Omit<TPostDto, 'id'>) =>
     createFirebaseRequest({type: 'ADD', collection: 'posts', data});
 
 export const getPostsRequest = () => createFirebaseRequest({type: 'GET_LIST', collection: 'posts'});
