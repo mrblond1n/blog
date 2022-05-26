@@ -1,9 +1,10 @@
 import {forward, sample} from 'effector';
 import {createGate} from 'effector-react';
+import {$uid} from 'features/common/app/model/stores';
 import {onSubmit} from 'features/common/form/model/events';
 import {$form, $inputsApi} from 'features/common/form/model/stores';
 import {addPostFx, getPostsFx, removePostFx} from 'features/posts/model/effects';
-import {addNewPost, addPost, getPosts, removePost, setMode, updatePosts} from 'features/posts/model/events';
+import {addPost, getPosts, removePost, setMode, updatePosts} from 'features/posts/model/events';
 import {iterate} from 'utils/effector/iterate';
 
 export const Gate = createGate();
@@ -27,14 +28,10 @@ forward({
 
 sample({
     clock: onSubmit,
-    source: $form,
-    filter: Gate.status,
+    source: {form: $form, uid: $uid, status: Gate.status},
+    filter: ({uid, status}) => !!uid && !!status,
+    fn: ({form, uid}) => ({...(form as {text: string; title: string}), uid}),
     target: addPostFx,
-});
-
-forward({
-    from: addNewPost,
-    to: addPostFx,
 });
 
 forward({

@@ -1,5 +1,5 @@
 import {forward, sample} from 'effector';
-import {$displayName} from 'features/common/app/model/stores';
+import {$displayName, $uid} from 'features/common/app/model/stores';
 import {$form} from 'features/common/form/model/stores';
 import {sendCommentFx, getCommentsFx} from 'features/post/comments/model/effects';
 import {addComment, sendComment} from 'features/post/comments/model/events';
@@ -16,8 +16,8 @@ sample({
 
 sample({
     clock: sendComment,
-    source: {form: $form, author: $displayName},
-    fn: ({form, author}, post) => ({...(form as {text: string}), post, author}),
+    source: {form: $form, author: $displayName, uid: $uid},
+    fn: ({form, author, uid}, post) => ({...(form as {text: string}), post, author, uid}),
     target: sendCommentFx,
 });
 

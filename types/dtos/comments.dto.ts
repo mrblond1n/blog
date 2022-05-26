@@ -2,10 +2,11 @@ import * as t from 'utils/validation';
 
 const CommentDto = t.type({
     author: t.string,
+    created_at: t.number,
     id: t.string,
     post: t.string,
     text: t.string,
-    created_at: t.number,
+    uid: t.string,
 });
 
 export const CommentCodec = CommentDto;

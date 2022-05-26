@@ -1,9 +1,10 @@
 import * as t from 'utils/validation';
 
 const PostDto = t.type({
-    title: t.string,
-    text: t.string,
     id: t.string,
+    text: t.string,
+    title: t.string,
+    uid: t.string,
 });
 
 export const PostCodec = PostDto;
