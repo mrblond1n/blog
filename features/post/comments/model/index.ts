@@ -17,7 +17,7 @@ sample({
 sample({
     clock: sendComment,
     source: {form: $form, author: $displayName, uid: $uid},
-    fn: ({form, author, uid}, post) => ({...(form as {text: string}), post, author, uid}),
+    fn: ({form, author, uid}, id) => ({...(form as {text: string}), author, uid, id}),
     target: sendCommentFx,
 });
 
