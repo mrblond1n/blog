@@ -4,7 +4,7 @@ import {$form} from 'features/common/form/model/stores';
 import {sendCommentFx, getCommentsFx} from 'features/post/comments/model/effects';
 import {addComment, sendComment} from 'features/post/comments/model/events';
 import {$id} from 'features/post/index';
-import {getPostFx} from 'features/post/state/model/effects';
+import {getPostFx, updatePostFx} from 'features/post/state/model/effects';
 import {iterate} from 'utils/effector/iterate';
 
 sample({
@@ -24,6 +24,13 @@ sample({
 forward({
     from: sendCommentFx.doneData,
     to: addComment,
+});
+
+sample({
+    clock: sendCommentFx.doneData,
+    source: getPostFx.doneData,
+    fn: post => ({...post, comments_count: (post.comments_count += 1)}),
+    target: updatePostFx,
 });
 
 const newCommentEvent = iterate(getCommentsFx.doneData);
