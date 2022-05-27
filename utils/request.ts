@@ -1,4 +1,4 @@
-import {FieldPath, orderBy, OrderByDirection} from '@firebase/firestore';
+import {FieldPath, orderBy, OrderByDirection, setDoc} from '@firebase/firestore';
 import db from 'config';
 import {addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, where, WhereFilterOp} from 'firebase/firestore';
 
@@ -16,7 +16,7 @@ export type TRequestConfig = {
     data?: any;
     id?: string;
     order?: [fieldPath: string | FieldPath, directionStr: OrderByDirection];
-    type: 'ADD' | 'GET' | 'GET_LIST' | 'REMOVE' | 'REMOVE_LIST';
+    type: 'ADD' | 'GET' | 'GET_LIST' | 'REMOVE' | 'SET';
 };
 
 export const createFirebaseRequest = (props: TRequestConfig) => props;
@@ -71,6 +71,13 @@ export const firebaseRequest = async <Result>(
             if (!config.id) break;
             await deleteDoc(doc(db, config.collection, config.id));
             response = config.id;
+            break;
+        }
+        case 'SET': {
+            if (!config.id) break;
+            await setDoc(doc(db, config.collection, config.id), config.data);
+
+            response = config.data;
             break;
         }
     }
