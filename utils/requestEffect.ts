@@ -1,5 +1,6 @@
 import {createEffect, Effect} from 'effector';
-import {firebaseAuthRequest, firebaseRequest, TFirebaseAuthRequestConfig, TRequestConfig} from './request';
+import {firebaseAuthRequest, TFirebaseAuthRequestConfig} from 'utils/requestAuth';
+import {firebaseRequest, TRequestConfig} from './request';
 import * as t from './validation';
 
 type TFirebaseEffectParams<Codec, Params> = {
