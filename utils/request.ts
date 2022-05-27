@@ -1,7 +1,5 @@
-import {createUserWithEmailAndPassword, signOut, updateProfile} from '@firebase/auth';
 import {FieldPath, orderBy, OrderByDirection} from '@firebase/firestore';
-import db, {auth, getCurrentUser} from 'config';
-import {signInWithEmailAndPassword} from 'firebase/auth';
+import db from 'config';
 import {addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, where, WhereFilterOp} from 'firebase/firestore';
 
 export type TInterceptor = (data: any) => any;
@@ -73,56 +71,6 @@ export const firebaseRequest = async <Result>(
             if (!config.id) break;
             await deleteDoc(doc(db, config.collection, config.id));
             response = config.id;
-            break;
-        }
-    }
-
-    return interceptorToUse(response);
-};
-
-export type TFirebaseAuthRequestConfig = {
-    data?: any;
-    type: 'CHECK' | 'SIGN_IN' | 'SIGN_OUT' | 'SIGN_UP';
-};
-
-export const createFirebaseAuthRequest = ({type, data}: TFirebaseAuthRequestConfig) => ({type, data});
-
-export const firebaseAuthRequest = async <Result>(
-    config: TFirebaseAuthRequestConfig,
-    interceptor?: TInterceptor
-): Promise<TResponse<Result>> => {
-    const interceptorToUse = interceptor || defaultInterceptor;
-    let response;
-    const {data, type} = config;
-
-    switch (type) {
-        case 'CHECK': {
-            response = await getCurrentUser(auth);
-
-            break;
-        }
-        case 'SIGN_IN': {
-            const credential = await signInWithEmailAndPassword(auth, data.email, data.password);
-
-            response = credential.user;
-            break;
-        }
-        case 'SIGN_OUT': {
-            await signOut(auth);
-            response = true;
-
-            break;
-        }
-
-        case 'SIGN_UP': {
-            const displayName = data.displayName;
-            const credential = await createUserWithEmailAndPassword(auth, data.email, data.password).then(userCrd => {
-                updateProfile(userCrd.user, {displayName});
-
-                return userCrd;
-            });
-
-            response = {...credential.user, displayName};
             break;
         }
     }
