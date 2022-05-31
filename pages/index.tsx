@@ -1,5 +1,6 @@
 import React from 'react';
+import {SectionTemplate} from 'ui/templates/SectionTemplate';
 
 export default () => {
-    return <React.Fragment>{'test 4'}</React.Fragment>;
+    return <SectionTemplate>{'test 4'}</SectionTemplate>;
 };

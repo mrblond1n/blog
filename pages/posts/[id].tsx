@@ -4,6 +4,7 @@ import {ContentContainer as PostContainer} from 'features/post/state/containers/
 import {Gate} from 'features/post';
 import {useRouter} from 'next/router';
 import React from 'react';
+import {SectionTemplate} from 'ui/templates/SectionTemplate';
 
 export default () => {
     const router = useRouter();
@@ -11,9 +12,9 @@ export default () => {
     useGate(Gate, router.query);
 
     return (
-        <React.Fragment>
+        <SectionTemplate>
             <PostContainer />
             <CommentsContainer />
-        </React.Fragment>
+        </SectionTemplate>
     );
 };
