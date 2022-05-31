@@ -3,17 +3,16 @@ import {ContentContainer} from 'features/posts/containers/ContentContainer';
 import {CreatePostFormContainer} from 'features/posts/containers/CreatePostFormContainer';
 import {Gate} from 'features/posts/model';
 import React from 'react';
+import {SectionTemplate} from 'ui/templates/SectionTemplate';
 
 export default () => {
     useGate(Gate);
 
     return (
-        <React.Fragment>
-            <h1>{'POSTS'}</h1>
-
+        <SectionTemplate title={<h1>{'POSTS'}</h1>}>
             <CreatePostFormContainer />
 
             <ContentContainer />
-        </React.Fragment>
+        </SectionTemplate>
     );
 };

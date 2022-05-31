@@ -5,6 +5,7 @@ import {Gate} from 'features/signup/model';
 import {FormContainer} from 'features/common/form/containers/FormContainer';
 import React from 'react';
 import {SubmitButtonContainer} from 'features/signup/containers/SubmitButtonContainer';
+import {SectionTemplate} from 'ui/templates/SectionTemplate';
 
 export default () => {
     useGate(Gate);
@@ -13,14 +14,12 @@ export default () => {
     if (state !== 'UNAUTHORIZED') return null;
 
     return (
-        <React.Fragment>
-            <h1>{'SIGN UP PAGE'}</h1>
-
+        <SectionTemplate title={<h1>{'SIGN UP PAGE'}</h1>}>
             <FormContainer>
                 <SubmitButtonContainer />
             </FormContainer>
 
             <LinkContainer />
-        </React.Fragment>
+        </SectionTemplate>
     );
 };
