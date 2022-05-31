@@ -1,6 +1,6 @@
 import {forward, sample} from 'effector';
 import {createGate} from 'effector-react';
-import {$uid} from 'features/common/app/model/stores';
+import {$displayName, $uid} from 'features/common/app/model/stores';
 import {onSubmit} from 'features/common/form/model/events';
 import {$form, $inputsApi} from 'features/common/form/model/stores';
 import {addPostFx, getPostsFx, removePostFx} from 'features/posts/model/effects';
@@ -28,9 +28,9 @@ forward({
 
 sample({
     clock: onSubmit,
-    source: {form: $form, uid: $uid, status: Gate.status},
+    source: {author: $displayName, form: $form, uid: $uid, status: Gate.status},
     filter: ({uid, status}) => !!uid && !!status,
-    fn: ({form, uid}) => ({...(form as {text: string; title: string}), uid}),
+    fn: ({author, form, uid}) => ({...(form as {text: string; title: string}), author, uid}),
     target: addPostFx,
 });
 
