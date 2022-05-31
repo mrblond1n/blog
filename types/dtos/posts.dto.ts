@@ -1,6 +1,7 @@
 import * as t from 'utils/validation';
 
 const PostDto = t.type({
+    author: t.string,
     comments_count: t.withFallback(t.number, 0),
     id: t.string,
     text: t.string,
