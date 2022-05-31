@@ -2,7 +2,7 @@ import {getPostsFx, removePostFx} from 'features/posts/model/effects';
 import {addPost, removePost} from 'features/posts/model/events';
 import {$disabledIndex, $idsList, $postsIndex} from 'features/posts/model/stores';
 
-const post = {text: 'text', title: 'title', id: 'id'};
+const post = {text: 'text', title: 'title', id: 'id'} as any;
 
 describe('$postsIndex', () => {
     test('should add a new post in the $postsIndex', async () => {
