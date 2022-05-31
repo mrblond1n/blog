@@ -1,11 +1,9 @@
 import {render, screen} from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import {PostsContainer} from 'features/posts/containers/PostsContainer';
-import {getPostsFx, removePostFx} from 'features/posts/model/effects';
-import {$postsIndex} from 'features/posts/model/stores';
+import {getPostsFx} from 'features/posts/model/effects';
 import React from 'react';
 
-const post = {text: 'text', title: 'title', id: 'id'};
+const post = {text: 'text', title: 'title', id: 'id'} as any;
 
 describe('<PostsContainer />', () => {
     test('should render one post', async () => {
@@ -16,30 +14,5 @@ describe('<PostsContainer />', () => {
         const divElement = await screen.findByTestId(/post_id/i);
 
         expect(divElement).toBeInTheDocument();
-    });
-
-    test('disabled button if it clicked', async () => {
-        render(<PostsContainer />);
-        const buttonElement = screen.getByRole('button');
-
-        await userEvent.click(buttonElement);
-        expect(buttonElement).toHaveAttribute('disabled');
-    });
-
-    test('after remove post deleted from DOM', async () => {
-        removePostFx.use(() => post.id);
-        await removePostFx(post.id);
-        render(<PostsContainer />);
-        const divElement = screen.queryByTestId(/post_id/i);
-
-        expect(divElement).not.toBeInTheDocument();
-    });
-
-    test('after remove effect store is clear', async () => {
-        removePostFx.use(() => post.id);
-        await removePostFx(post.id);
-        render(<PostsContainer />);
-
-        expect($postsIndex.getState()).toEqual({});
     });
 });
