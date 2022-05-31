@@ -1,7 +1,7 @@
 import {createStore, restore} from 'effector';
 import {$uid} from 'features/common/app/model/stores';
 import {removePostFx} from 'features/posts/model/effects';
-import {addPost, removePost, setMode, updatePosts} from 'features/posts/model/events';
+import {addPost, removePost, setMode} from 'features/posts/model/events';
 import {Gate} from 'features/posts/model/index';
 import {TPostDto} from 'types/dtos/posts.dto';
 import {createIndex} from 'utils/stack';
@@ -31,4 +31,4 @@ export const $ownedIndex = createStore(createIndex<boolean>())
 export const $idsList = createStore<string[]>([])
     .on(addPost, (state, {id}) => (state.includes(id) ? state : [...state, id]))
     .on(removePostFx.doneData, (state, id) => state.filter(item => item !== id))
-    .reset(Gate.close, updatePosts);
+    .reset(Gate.close);

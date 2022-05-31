@@ -4,13 +4,13 @@ import {$displayName, $uid} from 'features/common/app/model/stores';
 import {onSubmit} from 'features/common/form/model/events';
 import {$form, $inputsApi} from 'features/common/form/model/stores';
 import {addPostFx, getPostsFx, removePostFx} from 'features/posts/model/effects';
-import {addPost, getPosts, removePost, setMode, updatePosts} from 'features/posts/model/events';
+import {addPost, getPosts, removePost, setMode} from 'features/posts/model/events';
 import {iterate} from 'utils/effector/iterate';
 
 export const Gate = createGate();
 
 forward({
-    from: [Gate.open, updatePosts],
+    from: Gate.open,
     to: [getPosts, $inputsApi.setCreatePostInputs],
 });
 
