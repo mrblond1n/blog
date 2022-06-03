@@ -2,6 +2,7 @@
 import {initializeApp} from 'firebase/app';
 import {Auth, connectAuthEmulator, getAuth, User} from 'firebase/auth';
 import {connectFirestoreEmulator, getFirestore} from 'firebase/firestore';
+import {connectStorageEmulator, getStorage} from 'firebase/storage';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -23,10 +24,12 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore();
 
 export const auth = getAuth(app);
+export const storage = getStorage(app);
 
 if (process.env.NODE_ENV === 'development') {
     connectFirestoreEmulator(db, 'localhost', 8080);
     connectAuthEmulator(auth, 'http://localhost:9099');
+    connectStorageEmulator(storage, 'localhost', 9199);
 }
 
 // todo find correct resolve for check auth request
