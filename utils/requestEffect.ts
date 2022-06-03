@@ -1,12 +1,12 @@
 import {createEffect, Effect} from 'effector';
 import {authRequest, TAuthRequestConfig} from 'utils/requestAuth';
 import {storageRequest, TStorageRequestConfig} from 'utils/requestStorage';
-import {firebaseRequest, TRequestConfig} from './request';
+import {firestoreRequest, TFirestoreRequestConfig} from 'utils/requestFirestore';
 import * as t from './validation';
 
 type TFirebaseEffectParams<Codec, Params> = {
     codec: Codec;
-    request: (params: Params) => TRequestConfig;
+    request: (params: Params) => TFirestoreRequestConfig;
     interceptor?: (data: unknown) => unknown;
 };
 
@@ -14,9 +14,8 @@ export const createFirebaseEffect = <Params, Codec extends t.Any>({
     codec,
     request,
     interceptor,
-}: TFirebaseEffectParams<Codec, Params>): Effect<Params, t.TypeOf<Codec>> => {
-    return createEffect(async (params: Params) => t.decode(codec, await firebaseRequest(request(params), interceptor)));
-};
+}: TFirebaseEffectParams<Codec, Params>): Effect<Params, t.TypeOf<Codec>> =>
+    createEffect(async (params: Params) => t.decode(codec, await firestoreRequest(request(params), interceptor)));
 
 type TFirebaseAuthEffectParams<Codec, Params> = {
     codec: Codec;
