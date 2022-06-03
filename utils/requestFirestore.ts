@@ -41,7 +41,7 @@ export const firestoreRequest = async <Result>(
             break;
         }
         case 'GET_LIST': {
-            const order = config.order ? orderBy(...config.order) : orderBy('created_at', 'desc');
+            const order = config.order ? orderBy(...config.order) : orderBy('created_at', 'asc');
             let neededData = query(collection(db, config.collection), order);
 
             if (config.condition) {

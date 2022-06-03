@@ -1,10 +1,10 @@
 import {INTL} from 'constants/intl';
 import {useList, useStoreMap} from 'effector-react';
-import {PostActionContainer} from 'features/posts/containers/PostActionContainer';
-import {$idsList, $postsIndex} from 'features/posts/model/stores';
+import {$idsList, $imagesUrlIndex, $postsIndex} from 'features/posts/model/stores';
 import {Post} from 'features/posts/ui/Post';
 import React from 'react';
 import {ROUTES} from 'routes';
+import {Img} from 'ui/atoms/Image';
 import {NavLink} from 'ui/atoms/NavLink';
 import {Row} from 'ui/atoms/Row';
 import {intl} from 'utils/intl';
@@ -14,7 +14,6 @@ export const PostsContainer = React.memo(() =>
         <div key={id} data-testid={`post_${id}`}>
             <Row alignItems="center">
                 <PostContainer id={id} />
-                <PostActionContainer id={id} />
             </Row>
 
             <NavLink href={`${ROUTES.POSTS}/${id}`}>{intl(INTL.POSTS.OPEN)}</NavLink>
@@ -31,8 +30,19 @@ export const PostContainer = React.memo(({id}: {id: string}) => {
 
     return (
         <Row direction="column">
+            <PostImage id={id} />
             <h4>{post.title}</h4>
             <Post>{post.text}</Post>
         </Row>
     );
+});
+
+const PostImage = React.memo(({id}: {id: string}) => {
+    const url = useStoreMap({
+        store: $imagesUrlIndex,
+        keys: [id],
+        fn: (state, [id]) => state[id],
+    });
+
+    return <Img alt="qwe" height="150" src={url} width="200" />;
 });
