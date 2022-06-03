@@ -1,3 +1,3 @@
-import {createFirebaseAuthRequest} from 'utils/requestAuth';
+import {createAuthRequest} from 'utils/requestAuth';
 
-export const signUpRequest = (data: {[key: string]: string}) => createFirebaseAuthRequest({type: 'SIGN_UP', data});
+export const signUpRequest = (data: {[key: string]: string}) => createAuthRequest({type: 'SIGN_UP', data});

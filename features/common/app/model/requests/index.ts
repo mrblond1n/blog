@@ -1,3 +1,3 @@
-import {createFirebaseAuthRequest} from 'utils/requestAuth';
+import {createAuthRequest} from 'utils/requestAuth';
 
-export const checkAuthRequest = () => createFirebaseAuthRequest({type: 'CHECK'});
+export const checkAuthRequest = () => createAuthRequest({type: 'CHECK'});

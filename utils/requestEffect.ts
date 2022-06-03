@@ -1,5 +1,5 @@
 import {createEffect, Effect} from 'effector';
-import {firebaseAuthRequest, TFirebaseAuthRequestConfig} from 'utils/requestAuth';
+import {authRequest, TAuthRequestConfig} from 'utils/requestAuth';
 import {storageRequest, TStorageRequestConfig} from 'utils/requestStorage';
 import {firebaseRequest, TRequestConfig} from './request';
 import * as t from './validation';
@@ -20,7 +20,7 @@ export const createFirebaseEffect = <Params, Codec extends t.Any>({
 
 type TFirebaseAuthEffectParams<Codec, Params> = {
     codec: Codec;
-    request: (params: Params) => TFirebaseAuthRequestConfig;
+    request: (params: Params) => TAuthRequestConfig;
     interceptor?: (data: unknown) => unknown;
 };
 
@@ -28,11 +28,8 @@ export const createFirebaseAuthEffect = <Params, Codec extends t.Any>({
     codec,
     request,
     interceptor,
-}: TFirebaseAuthEffectParams<Codec, Params>): Effect<Params, t.TypeOf<Codec>> => {
-    return createEffect(async (params: Params) =>
-        t.decode(codec, await firebaseAuthRequest(request(params), interceptor))
-    );
-};
+}: TFirebaseAuthEffectParams<Codec, Params>): Effect<Params, t.TypeOf<Codec>> =>
+    createEffect(async (params: Params) => t.decode(codec, await authRequest(request(params), interceptor)));
 
 type TStorageEffectParams<Codec, Params> = {
     codec: Codec;
@@ -44,6 +41,5 @@ export const createStorageEffect = <Params, Codec extends t.Any>({
     codec,
     request,
     interceptor,
-}: TStorageEffectParams<Codec, Params>): Effect<Params, t.TypeOf<Codec>> => {
-    return createEffect(async (params: Params) => t.decode(codec, await storageRequest(request(params), interceptor)));
-};
+}: TStorageEffectParams<Codec, Params>): Effect<Params, t.TypeOf<Codec>> =>
+    createEffect(async (params: Params) => t.decode(codec, await storageRequest(request(params), interceptor)));
