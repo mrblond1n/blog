@@ -1,15 +1,15 @@
 import {TPostDto} from 'types/dtos/posts.dto';
-import {createFirebaseRequest} from 'utils/request';
+import {createFirestoreRequest} from 'utils/requestFirestore';
 
 export const getPostRequest = (id: string) =>
-    createFirebaseRequest({
+    createFirestoreRequest({
         type: 'GET',
         collection: 'posts',
         id,
     });
 
 export const updatePostRequest = (data: TPostDto) =>
-    createFirebaseRequest({
+    createFirestoreRequest({
         type: 'SET',
         collection: 'posts',
         id: data.id,

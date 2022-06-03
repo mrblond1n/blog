@@ -1,15 +1,15 @@
 import {TCommentDto} from 'types/dtos/comments.dto';
-import {createFirebaseRequest} from 'utils/request';
+import {createFirestoreRequest} from 'utils/requestFirestore';
 
 export const sendCommentRequest = ({id, ...data}: Omit<TCommentDto, 'created_at'>) =>
-    createFirebaseRequest({
+    createFirestoreRequest({
         collection: `posts/${id}/comments`,
         data,
         type: 'ADD',
     });
 
 export const getCommentsRequest = (id: string) =>
-    createFirebaseRequest({
+    createFirestoreRequest({
         type: 'GET_LIST',
         collection: `posts/${id}/comments`,
     });
