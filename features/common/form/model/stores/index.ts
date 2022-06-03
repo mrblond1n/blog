@@ -24,6 +24,7 @@ export const signUpInputs = [
 export const createPostInputs = [
     {name: 'title', placeholder: 'Title', required: true, type: 'text'},
     {name: 'text', placeholder: 'Text', required: true, type: 'text'},
+    {name: 'img', placeholder: 'Image', required: true, type: 'file'},
 ];
 
 export const addCommentInputs = [{name: 'text', placeholder: 'Comment', required: true, type: 'textarea'}];

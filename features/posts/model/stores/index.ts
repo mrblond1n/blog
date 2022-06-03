@@ -1,7 +1,7 @@
 import {createStore, restore} from 'effector';
 import {$uid} from 'features/common/app/model/stores';
 import {removePostFx} from 'features/posts/model/effects';
-import {addPost, removePost, setMode} from 'features/posts/model/events';
+import {addNewPost, addPost, addPostImage, removePost, setMode} from 'features/posts/model/events';
 import {Gate} from 'features/posts/model/index';
 import {TPostDto} from 'types/dtos/posts.dto';
 import {createIndex} from 'utils/stack';
@@ -10,6 +10,7 @@ export const $mode = restore(setMode, 'LOADING');
 
 export const $postsIndex = createStore(createIndex<TPostDto>())
     .on(addPost, (index, post) => index.set({key: post.id, value: post}))
+    .on(addNewPost, (index, post) => index.set({key: post.id, value: post}))
     .on(removePostFx.doneData, (index, id) => index.remove({key: id}))
     .on(Gate.close, index => index.clear())
     .map(value => value.getRaw());
@@ -22,6 +23,12 @@ export const $disabledIndex = createStore(createIndex<boolean>())
     .on(Gate.close, index => index.clear())
     .map(value => value.getRaw());
 
+export const $imagesUrlIndex = createStore(createIndex<string>())
+    .on(addPostImage, (index, {key, value}) => index.set({key, value}))
+    .on(addNewPost, (index, post) => index.set({key: post.id, value: post.img}))
+    .on(Gate.close, index => index.clear())
+    .map(value => value.getRaw());
+
 export const $ownedIndex = createStore(createIndex<boolean>())
     .on(addPost, (index, post) => index.set({key: post.id, value: post.uid === $uid.getState()}))
     .on(removePostFx.doneData, (index, id) => index.remove({key: id}))
@@ -29,6 +36,6 @@ export const $ownedIndex = createStore(createIndex<boolean>())
     .map(value => value.getRaw());
 
 export const $idsList = createStore<string[]>([])
-    .on(addPost, (state, {id}) => (state.includes(id) ? state : [...state, id]))
+    .on([addPost, addNewPost], (state, {id}) => (state.includes(id) ? state : [id, ...state]))
     .on(removePostFx.doneData, (state, id) => state.filter(item => item !== id))
     .reset(Gate.close);
