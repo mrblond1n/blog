@@ -1,0 +1,12 @@
+.container {
+    background: #000;
+    position: relative;
+}
+
+.img {
+    transition: .4s;
+}
+
+.img:hover {
+    opacity: .7;
+}
