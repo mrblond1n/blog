@@ -3,15 +3,15 @@ import {auth, getCurrentUser} from 'config';
 import {signInWithEmailAndPassword} from 'firebase/auth';
 import {defaultInterceptor, TInterceptor, TResponse} from 'utils/request';
 
-export type TFirebaseAuthRequestConfig = {
+export type TAuthRequestConfig = {
     data?: any;
     type: 'CHECK' | 'SIGN_IN' | 'SIGN_OUT' | 'SIGN_UP';
 };
 
-export const createFirebaseAuthRequest = ({type, data}: TFirebaseAuthRequestConfig) => ({type, data});
+export const createAuthRequest = ({type, data}: TAuthRequestConfig) => ({type, data});
 
-export const firebaseAuthRequest = async <Result>(
-    config: TFirebaseAuthRequestConfig,
+export const authRequest = async <Result>(
+    config: TAuthRequestConfig,
     interceptor?: TInterceptor
 ): Promise<TResponse<Result>> => {
     const interceptorToUse = interceptor || defaultInterceptor;
