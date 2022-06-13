@@ -1,10 +1,4 @@
-import {
-    addPostRequest,
-    getPostImageRequest,
-    getPostsRequest,
-    removePostRequest,
-    savePostImageRequest,
-} from 'features/posts/model/requests';
+import {addPostRequest, getPostsRequest, removePostRequest, savePostImageRequest} from 'features/posts/model/requests';
 import {PostCodec, PostsCodec} from 'types/dtos/posts.dto';
 import {createFirebaseEffect, createStorageEffect} from 'utils/requestEffect';
 import * as t from 'utils/validation';
@@ -22,11 +16,6 @@ export const addPostFx = createFirebaseEffect({
 export const removePostFx = createFirebaseEffect({
     codec: t.string,
     request: removePostRequest,
-});
-
-export const getImageUrlFx = createStorageEffect({
-    codec: t.string,
-    request: getPostImageRequest,
 });
 
 export const saveImageFx = createStorageEffect({

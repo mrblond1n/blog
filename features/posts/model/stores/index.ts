@@ -1,7 +1,7 @@
 import {createStore, restore} from 'effector';
 import {$uid} from 'features/common/app/model/stores';
 import {removePostFx} from 'features/posts/model/effects';
-import {addNewPost, addPost, addPostImage, removePost, setMode} from 'features/posts/model/events';
+import {addNewPost, addPost, removePost, setMode} from 'features/posts/model/events';
 import {Gate} from 'features/posts/model/index';
 import {TPostDto} from 'types/dtos/posts.dto';
 import {createIndex} from 'utils/stack';
@@ -20,12 +20,6 @@ export const $disabledIndex = createStore(createIndex<boolean>())
     .on(removePost, (index, id) => index.set({key: id, value: true}))
     .on(removePostFx.doneData, (index, id) => index.remove({key: id}))
     .on(removePostFx.fail, (index, {params}) => index.set({key: params, value: false}))
-    .on(Gate.close, index => index.clear())
-    .map(value => value.getRaw());
-
-export const $imagesUrlIndex = createStore(createIndex<string>())
-    .on(addPostImage, (index, {key, value}) => index.set({key, value}))
-    .on(addNewPost, (index, post) => index.set({key: post.id, value: post.img}))
     .on(Gate.close, index => index.clear())
     .map(value => value.getRaw());
 
