@@ -35,11 +35,19 @@ if (process.env.NODE_ENV === 'development') {
 // todo find correct resolve for check auth request
 export function getCurrentUser(auth: Auth) {
     return new Promise((resolve, reject) => {
-        const unsubscribe = auth.onAuthStateChanged((user: User | null) => {
+        const unsubscribe = auth.onAuthStateChanged(async (user: User | null) => {
             unsubscribe();
-            resolve(user);
+            resolve(user ? await returnUserWithRole(user) : user);
         }, reject);
     });
 }
+
+export const returnUserWithRole = async (user: User) =>
+    await user.getIdTokenResult().then(idTokenResult => {
+        return Object.assign(
+            {admin: idTokenResult.claims.role === 'admin' || process.env.NODE_ENV === 'development'},
+            user
+        );
+    });
 
 export default db;
