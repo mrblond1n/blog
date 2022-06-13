@@ -8,3 +8,4 @@ const $user = restore(setUser, null).reset(signOutFx.doneData);
 
 export const $displayName = combine($user, user => user?.displayName || 'Anon');
 export const $uid = combine($user, user => user?.uid || '');
+export const $isAdmin = combine($user, user => user?.admin);

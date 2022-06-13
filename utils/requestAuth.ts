@@ -1,5 +1,5 @@
 import {createUserWithEmailAndPassword, signOut, updateProfile} from '@firebase/auth';
-import {auth, getCurrentUser} from 'config';
+import {auth, getCurrentUser, returnUserWithRole} from 'config';
 import {signInWithEmailAndPassword} from 'firebase/auth';
 import {defaultInterceptor, TInterceptor, TResponse} from 'utils/request';
 
@@ -25,9 +25,10 @@ export const authRequest = async <Result>(
             break;
         }
         case 'SIGN_IN': {
-            const credential = await signInWithEmailAndPassword(auth, data.email, data.password);
+            response = await signInWithEmailAndPassword(auth, data.email, data.password).then(async userCrd => {
+                return await returnUserWithRole(userCrd.user);
+            });
 
-            response = credential.user;
             break;
         }
         case 'SIGN_OUT': {
@@ -39,13 +40,13 @@ export const authRequest = async <Result>(
 
         case 'SIGN_UP': {
             const displayName = data.displayName;
-            const credential = await createUserWithEmailAndPassword(auth, data.email, data.password).then(userCrd => {
-                updateProfile(userCrd.user, {displayName});
 
-                return userCrd;
+            response = await createUserWithEmailAndPassword(auth, data.email, data.password).then(async userCrd => {
+                await updateProfile(userCrd.user, {displayName});
+
+                return await returnUserWithRole(userCrd.user);
             });
 
-            response = {...credential.user, displayName};
             break;
         }
     }

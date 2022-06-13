@@ -4,6 +4,7 @@ const UserDto = t.type({
     displayName: t.nullable(t.string),
     email: t.string,
     photoUrl: t.nullable(t.string),
+    admin: t.withFallback(t.boolean, false),
     uid: t.string,
 });
 
