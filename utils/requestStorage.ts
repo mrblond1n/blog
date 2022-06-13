@@ -26,9 +26,7 @@ export const storageRequest = async <Result>(
         }
         case 'UPLOAD': {
             if (!file) throw new Error('not found file');
-            await uploadBytes(ref(storage, url), file);
-
-            response = true;
+            response = await uploadBytes(ref(storage, url), file).then(snapshot => getDownloadURL(snapshot.ref));
 
             break;
         }
