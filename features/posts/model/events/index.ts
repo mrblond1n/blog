@@ -6,7 +6,7 @@ export const addPost = createEvent<TPostDto>();
 export const addNewPost = createEvent<TPostDto>();
 export const removePost = createEvent<string>();
 
-export const addPostImage = createEvent<{key: string; value: string}>();
+export const addImageUrl = createEvent<{key: string; value: string}>();
 
 type TMode = 'LOADING' | 'FAILURE' | 'SUCCESS';
 export const setMode = createEvent<TMode>();
