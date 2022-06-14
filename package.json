@@ -2,7 +2,7 @@
   "name": "blog",
   "version": "1.0.0",
   "scripts": {
-    "dev": "next dev",
+    "dev": "firebase emulators:exec \"next dev\"",
     "firebase:emulators": "firebase emulators:start",
     "build": "next build && next export -o build/",
     "lint": "eslint './**/*.{ts, tsx}'",
