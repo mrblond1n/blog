@@ -4,7 +4,7 @@ import {addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, where, Where
 import {defaultInterceptor, TInterceptor, TResponse} from 'utils/request';
 
 export type TFirestoreRequestConfig = {
-    collection: 'posts' | `posts/${string}/comments`;
+    collection: 'posts' | `posts/${string}/comments` | 'users';
     condition?: [fieldPath: string | FieldPath, opString: WhereFilterOp, value: unknown];
     data?: any;
     id?: string;
