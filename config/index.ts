@@ -45,7 +45,9 @@ export function getCurrentUser(auth: Auth) {
 export const returnUserWithRole = async (user: User) =>
     await user.getIdTokenResult().then(idTokenResult => {
         return Object.assign(
-            {admin: idTokenResult.claims.role === 'admin' || process.env.NODE_ENV === 'development'},
+            {
+                admin: idTokenResult.claims.role === 'admin' || process.env.NODE_ENV === 'development',
+            },
             user
         );
     });

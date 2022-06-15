@@ -7,7 +7,7 @@ import {$formElem} from 'features/common/form/model';
 import {onReset, onSubmit} from 'features/common/form/model/events';
 import {$form, $inputsApi} from 'features/common/form/model/stores';
 import {toMain} from 'features/common/navigation/model/events';
-import {signUpFx} from 'features/signup/model/effects';
+import {createUserFx, signUpFx} from 'features/signup/model/effects';
 
 export const Gate = createGate();
 
@@ -39,8 +39,14 @@ forward({
     to: [setAppState.prepend(() => 'AUTHORIZED'), toMain],
 });
 
+sample({
+    clock: signUpFx.doneData,
+    fn: ({email, displayName, uid, admin}) => ({email, photoUrl: null, displayName, uid, admin}),
+    target: createUserFx,
+});
+
 forward({
-    from: signUpFx.doneData,
+    from: createUserFx.doneData,
     to: setUser,
 });
 
