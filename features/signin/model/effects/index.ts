@@ -1,14 +1,14 @@
 import {signInRequest, signOutRequest} from 'features/signin/model/requests';
 import {UserCodec} from 'types/dtos/user.dto';
-import {createFirebaseAuthEffect} from 'utils/requestEffect';
+import {createAuthEffect} from 'utils/requestEffect';
 import {t} from 'utils/validation';
 
-export const signInFx = createFirebaseAuthEffect({
+export const signInFx = createAuthEffect({
     codec: UserCodec,
     request: signInRequest,
 });
 
-export const signOutFx = createFirebaseAuthEffect({
+export const signOutFx = createAuthEffect({
     codec: t.boolean,
     request: signOutRequest,
 });

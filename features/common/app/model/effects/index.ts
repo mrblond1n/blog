@@ -1,8 +1,8 @@
 import {checkAuthRequest, getUserRequest} from 'features/common/app/model/requests';
 import {UserCodec} from 'types/dtos/user.dto';
-import {createFirebaseAuthEffect, createFirebaseEffect} from 'utils/requestEffect';
+import {createAuthEffect, createFirebaseEffect} from 'utils/requestEffect';
 
-export const checkAuthFx = createFirebaseAuthEffect({
+export const checkAuthFx = createAuthEffect({
     codec: UserCodec,
     request: checkAuthRequest,
 });

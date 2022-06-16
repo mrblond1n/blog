@@ -23,7 +23,7 @@ type TFirebaseAuthEffectParams<Codec, Params> = {
     interceptor?: (data: unknown) => unknown;
 };
 
-export const createFirebaseAuthEffect = <Params, Codec extends t.Any>({
+export const createAuthEffect = <Params, Codec extends t.Any>({
     codec,
     request,
     interceptor,
