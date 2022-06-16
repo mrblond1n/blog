@@ -6,7 +6,7 @@ export const addPostRequest = (data: Omit<TPostDto, 'id' | 'watches_count' | 'co
     createFirestoreRequest('ADD', 'posts', data);
 
 export const savePostImageRequest = ({url, file}: {url: string; file: any}) =>
-    createStorageRequest({type: 'UPLOAD', url, file});
+    createStorageRequest('UPLOAD', url, file);
 
 export const getPostsRequest = () => createFirestoreRequest('GET_LIST', 'posts');
 
