@@ -3,13 +3,22 @@ import {getDownloadURL, ref, uploadBytes} from 'firebase/storage';
 import {defaultInterceptor, TInterceptor, TResponse} from 'utils/request';
 import {TOverloadedReturnType} from 'utils/typescript/overload';
 
-type TConfig<T, U, F = void> = {file: F; type: T; url: U};
 type TFile = Blob | Uint8Array | ArrayBuffer;
+type TType = 'DOWNLOAD' | 'UPLOAD';
+type TConfig = {file: TFile; url: string};
+type TConfigType<K extends keyof TConfig, T extends TType> = Pick<TConfig, K> & {type: T};
 
-export function createStorageRequest(type: 'DOWNLOAD', url: string): TConfig<typeof type, string>;
-export function createStorageRequest(type: 'UPLOAD', url: any, file: TFile): TConfig<typeof type, string, typeof file>;
-export function createStorageRequest(type: string, url: string, file?: any) {
-    return {type, url, file};
+export function createStorageRequest(type: 'DOWNLOAD', url: string): TConfigType<'url', typeof type>;
+
+export function createStorageRequest(type: 'UPLOAD', url: any, file: TFile): TConfigType<'url' | 'file', typeof type>;
+
+export function createStorageRequest(type: TType, url: string, file?: TFile) {
+    switch (type) {
+        case 'DOWNLOAD':
+            return {type, url};
+        case 'UPLOAD':
+            return {type, url, file};
+    }
 }
 
 export type TStorageRequestConfig = TOverloadedReturnType<typeof createStorageRequest>;
@@ -20,7 +29,7 @@ export const storageRequest = async <Result>(
 ): Promise<TResponse<Result>> => {
     const interceptorToUse = interceptor || defaultInterceptor;
     let response;
-    const {file, type, url} = config;
+    const {type, url} = config;
 
     switch (type) {
         case 'DOWNLOAD': {
@@ -28,8 +37,9 @@ export const storageRequest = async <Result>(
 
             break;
         }
+
         case 'UPLOAD': {
-            response = await uploadBytes(ref(storage, url), file).then(snapshot => getDownloadURL(snapshot.ref));
+            response = await uploadBytes(ref(storage, url), config.file).then(snapshot => getDownloadURL(snapshot.ref));
 
             break;
         }
