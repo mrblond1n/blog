@@ -10,41 +10,57 @@ type TOptions = {
     order?: [fieldPath: string | FieldPath, directionStr: OrderByDirection];
 };
 
-type TConfig<T, C, D = void, I = void, O = void> = {collection: C; data: D; id: I; options: O; type: T};
+type TType = 'GET_LIST' | 'ADD' | 'SET' | 'GET' | 'REMOVE';
+type TData = {[key: string]: any};
+type TConfig = {collection: TCollection; data: TData; options: TOptions; id: string};
+type TConfigType<K extends keyof TConfig, T extends TType> = Pick<TConfig, K> & {type: T};
 
 export function createFirestoreRequest(
     type: 'GET_LIST',
     collection: TCollection,
     options?: TOptions
-): TConfig<typeof type, typeof collection, void, void, typeof options>;
+): TConfigType<'collection' | 'options', typeof type>;
 
 export function createFirestoreRequest(
     type: 'ADD',
     collection: TCollection,
-    data: any
-): TConfig<typeof type, typeof collection, any>;
-
-export function createFirestoreRequest(
-    type: 'SET',
-    collection: TCollection,
-    data: any,
-    id: string
-): TConfig<typeof type, typeof collection, any, string>;
+    data: TData
+): TConfigType<'collection' | 'data', typeof type>;
 
 export function createFirestoreRequest(
     type: 'GET' | 'REMOVE',
     collection: TCollection,
     id: string
-): TConfig<typeof type, typeof collection, void, string>;
+): TConfigType<'collection' | 'id', typeof type>;
 
-export function createFirestoreRequest(type: string, collection: string, data?: any, id?: any, options?: any) {
-    if (type === 'GET_LIST') return {type, collection, options: data};
-    if (!id && typeof data === 'string') return {type, collection, data, id: data, options};
+export function createFirestoreRequest(
+    type: 'SET',
+    collection: TCollection,
+    data: TData,
+    id: string
+): TConfigType<'collection' | 'data' | 'id', typeof type>;
 
-    return {type, collection, data, id, options};
+export function createFirestoreRequest(
+    type: TType,
+    collection: TCollection,
+    data?: TData | string | TOptions,
+    id?: string
+) {
+    switch (type) {
+        case 'GET_LIST':
+            return {collection, options: data, type};
+        case 'ADD':
+            return {collection, data, type};
+        case 'SET':
+            return {collection, id, data, type};
+        case 'GET':
+        case 'REMOVE':
+            return {collection, id: data, type};
+    }
 }
 
 export type TFirestoreRequestConfig = TOverloadedReturnType<typeof createFirestoreRequest>;
+createFirestoreRequest('GET_LIST', 'posts', {order: ['jkk', 'desc']});
 
 export const firestoreRequest = async <Result>(
     config: TFirestoreRequestConfig,
@@ -53,40 +69,57 @@ export const firestoreRequest = async <Result>(
     const interceptorToUse = interceptor || defaultInterceptor;
     let response;
 
-    const {type, id, options} = config;
+    const {type} = config;
 
-    if (type === 'ADD') {
-        const data = {
-            ...config.data,
-            created_at: new Date().getTime(),
-        };
+    switch (type) {
+        case 'ADD': {
+            const data = {
+                ...config.data,
+                created_at: new Date().getTime(),
+            };
 
-        const querySnapshot = await addDoc(collection(db, config.collection), data);
+            const querySnapshot = await addDoc(collection(db, config.collection), data);
 
-        response = {...data, id: querySnapshot.id};
-    } else if (type === 'GET') {
-        const querySnapshot = await getDoc(doc(db, config.collection, id));
-
-        response = {...querySnapshot.data(), id};
-    } else if (type === 'GET_LIST') {
-        const order = options?.order ? orderBy(...options.order) : orderBy('created_at', 'asc');
-        let neededData = query(collection(db, config.collection), order);
-
-        if (options?.condition) {
-            neededData = query(collection(db, config.collection), where(...options.condition), order);
+            response = {...data, id: querySnapshot.id};
+            break;
         }
 
-        const querySnapshot = await getDocs(neededData);
+        case 'GET': {
+            const querySnapshot = await getDoc(doc(db, config.collection, config.id));
 
-        response = querySnapshot.docs.map(doc => ({...doc.data(), id: doc.id}));
-    } else if (type === 'REMOVE') {
-        await deleteDoc(doc(db, config.collection, id));
+            response = {...querySnapshot.data(), id: config.id};
+            break;
+        }
 
-        response = config.id;
-    } else if (type === 'SET') {
-        await setDoc(doc(db, config.collection, id), config.data);
+        case 'GET_LIST': {
+            const {options} = config;
 
-        response = config.data;
+            const order = options?.order ? orderBy(...options.order) : orderBy('created_at', 'asc');
+            let neededData = query(collection(db, config.collection), order);
+
+            if (options?.condition) {
+                neededData = query(collection(db, config.collection), where(...options.condition), order);
+            }
+
+            const querySnapshot = await getDocs(neededData);
+
+            response = querySnapshot.docs.map(doc => ({...doc.data(), id: doc.id}));
+            break;
+        }
+
+        case 'REMOVE': {
+            await deleteDoc(doc(db, config.collection, config.id));
+
+            response = config.id;
+            break;
+        }
+
+        case 'SET': {
+            await setDoc(doc(db, config.collection, config.id), config.data);
+
+            response = config.data;
+            break;
+        }
     }
 
     return interceptorToUse(response);
