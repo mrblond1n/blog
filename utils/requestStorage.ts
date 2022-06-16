@@ -1,14 +1,18 @@
 import {storage} from 'config';
 import {getDownloadURL, ref, uploadBytes} from 'firebase/storage';
 import {defaultInterceptor, TInterceptor, TResponse} from 'utils/request';
+import {TOverloadedReturnType} from 'utils/typescript/overload';
 
-export type TStorageRequestConfig = {
-    file?: Blob | Uint8Array | ArrayBuffer;
-    type: 'DOWNLOAD' | 'UPLOAD';
-    url: string;
-};
+type TConfig<T, U, F = void> = {file: F; type: T; url: U};
+type TFile = Blob | Uint8Array | ArrayBuffer;
 
-export const createStorageRequest = (props: TStorageRequestConfig) => props;
+export function createStorageRequest(type: 'DOWNLOAD', url: string): TConfig<typeof type, string>;
+export function createStorageRequest(type: 'UPLOAD', url: any, file: TFile): TConfig<typeof type, string, typeof file>;
+export function createStorageRequest(type: string, url: string, file?: any) {
+    return {type, url, file};
+}
+
+export type TStorageRequestConfig = TOverloadedReturnType<typeof createStorageRequest>;
 
 export const storageRequest = async <Result>(
     config: TStorageRequestConfig,
@@ -25,7 +29,6 @@ export const storageRequest = async <Result>(
             break;
         }
         case 'UPLOAD': {
-            if (!file) throw new Error('not found file');
             response = await uploadBytes(ref(storage, url), file).then(snapshot => getDownloadURL(snapshot.ref));
 
             break;
