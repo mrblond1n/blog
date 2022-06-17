@@ -21,6 +21,7 @@ export default ({Component, pageProps}: AppProps) => {
             <Head>
                 <title>{'My App'}</title>
                 <link href="/static/favicon.ico" rel="shortcut icon" />
+                <meta content="viewport-fit=cover width=device-width" name="viewport" />
             </Head>
 
             {state === 'INITIAL_LOADING' ? (
