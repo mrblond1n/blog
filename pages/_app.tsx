@@ -7,20 +7,31 @@ import type {AppProps} from 'next/app';
 import 'normalize.css/normalize.css';
 import React from 'react';
 import 'styles/reset.css';
+import {PageLoader} from 'ui/organisms/PageLoader';
 import {MainTemplate} from 'ui/templates/MainTemplate';
 import {PageTemplate} from 'ui/templates/PageTemplate';
+import Head from 'next/head';
 
 export default ({Component, pageProps}: AppProps) => {
     useGate(Gate);
     const state = useStore($appState);
 
-    if (state === 'INITIAL_LOADING') return <div>{'Loading...'}</div>;
-
     return (
-        <PageTemplate footer={<div>{'some footer'}</div>} header={<HeaderContainer />}>
-            <MainTemplate>
-                <Component {...pageProps} />
-            </MainTemplate>
-        </PageTemplate>
+        <>
+            <Head>
+                <title>{'My App'}</title>
+                <link href="/static/favicon.ico" rel="shortcut icon" />
+            </Head>
+
+            {state === 'INITIAL_LOADING' ? (
+                <PageLoader />
+            ) : (
+                <PageTemplate footer={<div>{'some footer'}</div>} header={<HeaderContainer />}>
+                    <MainTemplate>
+                        <Component {...pageProps} />
+                    </MainTemplate>
+                </PageTemplate>
+            )}
+        </>
     );
 };
