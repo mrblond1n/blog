@@ -17,13 +17,13 @@ env:
  NEXT_PUBLIC_MEASUREMENT_ID: "G-PFHYTY91VL"
 jobs:
   build_and_deploy:
-    runs-on: macos-12
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: npm ci && npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+
+      - name: Cache NPM dependencies
+        uses: actions/cache@v2
         with:
-          node-version: 16,
           # See here for caching with `yarn` https://github.com/actions/cache/blob/main/examples.md#node---yarn or you can leverage caching with actions/setup-node https://github.com/actions/setup-node
           path: |
             ~/.npm
@@ -33,7 +33,10 @@ jobs:
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+      - name: Install NPM dependencies
+        run: npm ci && npm run build
+
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NIKITA_KIRDIAPIN_BLOG }}'
-          channelId: live
-          projectId: nikita-kirdiapin-blog
