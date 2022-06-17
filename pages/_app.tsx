@@ -3,6 +3,7 @@ import 'features';
 import {HeaderContainer} from 'features/common/app/containers/HeaderContainer';
 import {Gate} from 'features/common/app/model';
 import {$appState} from 'features/common/app/model/stores';
+import {NotifyContainer} from 'features/common/notifications/containers/NotifyContainer';
 import type {AppProps} from 'next/app';
 import 'normalize.css/normalize.css';
 import React from 'react';
@@ -31,6 +32,8 @@ export default ({Component, pageProps}: AppProps) => {
                     <MainTemplate>
                         <Component {...pageProps} />
                     </MainTemplate>
+
+                    <NotifyContainer />
                 </PageTemplate>
             )}
         </>
