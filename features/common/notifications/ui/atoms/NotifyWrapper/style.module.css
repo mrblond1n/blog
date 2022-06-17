@@ -1,0 +1,41 @@
+.container {
+    display: flex;
+    justify-content: flex-end;
+    position: fixed;
+    top: 60px;
+    right: 0;
+    left: 40px;
+    z-index: 10;
+}
+
+.fadeIn {
+    animation: fadeInLeft 0.5s ease-in forwards;
+}
+
+.fadeOut {
+    animation: fadeOutRight 0.5s ease-in forwards;
+}
+
+@keyframes fadeInLeft {
+    0% {
+        transform: translateX(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(-20px);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOutRight {
+    0% {
+        transform: translateX(-20px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 0;
+    }
+}
