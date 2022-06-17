@@ -26,10 +26,20 @@ const db = getFirestore();
 export const auth = getAuth(app);
 export const storage = getStorage(app);
 
+//https://stackoverflow.com/questions/65066963/firebase-firestore-emulator-error-host-has-been-set-in-both-settings-and-usee
+const EMULATORS_STARTED = 'EMULATORS_STARTED';
+
+function startEmulators() {
+    if (!(global as any)[EMULATORS_STARTED]) {
+        (global as any)[EMULATORS_STARTED] = true;
+        connectFirestoreEmulator(db, 'localhost', 8080);
+        connectAuthEmulator(auth, 'http://localhost:9099', {disableWarnings: true});
+        connectStorageEmulator(storage, 'localhost', 9199);
+    }
+}
+
 if (process.env.NODE_ENV === 'development') {
-    connectFirestoreEmulator(db, 'localhost', 8080);
-    connectAuthEmulator(auth, 'http://localhost:9099');
-    connectStorageEmulator(storage, 'localhost', 9199);
+    startEmulators();
 }
 
 // todo find correct resolve for check auth request

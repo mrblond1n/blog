@@ -9,9 +9,6 @@
     "ui": {
       "enabled": true
     },
-    "database": {
-      "port": 9000
-    },
     "hosting": {
       "port": 5000
     },
@@ -36,5 +33,8 @@
   },
   "storage": {
     "rules": "storage.rules"
+  },
+  "firestore": {
+    "rules": "firestore.rules"
   }
 }
