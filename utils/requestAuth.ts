@@ -1,5 +1,5 @@
-import {createUserWithEmailAndPassword, signOut, updateProfile} from '@firebase/auth';
-import {auth, getCurrentUser, returnUserWithRole} from 'config';
+import {createUserWithEmailAndPassword, signOut} from '@firebase/auth';
+import {auth, getCurrentUser} from 'config';
 import {signInWithEmailAndPassword} from 'firebase/auth';
 import {defaultInterceptor, TInterceptor, TResponse} from 'utils/request';
 import {TOverloadedReturnType} from 'utils/typescript/overload';
@@ -38,26 +38,19 @@ export const authRequest = async <Result>(
 
     switch (type) {
         case 'SIGN_IN': {
-            response = await signInWithEmailAndPassword(auth, config.data.email, config.data.password).then(
-                async userCrd => {
-                    return await returnUserWithRole(userCrd.user);
-                }
-            );
+            const userCredential = await signInWithEmailAndPassword(auth, config.data.email, config.data.password);
+
+            response = userCredential.user;
             break;
         }
 
         case 'SIGN_UP': {
-            const displayName = config.data.displayName;
+            const userCredential = await createUserWithEmailAndPassword(auth, config.data.email, config.data.password);
 
-            response = await createUserWithEmailAndPassword(auth, config.data.email, config.data.password).then(
-                async userCrd => {
-                    await updateProfile(userCrd.user, {displayName});
-
-                    return await returnUserWithRole(userCrd.user);
-                }
-            );
+            response = userCredential.user;
             break;
         }
+
         case 'CHECK':
             response = await getCurrentUser(auth);
             break;

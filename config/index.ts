@@ -37,19 +37,9 @@ export function getCurrentUser(auth: Auth) {
     return new Promise((resolve, reject) => {
         const unsubscribe = auth.onAuthStateChanged(async (user: User | null) => {
             unsubscribe();
-            resolve(user ? await returnUserWithRole(user) : user);
+            resolve(user);
         }, reject);
     });
 }
-
-export const returnUserWithRole = async (user: User) =>
-    await user.getIdTokenResult().then(idTokenResult => {
-        return Object.assign(
-            {
-                admin: idTokenResult.claims.role === 'admin' || process.env.NODE_ENV === 'development',
-            },
-            user
-        );
-    });
 
 export default db;
