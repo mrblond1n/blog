@@ -1,5 +1,6 @@
 import {forward, guard, sample} from 'effector';
 import {createGate} from 'effector-react';
+import {getUserFx} from 'features/common/app/model/effects';
 import {setAppState, setUser} from 'features/common/app/model/events';
 import {$appState} from 'features/common/app/model/stores';
 import {onSubmit} from 'features/common/form/model/events';
@@ -34,8 +35,14 @@ forward({
     to: [setAppState.prepend(() => 'AUTHORIZED'), toMain],
 });
 
+sample({
+    clock: signInFx.doneData,
+    fn: ({uid}) => uid,
+    target: getUserFx,
+});
+
 forward({
-    from: signInFx.doneData,
+    from: getUserFx.doneData,
     to: setUser,
 });
 
