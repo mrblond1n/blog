@@ -22,6 +22,10 @@
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   },
+  "engines": {
+    "node": ">= 16.0.0",
+    "npm": ">= 8.0.0"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.2",
