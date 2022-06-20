@@ -6,5 +6,5 @@
     display: flex;
     justify-content: center;
     flex: 1;
-    background: #eeeeee;
+    background: var(--background-main-color);
 }

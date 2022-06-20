@@ -1,14 +1,12 @@
 .container {
     padding: 16px;
-    background-color: #291205;
     border-radius: 8px;
     z-index: 10;
-    color: white;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.69);
 }
 
-.error {
-    background-color: #291205;
+.warning {
+    background-color: var(--background-warning-color);
 }
 
 .success {

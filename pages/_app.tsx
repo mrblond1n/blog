@@ -4,21 +4,22 @@ import {HeaderContainer} from 'features/common/app/containers/HeaderContainer';
 import {Gate} from 'features/common/app/model';
 import {$appState} from 'features/common/app/model/stores';
 import {NotifyContainer} from 'features/common/notifications/containers/NotifyContainer';
+import {ThemeProvider} from 'next-themes';
 import type {AppProps} from 'next/app';
+import Head from 'next/head';
 import 'normalize.css/normalize.css';
 import React from 'react';
 import 'styles/index.scss';
 import {PageLoader} from 'ui/organisms/PageLoader';
 import {MainTemplate} from 'ui/templates/MainTemplate';
 import {PageTemplate} from 'ui/templates/PageTemplate';
-import Head from 'next/head';
 
 export default ({Component, pageProps}: AppProps) => {
     useGate(Gate);
     const state = useStore($appState);
 
     return (
-        <>
+        <ThemeProvider>
             <Head>
                 <title>{'My App'}</title>
                 <link href="/static/favicon.ico" rel="shortcut icon" />
@@ -36,6 +37,6 @@ export default ({Component, pageProps}: AppProps) => {
                     <NotifyContainer />
                 </PageTemplate>
             )}
-        </>
+        </ThemeProvider>
     );
 };

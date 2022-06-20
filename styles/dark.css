@@ -1,0 +1,10 @@
+[data-theme="dark"]:root {
+    --background-app-color: black;
+    --background-main-color: #121212;
+
+    --text-primary-color: #dddddd;
+
+    /*loader*/
+    --path-color: #dddddd;
+    --dot-color: #ff0000;
+}

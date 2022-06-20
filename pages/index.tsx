@@ -1,14 +1,19 @@
-import {setNotifyState} from 'features/common/notifications/model/events';
+import {useTheme} from 'next-themes';
 import React from 'react';
 import {Button} from 'ui/atoms/Button';
+import {ThemeIcon} from 'ui/atoms/ThemeIcon';
 import {SectionTemplate} from 'ui/templates/SectionTemplate';
 
 export default () => {
-    const handleClick = React.useCallback(() => setNotifyState('OPENED'), []);
+    const {theme, setTheme} = useTheme();
+    const handleClick = React.useCallback(() => setTheme(theme === 'light' ? 'dark' : 'light'), [setTheme, theme]);
 
     return (
         <SectionTemplate>
-            <Button onClick={handleClick}>{'click'}</Button>
+            <h1>{'Template'}</h1>
+            <Button onClick={handleClick}>
+                <ThemeIcon />
+            </Button>
         </SectionTemplate>
     );
 };

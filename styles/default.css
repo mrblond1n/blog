@@ -1,0 +1,8 @@
+html {
+    color: var(--text-primary-color);
+    background-color: var(--background-app-color);
+}
+
+* {
+    transition: background-color .4s;
+}
