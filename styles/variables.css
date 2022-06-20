@@ -1,0 +1,14 @@
+:root {
+    --background-app-color: white;
+    --background-main-color: #eeeeee;
+    --background-success-color: #071F07;
+    --background-warning-color: #291205;
+
+    --text-primary-color: #333;
+    --text-success-color: #007400;
+    --text-warning-color: #f44336;
+
+    /*loader*/
+    --path-color: #2f3545;
+    --dot-color: #5628ee;
+}

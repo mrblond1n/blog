@@ -1,4 +1,5 @@
 .container {
     padding: 0 10px;
     flex: 1;
+    color: var(--text-warning-color);
 }
