@@ -7,7 +7,7 @@ import {NotifyContainer} from 'features/common/notifications/containers/NotifyCo
 import type {AppProps} from 'next/app';
 import 'normalize.css/normalize.css';
 import React from 'react';
-import 'styles/reset.css';
+import 'styles/index.scss';
 import {PageLoader} from 'ui/organisms/PageLoader';
 import {MainTemplate} from 'ui/templates/MainTemplate';
 import {PageTemplate} from 'ui/templates/PageTemplate';
