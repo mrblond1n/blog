@@ -1,12 +1,14 @@
+import {Link as MUILink, LinkProps as MUILinkProps} from '@mui/material';
 import {LinkProps} from 'next/dist/client/link';
 import Link from 'next/link';
 import React from 'react';
-import style from './NavLink.module.css';
 
-export const NavLink = React.memo(({children, ...props}: React.PropsWithChildren<LinkProps>) => {
+type TProps = React.PropsWithChildren<LinkProps> & MUILinkProps;
+
+export const NavLink = React.memo(({children, ...props}: TProps) => {
     return (
-        <div className={style.container}>
-            <Link {...props}>{children}</Link>
-        </div>
+        <Link as={props.as} href={props.href} passHref>
+            <MUILink color={props.color}>{children}</MUILink>
+        </Link>
     );
 });

@@ -1,19 +1,6 @@
-import React, {InputHTMLAttributes} from 'react';
-import style from 'ui/atoms/Input/style.module.css';
+import {TextField as MUIInput, TextFieldProps} from '@mui/material';
+import React from 'react';
 
-interface IProps extends InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
-    label?: string;
-}
-
-export const Input = React.memo(({label, ...props}: IProps) => {
-    return (
-        <label className={style.container} data-testid={`input_${props.name}`}>
-            {label && <p className={style.title}>{label}</p>}
-            {props.type === 'textarea' ? (
-                <textarea {...props} className={style.input} />
-            ) : (
-                <input {...props} className={style.input} />
-            )}
-        </label>
-    );
-});
+export const Input = React.memo(({label, ...props}: TextFieldProps) => (
+    <MUIInput label={label} {...props} multiline={props.type === 'textarea'} />
+));

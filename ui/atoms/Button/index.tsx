@@ -1,10 +1,4 @@
-import React, {ButtonHTMLAttributes} from 'react';
-import style from 'ui/atoms/Button/Button.module.css';
+import {Button as MUIButton, ButtonProps} from '@mui/material';
+import React from 'react';
 
-export const Button = React.memo(({children, ...props}: ButtonHTMLAttributes<HTMLButtonElement>) => {
-    return (
-        <button className={style.button} {...props}>
-            {children}
-        </button>
-    );
-});
+export const Button = React.memo(({children, ...props}: ButtonProps) => <MUIButton {...props}>{children}</MUIButton>);
