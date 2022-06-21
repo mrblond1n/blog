@@ -15,7 +15,7 @@ module.exports = {
         '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', {presets: ['next/babel']}],
     },
 
-    moduleDirectories: ['node_modules', '.'],
+    modulePaths: ['<rootDir>/'],
 
     // // Module file extensions for importing
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
