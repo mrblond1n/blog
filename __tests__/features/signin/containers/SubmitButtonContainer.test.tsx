@@ -16,6 +16,6 @@ describe('<SubmitButtonContainer />', () => {
         render(<SubmitButtonContainer />);
         const divElement = screen.getByRole('button');
 
-        expect(divElement.innerHTML).toBe(intl(INTL.SIGN_IN.SUBMIT));
+        expect(divElement.innerHTML).toMatch(intl(INTL.SIGN_IN.SUBMIT));
     });
 });
