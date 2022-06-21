@@ -2,7 +2,7 @@ import React, {FormEvent, InputHTMLAttributes} from 'react';
 import style from './style.module.css';
 
 interface IProps extends InputHTMLAttributes<HTMLFormElement> {
-    refWrapper: React.RefObject<HTMLFormElement>;
+    refWrapper?: React.RefObject<HTMLFormElement>;
 }
 
 export const Form = React.memo(({children, onSubmit, refWrapper, ...props}: IProps) => {
