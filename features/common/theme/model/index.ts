@@ -9,6 +9,6 @@ export type TTheme = 'dark' | 'light';
 
 sample({
     clock: Gate.open,
-    fn: () => getTheme((localStorage.getItem('theme') as TTheme) || 'light'),
+    fn: () => getTheme(localStorage.getItem('theme') as TTheme),
     target: setTheme,
 });
