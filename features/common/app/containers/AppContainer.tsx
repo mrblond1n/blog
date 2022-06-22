@@ -1,4 +1,5 @@
 import {useGate, useStore} from 'effector-react';
+import {FooterContainer} from 'features/common/app/containers/FooterContainer';
 import {HeaderContainer} from 'features/common/app/containers/HeaderContainer';
 import {Gate} from 'features/common/app/model';
 import {$appState} from 'features/common/app/model/stores';
@@ -15,7 +16,7 @@ export const AppContainer = React.memo(({children}) => {
     if (state === 'INITIAL_LOADING') return <PageLoader />;
 
     return (
-        <PageTemplate footer={<div>{'some footer'}</div>} header={<HeaderContainer />}>
+        <PageTemplate footer={<FooterContainer />} header={<HeaderContainer />}>
             <MainTemplate>{children}</MainTemplate>
 
             <NotifyContainer />
