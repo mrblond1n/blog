@@ -36,7 +36,7 @@
     "@testing-library/user-event": "^14.1.1",
     "classnames": "^2.3.1",
     "effector": "^22.3.0",
-    "effector-react": "^22.0.6",
+    "effector-react": "^22.1.2",
     "firebase": "^9.6.10",
     "fp-ts": "^2.11.9",
     "io-ts": "^2.2.16",
