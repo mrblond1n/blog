@@ -21,10 +21,10 @@ export const lightTheme = createTheme({
     palette: {
         mode: 'light',
         primary: deepPurple,
-        divider: deepPurple[700],
+        divider: deepPurple[300],
         background: {
-            default: deepPurple[900],
-            paper: deepPurple[900],
+            default: deepPurple[300],
+            paper: deepPurple[300],
         },
         text: {
             primary: '#000',
