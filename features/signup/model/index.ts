@@ -40,8 +40,8 @@ forward({
 });
 
 sample({
-    clock: signUpFx.doneData,
-    fn: ({email, displayName, uid, admin}) => ({email, photoUrl: null, displayName, uid, admin}),
+    clock: signUpFx.done,
+    fn: ({result: {uid, admin}, params: {email, displayName}}) => ({email, photoUrl: null, displayName, uid, admin}),
     target: createUserFx,
 });
 
