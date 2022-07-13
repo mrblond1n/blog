@@ -6,6 +6,8 @@ import {
     CardActionsProps,
     CardContent,
     CardContentProps,
+    CardHeader,
+    CardHeaderProps,
     CardMedia,
     CardMediaProps,
     CardProps,
@@ -23,6 +25,10 @@ export class Card {
 
     static Content = React.memo(({children, ...props}: CardContentProps) => (
         <CardContent {...props}>{children}</CardContent>
+    ));
+
+    static Header = React.memo(({children, ...props}: CardHeaderProps) => (
+        <CardHeader {...props}>{children}</CardHeader>
     ));
 
     static Main = React.memo(({children, ...props}: CardProps) => <MUICard {...props}>{children}</MUICard>);
