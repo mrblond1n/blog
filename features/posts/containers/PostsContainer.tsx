@@ -1,10 +1,15 @@
-import {Typography} from '@mui/material';
+import {Comment, RemoveRedEye} from '@mui/icons-material';
 import {INTL} from 'constants/intl';
 import {useList, useStoreMap} from 'effector-react';
+import {PostContent} from 'features/post/state/ui/molecules/PostContent';
+import {PostHeader} from 'features/post/state/ui/molecules/PostHeader';
+import {PostMedia} from 'features/post/state/ui/molecules/PostMedia';
+import {concatStrings, formattedDate, getInitials} from 'features/post/utils';
 import {$idsList, $postsIndex} from 'features/posts/model/stores';
 import {PostsWrapper} from 'features/posts/ui/atoms/PostsWrapper';
 import React from 'react';
 import {ROUTES} from 'routes';
+import {Badge} from 'ui/atoms/Badge';
 import {Card} from 'ui/atoms/Card';
 import {NavLink} from 'ui/atoms/NavLink';
 import {intl} from 'utils/intl';
@@ -26,21 +31,29 @@ export const PostContainer = React.memo(({id}: {id: string}) => {
         fn: (state, [id]) => state[id],
     });
 
+    const date = formattedDate(post.created_at);
+
+    const headerTitle = React.useMemo(() => concatStrings(post.author, date), [post.author, date]);
+    const initials = React.useMemo(() => getInitials(post.author), [post.author]);
+
     return (
         <Card.Main>
-            <Card.Media alt="post image" component="img" src={post.img} />
-            <Card.Content>
-                <Typography color="white" variant="h5">
-                    {post.title}
-                </Typography>
+            <PostHeader initials={initials} subtitle={headerTitle} title={post.title} />
 
-                <Typography color="white" variant="body2">
-                    {post.text}
-                </Typography>
-            </Card.Content>
+            <PostMedia img={post.img} />
+
+            <PostContent text={post.text} title={post.title} />
 
             <Card.Actions>
-                <NavLink color="#fff" href={`${ROUTES.POSTS}/${id}`} passHref>
+                <Badge badgeContent={post.watches_count} color="primary">
+                    <RemoveRedEye />
+                </Badge>
+
+                <Badge badgeContent={post.comments_count} color="primary">
+                    <Comment />
+                </Badge>
+
+                <NavLink href={`${ROUTES.POSTS}/${id}`} passHref>
                     {intl(INTL.POSTS.OPEN)}
                 </NavLink>
             </Card.Actions>

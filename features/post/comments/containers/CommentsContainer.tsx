@@ -4,8 +4,7 @@ import {AvatarWrapper} from 'features/post/comments/ui/atoms/AvatarWrapper';
 import {CommentBodyWrapper} from 'features/post/comments/ui/atoms/CommentBodyWrapper';
 import {CommentHeaderWrapper} from 'features/post/comments/ui/atoms/CommentHeaderWrapper';
 import {CommentWrapper} from 'features/post/comments/ui/atoms/CommentWrapper';
-import {formattedDate} from 'features/post/comments/utils/date';
-import {getInitials} from 'features/post/comments/utils/initials';
+import {formattedDate, getInitials} from 'features/post/utils';
 
 import React from 'react';
 import {Caption} from 'ui/atoms/Caption';

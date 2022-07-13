@@ -2,7 +2,7 @@ import {TPostDto} from 'types/dtos/posts.dto';
 import {createFirestoreRequest} from 'utils/requestFirestore';
 import {createStorageRequest} from 'utils/requestStorage';
 
-export const addPostRequest = (data: Omit<TPostDto, 'id' | 'watches_count' | 'comments_count'>) =>
+export const addPostRequest = (data: Omit<TPostDto, 'id' | 'watches_count' | 'comments_count' | 'created_at'>) =>
     createFirestoreRequest('ADD', 'posts', data);
 
 export const savePostImageRequest = ({url, file}: {url: string; file: any}) =>

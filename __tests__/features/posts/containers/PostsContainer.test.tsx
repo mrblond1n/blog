@@ -3,7 +3,7 @@ import {PostsContainer} from 'features/posts/containers/PostsContainer';
 import {getPostsFx} from 'features/posts/model/effects';
 import React from 'react';
 
-const post = {text: 'text', title: 'title', id: 'id'} as any;
+const post = {text: 'text', title: 'title', id: 'id', author: 'author'} as any;
 
 describe('<PostsContainer />', () => {
     test('should render one post', async () => {

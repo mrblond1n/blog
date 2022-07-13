@@ -3,6 +3,7 @@ import * as t from 'utils/validation';
 const PostDto = t.type({
     author: t.string,
     comments_count: t.withFallback(t.number, 0),
+    created_at: t.number,
     id: t.string,
     img: t.string,
     text: t.string,
