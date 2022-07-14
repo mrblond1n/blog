@@ -6,7 +6,6 @@ import {$appState} from 'features/common/app/model/stores';
 import {onSubmit} from 'features/common/form/model/events';
 import {$form, $inputsApi} from 'features/common/form/model/stores';
 import {toMain} from 'features/common/navigation/model/events';
-import {setNotify, setNotifyMode, setNotifyState} from 'features/common/notifications/model/events';
 import {signInFx, signOutFx} from 'features/signin/model/effects';
 import {signOut} from 'features/signin/model/events';
 
@@ -40,12 +39,6 @@ sample({
     clock: signInFx.doneData,
     fn: ({uid}) => uid,
     target: getUserFx,
-});
-
-sample({
-    clock: signInFx.failData,
-    fn: error => ({title: error.name, text: error.message}),
-    target: [setNotifyState.prepend(() => 'OPENED'), setNotifyMode.prepend(() => 'warning'), setNotify],
 });
 
 forward({
