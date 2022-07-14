@@ -1,6 +1,6 @@
 import {getPostRequest, updatePostRequest} from 'features/post/state/model/requests';
 import {PostCodec} from 'types/dtos/posts.dto';
-import {createFirebaseEffect} from 'utils/requestEffect';
+import {createFirebaseEffect} from 'utils/requests/requestEffect';
 
 export const getPostFx = createFirebaseEffect({
     codec: PostCodec,
