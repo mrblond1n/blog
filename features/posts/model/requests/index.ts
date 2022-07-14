@@ -1,6 +1,6 @@
 import {TPostDto} from 'types/dtos/posts.dto';
-import {createFirestoreRequest} from 'utils/requestFirestore';
-import {createStorageRequest} from 'utils/requestStorage';
+import {createFirestoreRequest} from 'utils/requests/requestFirestore';
+import {createStorageRequest} from 'utils/requests/requestStorage';
 
 export const addPostRequest = (data: Omit<TPostDto, 'id' | 'watches_count' | 'comments_count' | 'created_at'>) =>
     createFirestoreRequest('ADD', 'posts', data);

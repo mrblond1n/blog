@@ -1,7 +1,7 @@
 import {FieldPath, orderBy, OrderByDirection, setDoc} from '@firebase/firestore';
 import db from 'config';
 import {addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, where, WhereFilterOp} from 'firebase/firestore';
-import {defaultInterceptor, TInterceptor, TResponse} from 'utils/request';
+import {defaultInterceptor, TInterceptor, TResponse} from 'utils/requests';
 import {TOverloadedReturnType} from 'utils/typescript/overload';
 
 type TCollection = 'posts' | `posts/${string}/comments` | 'users';
@@ -60,7 +60,6 @@ export function createFirestoreRequest(
 }
 
 export type TFirestoreRequestConfig = TOverloadedReturnType<typeof createFirestoreRequest>;
-createFirestoreRequest('GET_LIST', 'posts', {order: ['jkk', 'desc']});
 
 export const firestoreRequest = async <Result>(
     config: TFirestoreRequestConfig,

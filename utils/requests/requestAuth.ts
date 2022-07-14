@@ -1,7 +1,7 @@
 import {createUserWithEmailAndPassword, signOut} from '@firebase/auth';
 import {auth, getCurrentUser} from 'config';
 import {signInWithEmailAndPassword} from 'firebase/auth';
-import {defaultInterceptor, TInterceptor, TResponse} from 'utils/request';
+import {defaultInterceptor, TInterceptor, TResponse} from 'utils/requests';
 import {TOverloadedReturnType} from 'utils/typescript/overload';
 
 type TUser = {[key: string]: string};

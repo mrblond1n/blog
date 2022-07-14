@@ -1,6 +1,6 @@
 import {createUserRequest, signUpRequest} from 'features/signup/model/requests';
 import {UserCodec} from 'types/dtos/user.dto';
-import {createAuthEffect, createFirebaseEffect} from 'utils/requestEffect';
+import {createAuthEffect, createFirebaseEffect} from 'utils/requests/requestEffect';
 
 export const signUpFx = createAuthEffect({
     codec: UserCodec,

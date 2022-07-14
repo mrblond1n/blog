@@ -1,5 +1,5 @@
 import {TCommentDto} from 'types/dtos/comments.dto';
-import {createFirestoreRequest} from 'utils/requestFirestore';
+import {createFirestoreRequest} from 'utils/requests/requestFirestore';
 
 export const sendCommentRequest = ({id, ...data}: Omit<TCommentDto, 'created_at'>) =>
     createFirestoreRequest('ADD', `posts/${id}/comments`, data);

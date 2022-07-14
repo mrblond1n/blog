@@ -1,6 +1,6 @@
 import {signInRequest, signOutRequest} from 'features/signin/model/requests';
 import {UserCodec} from 'types/dtos/user.dto';
-import {createAuthEffect} from 'utils/requestEffect';
+import {createAuthEffect} from 'utils/requests/requestEffect';
 import {t} from 'utils/validation';
 
 export const signInFx = createAuthEffect({

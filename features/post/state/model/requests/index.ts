@@ -1,5 +1,5 @@
 import {TPostDto} from 'types/dtos/posts.dto';
-import {createFirestoreRequest} from 'utils/requestFirestore';
+import {createFirestoreRequest} from 'utils/requests/requestFirestore';
 
 export const getPostRequest = (id: string) => createFirestoreRequest('GET', 'posts', id);
 

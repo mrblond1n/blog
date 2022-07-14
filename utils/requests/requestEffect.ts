@@ -1,8 +1,8 @@
 import {createEffect, Effect} from 'effector';
-import {authRequest, TAuthRequestConfig} from 'utils/requestAuth';
-import {storageRequest, TStorageRequestConfig} from 'utils/requestStorage';
-import {firestoreRequest, TFirestoreRequestConfig} from 'utils/requestFirestore';
-import * as t from './validation';
+import {authRequest, TAuthRequestConfig} from 'utils/requests/requestAuth';
+import {storageRequest, TStorageRequestConfig} from 'utils/requests/requestStorage';
+import {firestoreRequest, TFirestoreRequestConfig} from 'utils/requests/requestFirestore';
+import * as t from 'utils/validation';
 
 type TFirebaseEffectParams<Codec, Params> = {
     codec: Codec;

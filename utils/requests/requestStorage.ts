@@ -1,6 +1,6 @@
 import {storage} from 'config';
 import {getDownloadURL, ref, uploadBytes} from 'firebase/storage';
-import {defaultInterceptor, TInterceptor, TResponse} from 'utils/request';
+import {defaultInterceptor, TInterceptor, TResponse} from 'utils/requests';
 import {TOverloadedReturnType} from 'utils/typescript/overload';
 
 type TFile = Blob | Uint8Array | ArrayBuffer;

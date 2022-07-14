@@ -1,6 +1,6 @@
 import {TUserDto} from 'types/dtos/user.dto';
-import {createAuthRequest} from 'utils/requestAuth';
-import {createFirestoreRequest} from 'utils/requestFirestore';
+import {createAuthRequest} from 'utils/requests/requestAuth';
+import {createFirestoreRequest} from 'utils/requests/requestFirestore';
 
 export const signUpRequest = (data: {[key: string]: string}) => createAuthRequest('SIGN_UP', data);
 
