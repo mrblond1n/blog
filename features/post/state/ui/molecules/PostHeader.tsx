@@ -1,5 +1,5 @@
-import {Avatar} from '@mui/material';
 import React from 'react';
+import {Avatar} from 'ui/atoms/Avatar';
 import {Card} from 'ui/atoms/Card';
 
 export const PostHeader = React.memo(
