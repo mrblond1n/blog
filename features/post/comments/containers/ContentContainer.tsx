@@ -1,12 +1,13 @@
-import {CommentFormContainer} from 'features/post/comments/containers/CommentFormContainer';
-import {CommentsContainer} from 'features/post/comments/containers/CommentsContainer';
+import {CommentFormContainer} from 'features/common/comments/state/containers/CommentFormContainer';
+import {CommentsContainer} from 'features/common/comments/state/containers/CommentsContainer';
 import React from 'react';
+import {SectionTemplate} from 'ui/templates/SectionTemplate';
 
 export const ContentContainer = () => {
     return (
-        <div>
-            <CommentsContainer />
+        <SectionTemplate>
             <CommentFormContainer />
-        </div>
+            <CommentsContainer />
+        </SectionTemplate>
     );
 };

@@ -1,20 +1,20 @@
 import {useStoreMap} from 'effector-react';
-import {onChange, onKeyDown} from 'features/post/comments/model/events';
-import {$answerFieldIndex, $answerTextIndex} from 'features/post/comments/model/stores';
+import {onChange, onKeyDown} from 'features/common/comments/reply/model/events';
+import {$openedIndex, $valueIndex} from 'features/common/comments/reply/model/stores';
 
 import React from 'react';
 import {Input} from 'ui/atoms/Input';
 
-export const AnswerFieldContainer = React.memo(({id}: {id: string}) => {
+export const FieldContainer = React.memo(({id}: {id: string}) => {
     const isAnswered = useStoreMap({
-        store: $answerFieldIndex,
+        store: $openedIndex,
         keys: [id],
         defaultValue: false,
         fn: (state, [id]) => state[id],
     });
 
     const value = useStoreMap({
-        store: $answerTextIndex,
+        store: $valueIndex,
         keys: [id],
         defaultValue: '',
         fn: (state, [id]) => state[id],
@@ -25,5 +25,7 @@ export const AnswerFieldContainer = React.memo(({id}: {id: string}) => {
 
     if (!isAnswered) return null;
 
-    return <Input autoFocus onChange={handleChange} onKeyDown={handleKeyDown} value={value} />;
+    return (
+        <Input autoFocus fullWidth onChange={handleChange} onKeyDown={handleKeyDown} type="textarea" value={value} />
+    );
 });

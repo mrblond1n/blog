@@ -1,0 +1,7 @@
+.container {
+    word-break: break-word;
+}
+
+.container > *:first-child {
+    margin-top: 24px;
+}

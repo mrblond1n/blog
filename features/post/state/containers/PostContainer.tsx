@@ -1,13 +1,11 @@
+import {useStore} from 'effector-react';
+import {$author, $body, $createdAt, $img, $title} from 'features/post/state/model/stores';
 import {PostContent} from 'features/post/state/ui/molecules/PostContent';
 import {PostHeader} from 'features/post/state/ui/molecules/PostHeader';
 import {PostMedia} from 'features/post/state/ui/molecules/PostMedia';
 import {concatStrings, formattedDate, getInitials} from 'features/post/utils';
 import React from 'react';
 import {Card} from 'ui/atoms/Card';
-import {useStore} from 'effector-react';
-import {$author, $body, $createdAt, $img, $title} from 'features/post/state/model/stores';
-import {ROUTES} from 'routes';
-import {NavLink} from 'ui/atoms/NavLink';
 
 export const PostContainer = () => {
     const author = useStore($author);
@@ -27,9 +25,6 @@ export const PostContainer = () => {
             <PostMedia img={img} />
 
             <PostContent text={body} title={title} />
-            <Card.Actions>
-                <NavLink href={ROUTES.HOME}>{'to home'}</NavLink>
-            </Card.Actions>
         </Card.Main>
     );
 };
