@@ -1,8 +1,8 @@
-import {guard, sample} from 'effector';
+import {forward, guard, sample} from 'effector';
 import {createGate} from 'effector-react';
-import {onSubmit} from 'features/common/form/model/events';
+import {clearCommentsIndex, sendComment} from 'features/common/comments/state/model/events';
 import {$inputsApi} from 'features/common/form/model/stores';
-import {sendComment} from 'features/post/comments/model/events';
+import {sendCommentFx} from 'features/post/comments/model/effects';
 import {getPostFx} from 'features/post/state/model/effects';
 import {setMode} from 'features/post/state/model/events';
 
@@ -22,12 +22,18 @@ sample({
     target: [getPostFx, setMode.prepend(() => 'LOADING'), $inputsApi.setAddCommentInputs],
 });
 
+forward({
+    from: Gate.close,
+    to: clearCommentsIndex,
+});
+
 sample({
-    clock: onSubmit,
+    clock: sendComment,
     source: guard({
         source: $id,
         filter: Boolean,
     }),
     filter: Gate.status,
-    target: sendComment,
+    fn: (id, comment) => ({id, ...comment}),
+    target: sendCommentFx,
 });
