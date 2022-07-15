@@ -18,6 +18,7 @@ export const $idsIndex = createStore(createIndex<string[]>())
               })
             : index.set({key: comment.id, value: []});
     })
+    .on(clearCommentsIndex, index => index.clear())
     .map(value => value.getRaw());
 
 export const $idsList = combine($idsIndex, Object.keys);
