@@ -7,6 +7,6 @@ import {$form} from 'features/common/form/model/stores';
 sample({
     clock: onSubmit,
     source: {form: $form, author: $displayName, uid: $uid},
-    fn: ({form, ...data}) => ({...(form as {text: string}), ...data}),
+    fn: ({form: {text}, ...data}) => ({text: text.trim(), ...data}),
     target: sendComment,
 });

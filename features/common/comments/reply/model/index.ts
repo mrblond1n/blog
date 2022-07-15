@@ -37,11 +37,12 @@ sample({
         text: $text,
         uid: $uid,
     },
-    filter: (_, e) => e.keyCode === 13 && (e.metaKey || e.ctrlKey),
-    fn: ({parent, ...data}) => ({
+    filter: ({text}, e) => e.keyCode === 13 && (e.metaKey || e.ctrlKey) && !!text,
+    fn: ({parent, text, ...data}) => ({
         ...data,
         parent_id: parent?.parent_id || parent?.id || '',
-        reply_id: parent?.reply_id || '',
+        reply_id: parent?.id || '',
+        text: text.trim(),
     }),
     target: sendReply,
 });
