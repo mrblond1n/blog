@@ -15,10 +15,16 @@ export const FormContainer = React.memo(({children}) => {
     const handleSubmit = React.useCallback(e => onSubmit(e), []);
     const handleChange = React.useCallback(e => onChange(e), []);
 
+    const onKeyDown = React.useCallback(e => {
+        if (e.keyCode === 13 && (e.metaKey || e.ctrlKey)) {
+            ref.current && onSubmit(ref.current as any);
+        }
+    }, []);
+
     return (
         <Form onSubmit={handleSubmit} refWrapper={ref}>
             {useList($inputs, input => (
-                <Input onChange={handleChange} {...input} />
+                <Input onChange={handleChange} onKeyDown={onKeyDown} {...input} />
             ))}
 
             {children}
