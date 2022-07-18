@@ -7,6 +7,10 @@ service cloud.firestore {
 
        match /comments/{comment} {
           allow read, write: if true;
+
+          match /comments/{comment} {
+            allow read, write: if true;
+          }
        }
     }
 

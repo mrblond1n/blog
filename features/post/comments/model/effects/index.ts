@@ -1,4 +1,9 @@
-import {sendCommentRequest, getCommentsRequest, sendReplyRequest} from 'features/post/comments/model/requests';
+import {
+    sendCommentRequest,
+    getCommentsRequest,
+    sendReplyRequest,
+    updateCommentRequest,
+} from 'features/post/comments/model/requests';
 import {CommentCodec, CommentsCodec} from 'types/dtos/comments.dto';
 import {createFirebaseEffect} from 'utils/requests/requestEffect';
 
@@ -15,4 +20,9 @@ export const sendReplyFx = createFirebaseEffect({
 export const getCommentsFx = createFirebaseEffect({
     codec: CommentsCodec,
     request: getCommentsRequest,
+});
+
+export const updateCommentFx = createFirebaseEffect({
+    codec: CommentCodec,
+    request: updateCommentRequest,
 });
