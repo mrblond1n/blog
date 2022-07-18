@@ -7,3 +7,5 @@ export const updateComment = createEvent<TCommentDto>();
 export const clearCommentsIndex = createEvent<void>();
 export const clearDiscussion = createEvent<string>();
 export const sendComment = createEvent<{text: string}>();
+
+export const closeComments = createEvent<void>();

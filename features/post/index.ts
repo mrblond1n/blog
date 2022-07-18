@@ -1,11 +1,11 @@
 import {forward, guard, sample} from 'effector';
 import {createGate} from 'effector-react';
 import {$displayName, $uid} from 'features/common/app/model/stores';
-import {addReply, sendReply, getReplies} from 'features/common/comments/reply/model/events';
+import {addReply, getReplies, sendReply} from 'features/common/comments/reply/model/events';
 import {$comment, $discussionId} from 'features/common/comments/reply/model/stores';
-import {clearCommentsIndex, sendComment, updateComment} from 'features/common/comments/state/model/events';
+import {sendComment, updateComment} from 'features/common/comments/state/model/events';
 import {$inputsApi} from 'features/common/form/model/stores';
-import {updateCommentFx, sendCommentFx, sendReplyFx, getCommentsFx} from 'features/post/comments/model/effects';
+import {getCommentsFx, sendCommentFx, sendReplyFx, updateCommentFx} from 'features/post/comments/model/effects';
 import {getPostFx} from 'features/post/state/model/effects';
 import {setMode} from 'features/post/state/model/events';
 
@@ -23,11 +23,6 @@ sample({
     source: $id,
     filter: Boolean,
     target: [getPostFx, setMode.prepend(() => 'LOADING'), $inputsApi.setAddCommentInputs],
-});
-
-forward({
-    from: Gate.close,
-    to: clearCommentsIndex,
 });
 
 sample({
