@@ -5,6 +5,7 @@ import {addComment} from 'features/common/comments/state/model/events';
 import {$id} from 'features/post';
 import {getCommentsFx, sendCommentFx, sendReplyFx} from 'features/post/comments/model/effects';
 import {getPostFx, updatePostFx} from 'features/post/state/model/effects';
+import {$post} from 'features/post/state/model/stores';
 import {iterate} from 'utils/effector/iterate';
 
 sample({
@@ -16,8 +17,9 @@ sample({
 
 sample({
     clock: [sendCommentFx.doneData, sendReplyFx.doneData],
-    source: getPostFx.doneData,
-    fn: ({comments_count, ...post}) => ({...post, comments_count: ++comments_count}),
+    source: $post,
+    filter: Boolean,
+    fn: post => ({...post, comments_count: ++post.comments_count}),
     target: updatePostFx,
 });
 
