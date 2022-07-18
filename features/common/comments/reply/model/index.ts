@@ -1,25 +1,51 @@
-import {forward, sample} from 'effector';
+import {forward, sample, split} from 'effector';
 import {
     changeValue,
-    clearOpenedIndex,
+    closeOpened,
+    getReplies,
+    hideReplies,
     onChange,
     onKeyDown,
     onOpen,
     onReply,
     onSend,
+    onToggle,
     sendReply,
+    setDiscussionId,
 } from 'features/common/comments/reply/model/events';
-import {$discussionId, $replyId, $text} from 'features/common/comments/reply/model/stores';
+import {
+    $discussionId,
+    $prevReplyId,
+    $replyId,
+    $text,
+    $viewedRepliesIndex,
+} from 'features/common/comments/reply/model/stores';
+import {clearDiscussion} from 'features/common/comments/state/model/events';
+import {$commentsIndex} from 'features/common/comments/state/model/stores';
 
-forward({
-    from: onReply,
-    to: clearOpenedIndex,
+sample({
+    clock: onReply,
+    source: $prevReplyId,
+    target: closeOpened,
 });
 
 sample({
-    clock: clearOpenedIndex,
-    source: onReply,
-    target: onOpen,
+    clock: [onReply, onToggle],
+    source: $commentsIndex,
+    filter: Boolean,
+    fn: (state, id) => state[id].discussion_id || state[id].id,
+    target: setDiscussionId,
+});
+
+sample({
+    clock: clearDiscussion,
+    source: $replyId,
+    target: closeOpened,
+});
+
+forward({
+    from: onReply,
+    to: onOpen,
 });
 
 sample({
@@ -45,4 +71,25 @@ sample({
     filter: ({text}) => !!text,
     fn: ({text, ...comment}) => ({...comment, text: text.trim()}),
     target: sendReply,
+});
+
+split({
+    source: sample({
+        clock: onToggle,
+        source: $viewedRepliesIndex,
+        fn: (state, id) => state[id],
+    }),
+    match: {
+        show: Boolean,
+    },
+    cases: {
+        show: getReplies,
+        __: hideReplies,
+    },
+});
+
+sample({
+    clock: hideReplies,
+    source: onToggle,
+    target: clearDiscussion,
 });
