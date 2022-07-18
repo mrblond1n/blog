@@ -20,7 +20,8 @@ export const $valueIndex = createStore(createIndex<string>())
     .on(clearReplyValue, (index, key) => index.set({key, value: ''}))
     .map(value => value.getRaw());
 
-const $id = restore(onReply, '');
+export const $replyId = restore(onReply, '');
+export const $discussionId = getById($commentsIndex, $replyId).map(data => data?.discussion_id || data?.id || '');
+export const $comment = getById($commentsIndex, $discussionId);
 
-export const $text = getById($valueIndex, $id).map(value => value || '');
-export const $parent = getById($commentsIndex, $id);
+export const $text = getById($valueIndex, $replyId).map(value => value || '');

@@ -1,15 +1,15 @@
 import {forward, sample} from 'effector';
-import {$displayName, $uid} from 'features/common/app/model/stores';
 import {
     changeValue,
-    sendReply,
-    onChange,
     clearOpenedIndex,
+    onChange,
     onKeyDown,
     onOpen,
     onReply,
+    onSend,
+    sendReply,
 } from 'features/common/comments/reply/model/events';
-import {$parent, $text} from 'features/common/comments/reply/model/stores';
+import {$discussionId, $replyId, $text} from 'features/common/comments/reply/model/stores';
 
 forward({
     from: onReply,
@@ -31,18 +31,18 @@ sample({
 
 sample({
     clock: onKeyDown,
+    filter: e => e.keyCode === 13 && (e.metaKey || e.ctrlKey),
+    target: onSend,
+});
+
+sample({
+    clock: onSend,
     source: {
-        author: $displayName,
-        parent: $parent,
+        discussion_id: $discussionId,
+        reply_id: $replyId,
         text: $text,
-        uid: $uid,
     },
-    filter: ({text}, e) => e.keyCode === 13 && (e.metaKey || e.ctrlKey) && !!text,
-    fn: ({parent, text, ...data}) => ({
-        ...data,
-        parent_id: parent?.parent_id || parent?.id || '',
-        reply_id: parent?.id || '',
-        text: text.trim(),
-    }),
+    filter: ({text}) => !!text,
+    fn: ({text, ...comment}) => ({...comment, text: text.trim()}),
     target: sendReply,
 });

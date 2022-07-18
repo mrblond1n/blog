@@ -4,7 +4,7 @@ import {addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, where, Where
 import {defaultInterceptor, TInterceptor, TResponse} from 'utils/requests';
 import {TOverloadedReturnType} from 'utils/typescript/overload';
 
-type TCollection = 'posts' | `posts/${string}/comments` | 'users';
+type TCollection = 'posts' | `posts/${string}/comments` | `posts/${string}/comments/${string}/comments` | 'users';
 type TOptions = {
     condition?: [fieldPath: string | FieldPath, opString: WhereFilterOp, value: unknown];
     order?: [fieldPath: string | FieldPath, directionStr: OrderByDirection];
