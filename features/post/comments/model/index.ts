@@ -1,5 +1,6 @@
 import {forward, sample} from 'effector';
 import {clearReplyValue} from 'features/common/comments/reply/model/events';
+import {$replyId} from 'features/common/comments/reply/model/stores';
 import {addComment} from 'features/common/comments/state/model/events';
 import {$id} from 'features/post';
 import {getCommentsFx, sendCommentFx, sendReplyFx} from 'features/post/comments/model/effects';
@@ -14,9 +15,9 @@ sample({
 });
 
 sample({
-    clock: sendCommentFx.doneData,
+    clock: [sendCommentFx.doneData, sendReplyFx.doneData],
     source: getPostFx.doneData,
-    fn: post => ({...post, comments_count: (post.comments_count += 1)}),
+    fn: ({comments_count, ...post}) => ({...post, comments_count: ++comments_count}),
     target: updatePostFx,
 });
 
@@ -28,12 +29,12 @@ forward({
 });
 
 forward({
-    from: [sendReplyFx.doneData, sendCommentFx.doneData],
+    from: sendCommentFx.doneData,
     to: addComment,
 });
 
 sample({
     clock: sendReplyFx.doneData,
-    fn: ({reply_id}) => reply_id || '',
+    source: $replyId,
     target: clearReplyValue,
 });

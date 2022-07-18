@@ -1,6 +1,7 @@
 import {useStoreMap} from 'effector-react';
 import {ButtonContainer} from 'features/common/comments/reply/containers/ButtonContainer';
 import {FieldContainer} from 'features/common/comments/reply/containers/FieldContainer';
+import {ToggleButtonContainer} from 'features/common/comments/reply/containers/ToggleButtonContainer';
 import {$commentsIndex} from 'features/common/comments/state/model/stores';
 import {CommentBodyWrapper} from 'features/common/comments/state/ui/atoms/CommentBodyWrapper';
 import {CommentFooterWrapper} from 'features/common/comments/state/ui/atoms/CommentFooterWrapper';
@@ -41,6 +42,7 @@ export const CommentContainer = React.memo(({id}: {id: string}) => {
                 </CommentFooterWrapper>
 
                 <FieldContainer id={id} />
+                <ToggleButtonContainer id={id} />
             </CommentMainWrapper>
         </CommentWrapper>
     );

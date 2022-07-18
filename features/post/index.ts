@@ -1,11 +1,11 @@
 import {forward, guard, sample} from 'effector';
 import {createGate} from 'effector-react';
 import {$displayName, $uid} from 'features/common/app/model/stores';
-import {sendReply} from 'features/common/comments/reply/model/events';
-import {$comment} from 'features/common/comments/reply/model/stores';
+import {addReply, sendReply, getReplies} from 'features/common/comments/reply/model/events';
+import {$comment, $discussionId} from 'features/common/comments/reply/model/stores';
 import {clearCommentsIndex, sendComment, updateComment} from 'features/common/comments/state/model/events';
 import {$inputsApi} from 'features/common/form/model/stores';
-import {updateCommentFx, sendCommentFx, sendReplyFx} from 'features/post/comments/model/effects';
+import {updateCommentFx, sendCommentFx, sendReplyFx, getCommentsFx} from 'features/post/comments/model/effects';
 import {getPostFx} from 'features/post/state/model/effects';
 import {setMode} from 'features/post/state/model/events';
 
@@ -69,7 +69,20 @@ sample({
     target: updateCommentFx,
 });
 
+forward({
+    from: sendReplyFx.doneData,
+    to: addReply,
+});
+
+forward({
+    from: updateCommentFx.doneData,
+    to: updateComment,
+});
+
 sample({
-    clock: updateCommentFx.doneData,
-    target: updateComment,
+    clock: getReplies,
+    source: {id: $id, discussionId: $discussionId},
+    filter: ({id}) => !!id,
+    fn: ({id, discussionId}) => `${id}/comments/${discussionId}`,
+    target: getCommentsFx,
 });
