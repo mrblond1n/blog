@@ -2,14 +2,14 @@ import {createStore} from 'effector';
 import {
     addReply,
     changeValue,
-    closeOpened,
     clearReplyValue,
+    closeOpened,
     onOpen,
     onReply,
     onToggle,
     setDiscussionId,
 } from 'features/common/comments/reply/model/events';
-import {clearCommentsIndex} from 'features/common/comments/state/model/events';
+import {closeComments} from 'features/common/comments/state/model/events';
 import {$commentsIndex} from 'features/common/comments/state/model/stores';
 import {getById} from 'utils/effector/getById';
 import {createIndex} from 'utils/stack';
@@ -17,7 +17,7 @@ import {createIndex} from 'utils/stack';
 export const $openedIndex = createStore(createIndex<boolean>())
     .on(onOpen, (index, id) => index.set({key: id, value: true}))
     .on(closeOpened, (index, id) => index.set({key: id, value: false}))
-    .on(clearCommentsIndex, index => index.clear())
+    .on(closeComments, index => index.clear())
     .map(value => value.getRaw());
 
 export const $viewedRepliesIndex = createStore(createIndex<boolean>())
@@ -26,13 +26,13 @@ export const $viewedRepliesIndex = createStore(createIndex<boolean>())
 
         return index.set({key: id, value: !state[id]});
     })
-    .on(clearCommentsIndex, index => index.clear())
+    .on(closeComments, index => index.clear())
     .map(value => value.getRaw());
 
 export const $valueIndex = createStore(createIndex<string>())
     .on(changeValue, (index, {key, value}) => index.set({key, value}))
     .on(clearReplyValue, (index, key) => index.set({key, value: ''}))
-    .on(clearCommentsIndex, index => index.clear())
+    .on(closeComments, index => index.clear())
     .map(value => value.getRaw());
 
 export const $replyIdsIndex = createStore(createIndex<string[]>())
@@ -43,12 +43,12 @@ export const $replyIdsIndex = createStore(createIndex<string[]>())
             update: prev => [...prev, reply.id],
         })
     )
-    .on(clearCommentsIndex, index => index.clear())
+    .on(closeComments, index => index.clear())
     .map(value => value.getRaw());
 
 const $replyIdHistory = createStore<[string, string]>(['', ''])
     .on(onReply, ([, current], state) => (state !== current ? [current, state] : void 0))
-    .reset(clearReplyValue);
+    .reset(closeComments);
 
 export const $replyId = $replyIdHistory.map(([, current]) => current);
 export const $prevReplyId = $replyIdHistory.map(([prev]) => prev);
@@ -58,6 +58,6 @@ const $discussionIdHistory = createStore<[string, string]>(['', ''])
     .reset(clearReplyValue);
 
 export const $discussionId = $discussionIdHistory.map(([, current]) => current);
-export const $comment = getById($commentsIndex, $discussionId);
 
+export const $comment = getById($commentsIndex, $discussionId);
 export const $text = getById($valueIndex, $replyId).map(value => value || '');

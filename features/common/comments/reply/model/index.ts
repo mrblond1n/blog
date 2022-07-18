@@ -50,7 +50,7 @@ forward({
 
 sample({
     clock: onChange,
-    source: onReply,
+    source: $replyId,
     fn: (key, e) => ({key, value: e.target.value}),
     target: changeValue,
 });
