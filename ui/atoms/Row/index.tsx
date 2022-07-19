@@ -10,11 +10,12 @@ type TProps = {
     direction?: 'row' | 'column' | 'column-reverse' | 'row-reverse';
     fullWidth?: boolean;
     justifyContent?: 'center' | 'flex-start' | 'flex-end' | 'space-between' | 'space-around';
+    margin?: boolean;
     wrap?: boolean;
 };
 
 export const Row = React.memo(
-    ({alignItems, children, className, direction, fullWidth, justifyContent, wrap}: TProps) => {
+    ({alignItems, children, className, direction, fullWidth, justifyContent, margin, wrap}: TProps) => {
         const directionClass = direction && style[('direction-' + direction) as 'directionRow'];
         const alignItemsClass = alignItems && style[('align-items-' + alignItems) as 'alignItemsCenter'];
         const justifyContentClass =
@@ -28,6 +29,7 @@ export const Row = React.memo(
             alignItemsClass,
             justifyContentClass,
             fullWidth && style.fullWidth,
+            margin && style.margin,
             className
         );
 
