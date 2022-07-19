@@ -1,3 +1,4 @@
+import {INTL} from 'constants/intl';
 import {useStoreMap} from 'effector-react';
 import {onToggle} from 'features/common/comments/reply/model/events';
 import {$viewedRepliesIndex} from 'features/common/comments/reply/model/stores';
@@ -5,6 +6,8 @@ import {$commentsIndex} from 'features/common/comments/state/model/stores';
 
 import React from 'react';
 import {ButtonLink} from 'ui/atoms/ButtonLink';
+import {Row} from 'ui/atoms/Row';
+import {intl} from 'utils/intl';
 
 export const ToggleButtonContainer = React.memo(({id}: {id: string}) => {
     const {replies} = useStoreMap({
@@ -22,9 +25,17 @@ export const ToggleButtonContainer = React.memo(({id}: {id: string}) => {
     });
 
     const handleClick = React.useCallback(() => onToggle(id), [id]);
-    const text = React.useMemo(() => (isOpened ? 'Hide' : 'View') + ` ${replies} replies`, [isOpened, replies]);
+    const text = React.useMemo(() => {
+        if (!replies) return;
+
+        return !isOpened ? intl(INTL.COMMENT.ACTION.SHOW_REPLIES(replies)) : intl(INTL.COMMENT.ACTION.HIDE_REPLIES);
+    }, [isOpened, replies]);
 
     if (!replies) return null;
 
-    return <ButtonLink onClick={handleClick}>{text}</ButtonLink>;
+    return (
+        <Row margin>
+            <ButtonLink onClick={handleClick}>{text}</ButtonLink>
+        </Row>
+    );
 });
