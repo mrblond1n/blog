@@ -1,5 +1,5 @@
 import {forward, sample} from 'effector';
-import {clearReplyValue} from 'features/common/comments/reply/model/events';
+import {clearReplyValue, closeOpened} from 'features/common/comments/reply/model/events';
 import {$replyId} from 'features/common/comments/reply/model/stores';
 import {addComment} from 'features/common/comments/state/model/events';
 import {$id} from 'features/post';
@@ -38,5 +38,5 @@ forward({
 sample({
     clock: sendReplyFx.doneData,
     source: $replyId,
-    target: clearReplyValue,
+    target: [clearReplyValue, closeOpened],
 });
