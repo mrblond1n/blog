@@ -1,11 +1,11 @@
 import {useStore} from 'effector-react';
 import {$author, $body, $createdAt, $img, $title} from 'features/post/state/model/stores';
+import {PostWrapper} from 'features/post/state/ui/atoms/PostWrapper';
 import {PostContent} from 'features/post/state/ui/molecules/PostContent';
 import {PostHeader} from 'features/post/state/ui/molecules/PostHeader';
 import {PostMedia} from 'features/post/state/ui/molecules/PostMedia';
 import {concatStrings, formattedDate, getInitials} from 'features/post/utils';
 import React from 'react';
-import {Card} from 'ui/atoms/Card';
 
 export const PostContainer = () => {
     const author = useStore($author);
@@ -20,11 +20,11 @@ export const PostContainer = () => {
     const initials = React.useMemo(() => getInitials(author), [author]);
 
     return (
-        <Card.Main>
+        <PostWrapper>
             <PostHeader initials={initials} subtitle={headerTitle} title={title} />
             <PostMedia img={img} />
 
             <PostContent text={body} title={title} />
-        </Card.Main>
+        </PostWrapper>
     );
 };
