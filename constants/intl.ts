@@ -2,7 +2,15 @@ import {ROUTES} from 'routes';
 
 export const INTL = {
     COMMENT: {
-        ADD: 'Add',
+        ACTION: {
+            HIDE_REPLIES: 'Hide replies',
+            REPLY: 'REPLY',
+            SEND: 'Send',
+            SHOW_REPLIES: (replies: number) => `View ${replies} replies`,
+        },
+        PLACEHOLDER: {
+            COMMENT: 'Comment',
+        },
     },
     HOME: {
         PATH: {
