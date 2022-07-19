@@ -26,6 +26,7 @@ import {$commentsIndex} from 'features/common/comments/state/model/stores';
 sample({
     clock: onReply,
     source: $prevReplyId,
+    filter: Boolean,
     target: closeOpened,
 });
 
