@@ -9,5 +9,6 @@ const UserDto = t.type({
 });
 
 export const UserCodec = UserDto;
+export const CheckUserCodec = t.nullable(UserDto);
 
 export type TUserDto = t.TypeOf<typeof UserCodec>;
