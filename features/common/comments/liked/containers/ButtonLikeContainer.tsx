@@ -25,7 +25,7 @@ export const ButtonLikeContainer = React.memo(({id}: {id: string}) => {
 
     return (
         <Badge badgeContent={usersList.length} color="primary">
-            <IconButton color={color} onClick={handleClick} size="small">
+            <IconButton color={color} disabled={!uid} onClick={handleClick} size="small">
                 <ThumbUp fontSize="inherit" />
             </IconButton>
         </Badge>
