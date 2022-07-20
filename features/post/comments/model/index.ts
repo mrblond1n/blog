@@ -4,12 +4,19 @@ import {$replyId} from 'features/common/comments/reply/model/stores';
 import {addComment} from 'features/common/comments/state/model/events';
 import {$id} from 'features/post';
 import {getCommentsFx, sendCommentFx, sendReplyFx} from 'features/post/comments/model/effects';
+import {getComments} from 'features/post/comments/model/events';
 import {getPostFx, updatePostCommentsFx} from 'features/post/state/model/effects';
 import {$post} from 'features/post/state/model/stores';
 import {iterate} from 'utils/effector/iterate';
 
 sample({
     clock: getPostFx.doneData,
+    filter: ({comments_count}) => !!comments_count,
+    target: getComments,
+});
+
+sample({
+    clock: getComments,
     source: $id,
     filter: Boolean,
     target: getCommentsFx,
