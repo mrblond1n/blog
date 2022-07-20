@@ -1,4 +1,5 @@
-import {useList, useStoreMap} from 'effector-react';
+import {useGate, useList, useStoreMap} from 'effector-react';
+import {Gate} from 'features/common/comments/index';
 import {$replyIdsIndex} from 'features/common/comments/reply/model/stores';
 import {CommentContainer} from 'features/common/comments/state/containers/CommentContainer';
 import {$discussionIdsList, $discussionIdsIndex} from 'features/common/comments/state/model/stores';
@@ -6,7 +7,11 @@ import {DiscussionWrapper} from 'features/common/comments/state/ui/atoms/Discuss
 import {getUniqueArray} from 'features/common/comments/state/utils';
 import React from 'react';
 
-export const CommentsContainer = React.memo(() => useList($discussionIdsList, id => <DiscussionContainer id={id} />));
+export const CommentsContainer = React.memo(() => {
+    useGate(Gate);
+
+    return useList($discussionIdsList, id => <DiscussionContainer id={id} />);
+});
 
 const DiscussionContainer = React.memo(({id}: {id: string}) => {
     const idsList = useStoreMap({
