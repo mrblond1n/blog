@@ -1,11 +1,11 @@
 import {createApi, createStore, restore} from 'effector';
-import {fieldSet, onReset, setInputs} from 'features/common/form/model/events';
+import {fieldSet, resetForm, setInputs} from 'features/common/form/model/events';
 import {FormGate} from 'features/common/form/model/index';
 import {createIndex} from 'utils/stack';
 
 export const $form = createStore(createIndex<string>())
     .on(fieldSet, (index, {key, value}) => index.set({key, value}))
-    .on(onReset, index => index.clear())
+    .on(resetForm, index => index.clear())
     .map(value => value.getRaw());
 
 export const signInInputs = [

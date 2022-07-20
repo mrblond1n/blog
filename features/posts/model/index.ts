@@ -1,7 +1,8 @@
 import {forward, sample} from 'effector';
 import {createGate} from 'effector-react';
 import {$displayName, $uid} from 'features/common/app/model/stores';
-import {onSubmit, selectFile} from 'features/common/form/model/events';
+import {$formElem} from 'features/common/form/model';
+import {resetForm, submitForm, selectFile} from 'features/common/form/model/events';
 import {$form, $inputsApi} from 'features/common/form/model/stores';
 import {addPostFx, getPostsFx, removePostFx, saveImageFx} from 'features/posts/model/effects';
 import {addNewPost, addPost, getPosts, removePost, setMode} from 'features/posts/model/events';
@@ -29,7 +30,7 @@ forward({
 });
 
 sample({
-    clock: onSubmit,
+    clock: submitForm,
     source: selectFile,
     filter: Gate.status,
     fn: file => ({file, url: `${getId()}/${file?.name}`}),
@@ -38,7 +39,7 @@ sample({
 
 sample({
     clock: saveImageFx.doneData,
-    source: {author: $displayName, form: $form, uid: $uid, status: Gate.status},
+    source: {author: $displayName, form: $form, uid: $uid},
     fn: ({author, form, uid}, img) => ({...(form as {text: string; title: string}), author, img, uid}),
     target: addPostFx,
 });
@@ -47,7 +48,7 @@ sample({
     clock: addPostFx.doneData,
     source: selectFile,
     fn: (file, post) => ({...post, img: getUrl(file)}),
-    target: addNewPost,
+    target: [addNewPost, resetForm],
 });
 
 forward({
@@ -58,6 +59,13 @@ forward({
 forward({
     from: getPostsFx.doneData,
     to: setMode.prepend(() => 'SUCCESS'),
+});
+
+sample({
+    clock: addPostFx.doneData,
+    source: $formElem,
+    filter: Boolean,
+    target: resetForm,
 });
 
 forward({

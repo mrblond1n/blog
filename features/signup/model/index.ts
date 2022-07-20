@@ -4,7 +4,7 @@ import {forward} from 'effector/effector.mjs';
 import {setUser} from 'features/common/app/model/events';
 import {$appState, setAppState} from 'features/common/app/model/stores';
 import {$formElem} from 'features/common/form/model';
-import {onReset, onSubmit} from 'features/common/form/model/events';
+import {resetForm, submitForm} from 'features/common/form/model/events';
 import {$form, $inputsApi} from 'features/common/form/model/stores';
 import {toMain} from 'features/common/navigation/model/events';
 import {createUserFx, signUpFx} from 'features/signup/model/effects';
@@ -24,7 +24,7 @@ forward({
 });
 
 sample({
-    clock: onSubmit,
+    clock: submitForm,
     source: $form,
     filter: Gate.status,
     fn: data => {
@@ -54,5 +54,5 @@ sample({
     clock: Gate.open,
     source: $formElem,
     filter: Boolean,
-    target: onReset,
+    target: resetForm,
 });

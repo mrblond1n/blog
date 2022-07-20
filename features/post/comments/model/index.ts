@@ -2,6 +2,8 @@ import {forward, sample} from 'effector';
 import {clearReplyValue, closeOpened} from 'features/common/comments/reply/model/events';
 import {$replyId} from 'features/common/comments/reply/model/stores';
 import {addComment} from 'features/common/comments/state/model/events';
+import {$formElem} from 'features/common/form/model';
+import {resetForm} from 'features/common/form/model/events';
 import {$id} from 'features/post';
 import {getCommentsFx, sendCommentFx, sendReplyFx} from 'features/post/comments/model/effects';
 import {getComments} from 'features/post/comments/model/events';
@@ -40,6 +42,13 @@ forward({
 forward({
     from: sendCommentFx.doneData,
     to: addComment,
+});
+
+sample({
+    clock: sendCommentFx.doneData,
+    source: $formElem,
+    filter: Boolean,
+    target: resetForm,
 });
 
 sample({
