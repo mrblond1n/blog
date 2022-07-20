@@ -3,7 +3,7 @@ import {createGate} from 'effector-react';
 import {getUserFx} from 'features/common/app/model/effects';
 import {setUser} from 'features/common/app/model/events';
 import {$appState, setAppState} from 'features/common/app/model/stores';
-import {onSubmit} from 'features/common/form/model/events';
+import {submitForm} from 'features/common/form/model/events';
 import {$form, $inputsApi} from 'features/common/form/model/stores';
 import {toMain} from 'features/common/navigation/model/events';
 import {signInFx, signOutFx} from 'features/signin/model/effects';
@@ -24,7 +24,7 @@ forward({
 });
 
 sample({
-    clock: onSubmit,
+    clock: submitForm,
     source: $form,
     filter: Gate.status,
     target: signInFx,

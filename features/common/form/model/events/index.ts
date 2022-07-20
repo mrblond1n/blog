@@ -10,5 +10,5 @@ export const setInputs = createEvent<TInputs>();
 export const onChange = createEvent<React.ChangeEvent<HTMLInputElement>>();
 export const selectFile = createEvent<File | void>();
 
-export const onReset = createEvent<HTMLFormElement>();
-export const onSubmit = createEvent();
+export const resetForm = createEvent<HTMLFormElement>();
+export const submitForm = createEvent();

@@ -1,6 +1,6 @@
 import {useGate, useList} from 'effector-react';
 import {FormGate} from 'features/common/form/model';
-import {onChange, onSubmit} from 'features/common/form/model/events';
+import {onChange, submitForm} from 'features/common/form/model/events';
 import {$inputs} from 'features/common/form/model/stores';
 
 import React from 'react';
@@ -12,12 +12,12 @@ export const FormContainer = React.memo(({children}) => {
 
     useGate(FormGate, {form: ref});
 
-    const handleSubmit = React.useCallback(e => onSubmit(e), []);
+    const handleSubmit = React.useCallback(e => submitForm(e), []);
     const handleChange = React.useCallback(e => onChange(e), []);
 
     const onKeyDown = React.useCallback(e => {
         if (e.keyCode === 13 && (e.metaKey || e.ctrlKey)) {
-            ref.current && onSubmit(ref.current as any);
+            ref.current && submitForm(ref.current as any);
         }
     }, []);
 
