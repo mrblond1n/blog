@@ -1,9 +1,10 @@
-import {forward, sample} from 'effector';
-import {setAppState} from 'features/common/app/model/events';
+import {forward, split} from 'effector';
+import {$appState} from 'features/common/app/model/stores';
+
 import {toPageFx} from 'features/common/navigation/model/effects';
-import {setCurrentLinks, toMain, toPage} from 'features/common/navigation/model/events';
-import {authorizedLinks, unauthorizedLinks} from 'features/common/navigation/model/stores';
 import 'features/common/navigation/model/effects';
+import {toMain, toPage} from 'features/common/navigation/model/events';
+import {setLinks} from 'features/common/navigation/model/stores';
 import 'features/common/navigation/model/stores';
 
 forward({
@@ -16,8 +17,13 @@ forward({
     to: toPage.prepend(() => '/'),
 });
 
-sample({
-    clock: setAppState,
-    fn: state => (state === 'AUTHORIZED' ? authorizedLinks : unauthorizedLinks),
-    target: setCurrentLinks,
+split({
+    source: $appState,
+    match: {
+        authorized: state => state === 'AUTHORIZED',
+    },
+    cases: {
+        authorized: setLinks.authorize,
+        __: setLinks.unAuthorize,
+    },
 });

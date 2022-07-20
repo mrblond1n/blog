@@ -1,7 +1,8 @@
-import {forward, sample} from 'effector';
+import {forward, sample, split} from 'effector';
 import {createGate} from 'effector-react';
 import {checkAuthFx, getUserFx} from 'features/common/app/model/effects';
-import {setAppState, setUser} from 'features/common/app/model/events';
+import {setUser} from 'features/common/app/model/events';
+import {setAppState} from 'features/common/app/model/stores';
 
 export const Gate = createGate();
 
@@ -10,13 +11,9 @@ forward({
     to: checkAuthFx,
 });
 
-forward({
-    from: checkAuthFx.doneData,
-    to: setAppState.prepend(() => 'AUTHORIZED'),
-});
-
 sample({
     clock: checkAuthFx.doneData,
+    filter: Boolean,
     fn: data => data.uid,
     target: getUserFx,
 });
@@ -26,7 +23,13 @@ forward({
     to: setUser,
 });
 
-forward({
-    from: checkAuthFx.failData,
-    to: setAppState.prepend(() => 'UNAUTHORIZED'),
+split({
+    source: checkAuthFx.doneData,
+    match: {
+        success: Boolean,
+    },
+    cases: {
+        success: setAppState.authorize,
+        __: setAppState.unAuthorize,
+    },
 });

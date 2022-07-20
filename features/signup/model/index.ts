@@ -1,8 +1,8 @@
 import {guard, sample} from 'effector';
 import {createGate} from 'effector-react';
 import {forward} from 'effector/effector.mjs';
-import {setAppState, setUser} from 'features/common/app/model/events';
-import {$appState} from 'features/common/app/model/stores';
+import {setUser} from 'features/common/app/model/events';
+import {$appState, setAppState} from 'features/common/app/model/stores';
 import {$formElem} from 'features/common/form/model';
 import {onReset, onSubmit} from 'features/common/form/model/events';
 import {$form, $inputsApi} from 'features/common/form/model/stores';
@@ -36,7 +36,7 @@ sample({
 
 forward({
     from: signUpFx.doneData,
-    to: [setAppState.prepend(() => 'AUTHORIZED'), toMain],
+    to: [setAppState.authorize, toMain],
 });
 
 sample({
