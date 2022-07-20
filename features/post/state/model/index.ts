@@ -1,5 +1,5 @@
 import {forward, sample} from 'effector';
-import {getPostFx, updatePostFx} from 'features/post/state/model/effects';
+import {getPostFx, updatePostWatchesFx} from 'features/post/state/model/effects';
 import {setMode} from 'features/post/state/model/events';
 
 forward({
@@ -14,6 +14,6 @@ forward({
 
 sample({
     clock: getPostFx.doneData,
-    fn: post => ({...post, watches_count: (post.watches_count += 1)}),
-    target: updatePostFx,
+    fn: ({id, watches_count}) => ({id, watches_count: ++watches_count}),
+    target: updatePostWatchesFx,
 });
