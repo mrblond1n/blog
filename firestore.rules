@@ -6,10 +6,12 @@ service cloud.firestore {
        allow write, update, delete: if request.auth != null
 
        match /comments/{comment} {
-          allow read, write: if true;
+          allow read: if true;
+          allow write, update, delete: if request.auth != null
 
           match /comments/{comment} {
-            allow read, write: if true;
+            allow read: if true;
+            allow write, update, delete: if request.auth != null
           }
        }
     }
