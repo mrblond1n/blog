@@ -1,4 +1,4 @@
-import {FieldPath, orderBy, OrderByDirection, setDoc} from '@firebase/firestore';
+import {FieldPath, orderBy, OrderByDirection, setDoc, updateDoc} from '@firebase/firestore';
 import db from 'config';
 import {addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, where, WhereFilterOp} from 'firebase/firestore';
 import {defaultInterceptor, TInterceptor, TResponse} from 'utils/requests';
@@ -10,7 +10,7 @@ type TOptions = {
     order?: [fieldPath: string | FieldPath, directionStr: OrderByDirection];
 };
 
-type TType = 'GET_LIST' | 'ADD' | 'SET' | 'GET' | 'REMOVE';
+type TType = 'GET_LIST' | 'ADD' | 'SET' | 'GET' | 'REMOVE' | 'UPDATE';
 type TData = {[key: string]: any};
 type TConfig = {collection: TCollection; data: TData; options: TOptions; id: string};
 type TConfigType<K extends keyof TConfig, T extends TType> = Pick<TConfig, K> & {type: T};
@@ -34,7 +34,7 @@ export function createFirestoreRequest(
 ): TConfigType<'collection' | 'id', typeof type>;
 
 export function createFirestoreRequest(
-    type: 'SET',
+    type: 'UPDATE' | 'SET',
     collection: TCollection,
     data: TData,
     id: string
@@ -52,6 +52,7 @@ export function createFirestoreRequest(
         case 'ADD':
             return {collection, data, type};
         case 'SET':
+        case 'UPDATE':
             return {collection, id, data, type};
         case 'GET':
         case 'REMOVE':
@@ -117,6 +118,13 @@ export const firestoreRequest = async <Result>(
             await setDoc(doc(db, config.collection, config.id), config.data);
 
             response = config.data;
+            break;
+        }
+
+        case 'UPDATE': {
+            await updateDoc(doc(db, config.collection, config.id), config.data);
+
+            response = true;
             break;
         }
     }
