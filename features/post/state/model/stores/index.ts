@@ -1,9 +1,9 @@
 import {combine, merge, restore} from 'effector';
-import {getPostFx, updatePostFx} from 'features/post/state/model/effects';
-import {setMode} from 'features/post/state/model/events';
 import {Gate} from 'features/post/index';
+import {getPostFx} from 'features/post/state/model/effects';
+import {setMode} from 'features/post/state/model/events';
 
-const loadPostEffect = merge([getPostFx.doneData, updatePostFx.doneData]);
+const loadPostEffect = merge([getPostFx.doneData]);
 
 export const $post = restore(loadPostEffect, null).reset(Gate.close);
 
