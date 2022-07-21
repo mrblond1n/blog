@@ -1,7 +1,7 @@
 import 'features/post/comments/models';
 import {forward, sample} from 'effector';
-import {getPostFx, updatePostWatchesFx} from 'features/post/state/model/effects';
-import {setMode} from 'features/post/state/model/events';
+import {getPostFx, updatePostCommentsFx, updatePostWatchesFx} from 'features/post/state/model/effects';
+import {setMode, updatePostComments} from 'features/post/state/model/events';
 
 forward({
     from: getPostFx.doneData,
@@ -17,4 +17,10 @@ sample({
     clock: getPostFx.doneData,
     fn: ({id, watches_count}) => ({id, watches_count: ++watches_count}),
     target: updatePostWatchesFx,
+});
+
+sample({
+    clock: updatePostCommentsFx.done,
+    fn: ({params: {comments_count}}) => ({comments_count}),
+    target: updatePostComments,
 });
