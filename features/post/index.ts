@@ -1,11 +1,7 @@
-import {forward, guard, sample} from 'effector';
+import {guard, sample} from 'effector';
 import {createGate} from 'effector-react';
-import {$displayName, $uid} from 'features/common/app/model/stores';
-import {addReply, getReplies, sendReply} from 'features/common/comments/reply/model/events';
-import {$discussionId} from 'features/common/comments/reply/model/stores';
-import {sendComment} from 'features/common/comments/state/model/events';
 import {$inputsApi} from 'features/common/form/model/stores';
-import {getCommentsFx, sendCommentFx, sendReplyFx} from 'features/post/comments/model/effects';
+import {getComments} from 'features/post/comments/model/events';
 import {getPostFx} from 'features/post/state/model/effects';
 import {setMode} from 'features/post/state/model/events';
 
@@ -26,40 +22,8 @@ sample({
 });
 
 sample({
-    clock: sample({
-        clock: sendReply,
-        source: $id,
-        filter: Boolean,
-        fn: (id, comment) => ({...comment, id, disliked: [], liked: []}),
-    }),
-    source: {uid: $uid, author: $displayName},
-    filter: Gate.status,
-    fn: (user, comment) => ({...comment, ...user}),
-    target: sendReplyFx,
-});
-
-sample({
-    clock: sample({
-        clock: sendComment,
-        source: $id,
-        filter: Boolean,
-        fn: (id, comment) => ({...comment, id, disliked: [], liked: []}),
-    }),
-    source: {uid: $uid, author: $displayName},
-    filter: Gate.status,
-    fn: (user, comment) => ({...comment, ...user}),
-    target: sendCommentFx,
-});
-
-forward({
-    from: sendReplyFx.doneData,
-    to: addReply,
-});
-
-sample({
-    clock: getReplies,
-    source: {id: $id, discussionId: $discussionId},
-    filter: ({id}) => !!id,
-    fn: ({id, discussionId}) => `${id}/comments/${discussionId}`,
-    target: getCommentsFx,
+    clock: getPostFx.doneData,
+    filter: ({comments_count}) => !!comments_count,
+    fn: () => void 0,
+    target: getComments,
 });
