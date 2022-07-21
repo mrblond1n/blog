@@ -1,8 +1,8 @@
 import {
-    sendCommentRequest,
     getCommentsRequest,
+    sendCommentRequest,
     sendReplyRequest,
-    updateCommentRequest,
+    updateCommentLikesRequest,
     updateCommentRepliesRequest,
 } from 'features/post/comments/model/requests';
 import {CommentCodec, CommentsCodec} from 'types/dtos/comments.dto';
@@ -24,9 +24,9 @@ export const getCommentsFx = createFirebaseEffect({
     request: getCommentsRequest,
 });
 
-export const updateCommentFx = createFirebaseEffect({
-    codec: CommentCodec,
-    request: updateCommentRequest,
+export const updateCommentLikesFx = createFirebaseEffect({
+    codec: t.boolean,
+    request: updateCommentLikesRequest,
 });
 
 export const updateCommentRepliesFx = createFirebaseEffect({
