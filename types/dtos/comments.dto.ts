@@ -9,7 +9,7 @@ const CommentDto = t.type({
     disliked: t.withFallback(LikedDto, []),
     id: t.string,
     liked: t.withFallback(LikedDto, []),
-    replies: t.nullable(t.number),
+    replies: t.withFallback(t.number, 0),
     reply_id: t.nullable(t.string),
     text: t.string,
     uid: t.string,

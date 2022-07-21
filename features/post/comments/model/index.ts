@@ -1,11 +1,11 @@
 import {forward, sample} from 'effector';
 import {clearReplyValue, closeOpened} from 'features/common/comments/reply/model/events';
-import {$replyId} from 'features/common/comments/reply/model/stores';
-import {addComment} from 'features/common/comments/state/model/events';
+import {$discussion, $replyId} from 'features/common/comments/reply/model/stores';
+import {addComment, updateComment} from 'features/common/comments/state/model/events';
 import {$formElem} from 'features/common/form/model';
 import {resetForm} from 'features/common/form/model/events';
 import {$id} from 'features/post';
-import {getCommentsFx, sendCommentFx, sendReplyFx} from 'features/post/comments/model/effects';
+import {getCommentsFx, sendCommentFx, sendReplyFx, updateCommentRepliesFx} from 'features/post/comments/model/effects';
 import {getComments} from 'features/post/comments/model/events';
 import {getPostFx, updatePostCommentsFx} from 'features/post/state/model/effects';
 import {$post} from 'features/post/state/model/stores';
@@ -55,4 +55,24 @@ sample({
     clock: sendReplyFx.doneData,
     source: $replyId,
     target: [clearReplyValue, closeOpened],
+});
+
+sample({
+    clock: sendReplyFx.doneData,
+    source: {path: $id, discussion: $discussion},
+    filter: data => !!data.path && !!data.discussion,
+    fn: ({discussion, path}) => {
+        if (!discussion || !path) throw new Error('fail');
+
+        return {id: discussion.id, replies: ++discussion.replies, path};
+    },
+    target: updateCommentRepliesFx,
+});
+
+sample({
+    clock: updateCommentRepliesFx.done,
+    source: $discussion,
+    filter: Boolean,
+    fn: (comment, {params: {replies}}) => ({...comment, replies}),
+    target: updateComment,
 });

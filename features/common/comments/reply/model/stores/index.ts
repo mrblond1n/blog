@@ -50,9 +50,9 @@ const $replyIdHistory = createStore<[string, string]>(['', ''])
 export const $replyId = $replyIdHistory.map(([, current]) => current);
 export const $prevReplyId = $replyIdHistory.map(([prev]) => prev);
 
-const $discussionIdHistory = createStore<[string, string]>(['', ''])
-    .on(setDiscussionId, ([, current], state) => (state !== current ? [current, state] : void 0))
-    .reset(clearReplyValue);
+const $discussionIdHistory = createStore<[string, string]>(['', '']).on(setDiscussionId, ([, current], state) =>
+    state !== current ? [current, state] : void 0
+);
 
 export const $discussionId = $discussionIdHistory.map(([, current]) => current);
 
