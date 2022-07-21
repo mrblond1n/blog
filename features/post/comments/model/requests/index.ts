@@ -17,4 +17,8 @@ export const updateCommentRequest = ({path, ...data}: TUpdateCommentRequest) => 
     return createFirestoreRequest('SET', `posts/${path}/comments`, data, data.id);
 };
 
+export const updateCommentRepliesRequest = ({path, ...data}: Pick<TCommentDto, 'id' | 'replies'> & {path: string}) => {
+    return createFirestoreRequest('UPDATE', `posts/${path}/comments`, data, data.id);
+};
+
 export const getCommentsRequest = (id: string) => createFirestoreRequest('GET_LIST', `posts/${id}/comments`);

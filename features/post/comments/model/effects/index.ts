@@ -3,9 +3,11 @@ import {
     getCommentsRequest,
     sendReplyRequest,
     updateCommentRequest,
+    updateCommentRepliesRequest,
 } from 'features/post/comments/model/requests';
 import {CommentCodec, CommentsCodec} from 'types/dtos/comments.dto';
 import {createFirebaseEffect} from 'utils/requests/requestEffect';
+import {t} from 'utils/validation';
 
 export const sendCommentFx = createFirebaseEffect({
     codec: CommentCodec,
@@ -25,4 +27,9 @@ export const getCommentsFx = createFirebaseEffect({
 export const updateCommentFx = createFirebaseEffect({
     codec: CommentCodec,
     request: updateCommentRequest,
+});
+
+export const updateCommentRepliesFx = createFirebaseEffect({
+    codec: t.boolean,
+    request: updateCommentRepliesRequest,
 });
