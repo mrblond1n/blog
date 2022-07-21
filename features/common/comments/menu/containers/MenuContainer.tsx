@@ -4,10 +4,23 @@ import MenuItem from '@mui/material/MenuItem';
 import {useStoreMap} from 'effector-react';
 import {OpenButtonContainer} from 'features/common/comments/menu/containers/OpenButtonContainer';
 import {onClose, onOpen, onRemove} from 'features/common/comments/menu/model/events';
-import {$openMenuIndex} from 'features/common/comments/menu/model/store';
+import {$accessToMenuIndex, $openMenuIndex} from 'features/common/comments/menu/model/store';
 import React from 'react';
 
 export const MenuContainer = React.memo(({id}: {id: string}) => {
+    const hasAccess = useStoreMap({
+        store: $accessToMenuIndex,
+        keys: [id],
+        defaultValue: false,
+        fn: (index, [id]) => index[id],
+    });
+
+    if (!hasAccess) return null;
+
+    return <MenuContentContainer id={id} />;
+});
+
+const MenuContentContainer = React.memo(({id}: {id: string}) => {
     const isOpened = useStoreMap({
         store: $openMenuIndex,
         keys: [id],
