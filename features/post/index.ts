@@ -3,7 +3,7 @@ import {createGate} from 'effector-react';
 import {$displayName, $uid} from 'features/common/app/model/stores';
 import {updateCommentLikes} from 'features/common/comments/liked/model/events';
 import {addReply, getReplies, sendReply} from 'features/common/comments/reply/model/events';
-import {$comment, $discussionId} from 'features/common/comments/reply/model/stores';
+import {$discussion, $discussionId} from 'features/common/comments/reply/model/stores';
 import {sendComment, updateComment} from 'features/common/comments/state/model/events';
 import {$commentsIndex} from 'features/common/comments/state/model/stores';
 import {$inputsApi} from 'features/common/form/model/stores';
@@ -56,7 +56,7 @@ sample({
 sample({
     clock: sample({
         clock: sendReplyFx,
-        source: $comment,
+        source: $discussion,
         filter: Boolean,
         fn: ({replies, ...comment}) => ({...comment, replies: replies ? ++replies : 1}),
     }),
