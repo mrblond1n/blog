@@ -1,9 +1,8 @@
 import {sample} from 'effector';
 import {updateCommentLikes} from 'features/common/comments/liked/model/events';
 import {$discussion} from 'features/common/comments/reply/model/stores';
-import {updateComment} from 'features/common/comments/state/model/events';
+import {removeComment, updateComment} from 'features/common/comments/state/model/events';
 import {$commentsIndex} from 'features/common/comments/state/model/stores';
-import {$id} from 'features/post';
 import {sendCommentFx, sendReplyFx} from 'features/post/comments/models/send/effects';
 import {updateCommentLikesFx, updateCommentRepliesFx} from 'features/post/comments/models/update/effects';
 import {updatePostCommentsFx} from 'features/post/state/model/effects';
@@ -13,18 +12,43 @@ sample({
     clock: [sendCommentFx.doneData, sendReplyFx.doneData],
     source: $post,
     filter: Boolean,
-    fn: ({comments_count, id}) => ({id, comments_count: ++comments_count}),
+    fn: ({comments_count, id}) => {
+        return {id, comments_count: ++comments_count};
+    },
     target: updatePostCommentsFx,
 });
 
 sample({
-    clock: sendReplyFx.doneData,
-    source: {path: $id, discussion: $discussion},
-    filter: data => !!data.path && !!data.discussion,
-    fn: ({discussion, path}) => {
-        if (!discussion || !path) throw new Error('fail');
+    clock: removeComment,
+    source: $post,
+    filter: Boolean,
+    fn: ({comments_count, id}, {replies}) => ({
+        id,
+        comments_count: replies ? comments_count - (replies + 1) : comments_count - 1,
+    }),
+    target: updatePostCommentsFx,
+});
 
-        return {id: discussion.id, replies: ++discussion.replies, path};
+sample({
+    clock: removeComment,
+    source: {post: $post, discussion: $discussion},
+    filter: ({discussion, post}) => !!discussion && !!post,
+    fn: ({discussion, post}) => {
+        if (!discussion || !post) throw new Error('fail');
+
+        return {id: discussion.id, replies: discussion.replies - 1, path: post.id};
+    },
+    target: updateCommentRepliesFx,
+});
+
+sample({
+    clock: sendReplyFx.doneData,
+    source: {post: $post, discussion: $discussion},
+    filter: ({discussion, post}) => !!discussion && !!post,
+    fn: ({discussion, post}) => {
+        if (!discussion || !post) throw new Error('fail');
+
+        return {id: discussion.id, replies: ++discussion.replies, path: post.id};
     },
     target: updateCommentRepliesFx,
 });
@@ -39,12 +63,13 @@ sample({
 
 sample({
     clock: updateCommentLikes,
-    source: {index: $commentsIndex, postId: $id},
-    filter: ({postId}) => !!postId,
-    fn: ({index, postId}, {key, ...data}) => {
+    source: {index: $commentsIndex, post: $post},
+    filter: ({post}) => !!post,
+    fn: ({index, post}, {key, ...data}) => {
+        if (!post) throw new Error('fail');
         const {discussion_id: discussionId, id} = index[key];
 
-        return {...data, id, path: discussionId ? `${postId}/comments/${discussionId}` : postId || ''};
+        return {...data, id, path: discussionId ? `${post.id}/comments/${discussionId}` : post.id || ''};
     },
     target: updateCommentLikesFx,
 });

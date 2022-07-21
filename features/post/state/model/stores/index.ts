@@ -1,11 +1,13 @@
-import {combine, merge, restore} from 'effector';
+import {combine, createStore, restore} from 'effector';
 import {Gate} from 'features/post/index';
 import {getPostFx} from 'features/post/state/model/effects';
-import {setMode} from 'features/post/state/model/events';
+import {setMode, updatePostComments} from 'features/post/state/model/events';
+import {TPostDto} from 'types/dtos/posts.dto';
 
-const loadPostEffect = merge([getPostFx.doneData]);
-
-export const $post = restore(loadPostEffect, null).reset(Gate.close);
+export const $post = createStore<TPostDto | null>(null)
+    .on(getPostFx.doneData, (_, payload) => payload)
+    .on(updatePostComments, (state, payload) => state && {...state, ...payload})
+    .reset(Gate.close);
 
 export const $author = combine($post, post => post?.author || '');
 export const $body = combine($post, post => post?.text || '');
