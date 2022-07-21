@@ -1,6 +1,7 @@
 import {useStoreMap} from 'effector-react';
 import {ButtonDislikeContainer} from 'features/common/comments/liked/containers/ButtonDislikeContainer';
 import {ButtonLikeContainer} from 'features/common/comments/liked/containers/ButtonLikeContainer';
+import {MenuContainer} from 'features/common/comments/menu/containers/MenuContainer';
 import {ButtonContainer} from 'features/common/comments/reply/containers/ButtonContainer';
 import {FieldContainer} from 'features/common/comments/reply/containers/FieldContainer';
 import {SendButtonContainer} from 'features/common/comments/reply/containers/SendButtonContainer';
@@ -25,7 +26,10 @@ export const CommentContainer = React.memo(({id}: {id: string}) => {
             <CommentAvatar id={id} />
 
             <CommentMainWrapper>
-                <CommentHeader id={id} />
+                <Row fullWidth justifyContent="space-between">
+                    <CommentHeader id={id} />
+                    <MenuContainer id={id} />
+                </Row>
 
                 <CommentBodyContainer id={id} />
 

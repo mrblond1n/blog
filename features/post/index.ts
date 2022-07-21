@@ -1,7 +1,7 @@
 import {guard, sample} from 'effector';
 import {createGate} from 'effector-react';
 import {$inputsApi} from 'features/common/form/model/stores';
-import {getComments} from 'features/post/comments/model/events';
+import {getComments} from 'features/post/comments/models/get/events';
 import {getPostFx} from 'features/post/state/model/effects';
 import {setMode} from 'features/post/state/model/events';
 
