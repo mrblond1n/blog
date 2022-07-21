@@ -3,7 +3,6 @@ import {createGate} from 'effector-react';
 import {forward} from 'effector/effector.mjs';
 import {setUser} from 'features/common/app/model/events';
 import {$appState, setAppState} from 'features/common/app/model/stores';
-import {$formElem} from 'features/common/form/model';
 import {resetForm, submitForm} from 'features/common/form/model/events';
 import {$form, $inputsApi} from 'features/common/form/model/stores';
 import {toMain} from 'features/common/navigation/model/events';
@@ -50,9 +49,7 @@ forward({
     to: setUser,
 });
 
-sample({
-    clock: Gate.open,
-    source: $formElem,
-    filter: Boolean,
-    target: resetForm,
+forward({
+    from: Gate.open,
+    to: resetForm,
 });

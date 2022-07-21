@@ -7,16 +7,16 @@ import React from 'react';
 export const FormGate = createGate<{form?: React.RefObject<HTMLFormElement>}>();
 export const $formElem = FormGate.state.map(x => x.form?.current);
 
-sample({
-    clock: FormGate.close,
-    source: $formElem,
-    filter: Boolean,
-    target: resetForm,
+forward({
+    from: FormGate.close,
+    to: resetForm,
 });
 
-forward({
-    from: resetForm,
-    to: onResetFx,
+sample({
+    clock: resetForm,
+    source: $formElem,
+    filter: Boolean,
+    target: onResetFx,
 });
 
 sample({

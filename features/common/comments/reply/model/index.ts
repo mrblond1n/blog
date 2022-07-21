@@ -12,6 +12,7 @@ import {
     onToggle,
     sendReply,
     setDiscussionId,
+    showReplies,
 } from 'features/common/comments/reply/model/events';
 import {
     $discussionId,
@@ -84,7 +85,7 @@ split({
         show: Boolean,
     },
     cases: {
-        show: getReplies,
+        show: showReplies,
         __: hideReplies,
     },
 });
@@ -93,4 +94,10 @@ sample({
     clock: hideReplies,
     source: onToggle,
     target: clearDiscussion,
+});
+
+sample({
+    clock: showReplies,
+    source: onToggle,
+    target: getReplies,
 });

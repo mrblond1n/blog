@@ -2,7 +2,7 @@ import {createStore} from 'effector';
 import {
     addReply,
     changeValue,
-    clearReplyValue,
+    clearReply,
     closeOpened,
     onOpen,
     onReply,
@@ -31,7 +31,7 @@ export const $viewedRepliesIndex = createStore(createIndex<boolean>())
 
 export const $valueIndex = createStore(createIndex<string>())
     .on(changeValue, (index, {key, value}) => index.set({key, value}))
-    .on(clearReplyValue, (index, key) => index.set({key, value: ''}))
+    .on(clearReply, (index, key) => index.set({key, value: ''}))
     .on(clearComments, index => index.clear())
     .map(value => value.getRaw());
 

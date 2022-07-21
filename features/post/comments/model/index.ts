@@ -1,12 +1,12 @@
 import {forward, sample} from 'effector';
+import {$displayName, $uid} from 'features/common/app/model/stores';
 import {updateCommentLikes} from 'features/common/comments/liked/model/events';
-import {clearReplyValue, closeOpened} from 'features/common/comments/reply/model/events';
-import {$discussion, $replyId} from 'features/common/comments/reply/model/stores';
-import {addComment, updateComment} from 'features/common/comments/state/model/events';
+import {addReply, clearReply, closeOpened, getReplies, sendReply} from 'features/common/comments/reply/model/events';
+import {$discussion} from 'features/common/comments/reply/model/stores';
+import {addComment, sendComment, updateComment} from 'features/common/comments/state/model/events';
 import {$commentsIndex} from 'features/common/comments/state/model/stores';
-import {$formElem} from 'features/common/form/model';
 import {resetForm} from 'features/common/form/model/events';
-import {$id} from 'features/post';
+import {$id, Gate} from 'features/post';
 import {
     getCommentsFx,
     sendCommentFx,
@@ -15,20 +15,41 @@ import {
     updateCommentRepliesFx,
 } from 'features/post/comments/model/effects';
 import {getComments} from 'features/post/comments/model/events';
-import {getPostFx, updatePostCommentsFx} from 'features/post/state/model/effects';
+import {updatePostCommentsFx} from 'features/post/state/model/effects';
 import {$post} from 'features/post/state/model/stores';
 import {iterate} from 'utils/effector/iterate';
 
 sample({
-    clock: getPostFx.doneData,
-    filter: ({comments_count}) => !!comments_count,
-    target: getComments,
+    clock: sendReply,
+    source: {uid: $uid, author: $displayName, id: $id},
+    filter: Gate.status,
+    fn: ({id, ...user}, comment) => ({...comment, ...user, id: id || ''}),
+    target: sendReplyFx,
 });
 
 sample({
-    clock: getComments,
+    clock: sendComment,
+    source: {uid: $uid, author: $displayName, id: $id},
+    filter: ({id}) => !!id,
+    fn: ({id, ...user}, comment) => ({...comment, ...user, id: id || ''}),
+    target: sendCommentFx,
+});
+
+forward({
+    from: sendReplyFx.doneData,
+    to: addReply,
+});
+
+forward({
+    from: sendCommentFx.doneData,
+    to: addComment,
+});
+
+sample({
+    clock: [getReplies, getComments],
     source: $id,
     filter: Boolean,
+    fn: (id, discussionId) => (discussionId ? `${id}/comments/${discussionId}` : id),
     target: getCommentsFx,
 });
 
@@ -49,20 +70,13 @@ forward({
 
 forward({
     from: sendCommentFx.doneData,
-    to: addComment,
+    to: resetForm,
 });
 
 sample({
-    clock: sendCommentFx.doneData,
-    source: $formElem,
+    clock: sendReplyFx.doneData.map(({reply_id}) => reply_id),
     filter: Boolean,
-    target: resetForm,
-});
-
-sample({
-    clock: sendReplyFx.doneData,
-    source: $replyId,
-    target: [clearReplyValue, closeOpened],
+    target: [clearReply, closeOpened],
 });
 
 sample({
