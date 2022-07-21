@@ -3,11 +3,11 @@ import './state/model';
 import './liked/model';
 import {forward} from 'effector';
 import {createGate} from 'effector-react';
-import {closeComments} from 'features/common/comments/state/model/events';
+import {clearComments} from 'features/common/comments/state/model/events';
 
 export const Gate = createGate();
 
 forward({
     from: Gate.close,
-    to: closeComments,
+    to: clearComments,
 });

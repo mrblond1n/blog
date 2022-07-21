@@ -1,7 +1,7 @@
 import {createStore} from 'effector';
 import {removeDislike, removeLike, setDislike, setLike} from 'features/common/comments/liked/model/events';
 import {addReply} from 'features/common/comments/reply/model/events';
-import {addComment, closeComments, updateComment} from 'features/common/comments/state/model/events';
+import {addComment, clearComments, updateComment} from 'features/common/comments/state/model/events';
 import {createIndex} from 'utils/stack';
 
 export const $likedUsersIndex = createStore(createIndex<string[]>())
@@ -10,7 +10,7 @@ export const $likedUsersIndex = createStore(createIndex<string[]>())
     .on([setDislike, removeLike], (index, {key, value}) =>
         index.update({key: key, fn: prev => prev.filter(id => id !== value)})
     )
-    .on(closeComments, index => index.clear())
+    .on(clearComments, index => index.clear())
     .map(value => value.getRaw());
 
 export const $dislikedUsersIndex = createStore(createIndex<string[]>())
@@ -21,5 +21,5 @@ export const $dislikedUsersIndex = createStore(createIndex<string[]>())
     .on([setLike, removeDislike], (index, {key, value}) =>
         index.update({key: key, fn: prev => prev.filter(id => id !== value)})
     )
-    .on(closeComments, index => index.clear())
+    .on(clearComments, index => index.clear())
     .map(value => value.getRaw());
