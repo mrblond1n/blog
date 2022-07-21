@@ -9,7 +9,7 @@ import {
     onToggle,
     setDiscussionId,
 } from 'features/common/comments/reply/model/events';
-import {clearComments} from 'features/common/comments/state/model/events';
+import {clearComments, removeComment} from 'features/common/comments/state/model/events';
 import {$commentsIndex} from 'features/common/comments/state/model/stores';
 import {getById} from 'utils/effector/getById';
 import {createIndex} from 'utils/stack';
@@ -39,6 +39,9 @@ export const $replyIdsIndex = createStore(createIndex<string[]>())
     .on(addReply, (index, {discussion_id, id}) => {
         if (discussion_id)
             return index.updateOrCreate({key: discussion_id, create: () => [id], update: prev => [...prev, id]});
+    })
+    .on(removeComment, (index, {discussion_id, id}) => {
+        if (discussion_id) return index.update({key: discussion_id, fn: prev => prev.filter(item => item !== id)});
     })
     .on(clearComments, index => index.clear())
     .map(value => value.getRaw());

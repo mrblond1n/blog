@@ -1,4 +1,4 @@
-import 'features/post/comments/model';
+import 'features/post/comments/models';
 import {forward, sample} from 'effector';
 import {getPostFx, updatePostWatchesFx} from 'features/post/state/model/effects';
 import {setMode} from 'features/post/state/model/events';

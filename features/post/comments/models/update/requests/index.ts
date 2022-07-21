@@ -1,17 +1,6 @@
 import {TCommentDto} from 'types/dtos/comments.dto';
 import {createFirestoreRequest} from 'utils/requests/requestFirestore';
 
-type TCommonOpinionProps = 'created_at' | 'replies' | 'liked' | 'disliked';
-
-type TSendCommentRequest = Omit<TCommentDto, TCommonOpinionProps | 'reply_id' | 'discussion_id'>;
-export const sendCommentRequest = ({id, ...data}: TSendCommentRequest) =>
-    createFirestoreRequest('ADD', `posts/${id}/comments`, data);
-
-type TSendReplyRequest = Omit<TCommentDto, TCommonOpinionProps>;
-export const sendReplyRequest = ({id, ...data}: TSendReplyRequest) => {
-    return createFirestoreRequest('ADD', `posts/${id}/comments/${data.discussion_id}/comments`, data);
-};
-
 type TUpdateCommentLikesRequest = Pick<TCommentDto, 'id' | 'liked' | 'disliked'> & {path: string};
 export const updateCommentLikesRequest = ({path, ...data}: TUpdateCommentLikesRequest) => {
     return createFirestoreRequest('UPDATE', `posts/${path}/comments`, data, data.id);
@@ -21,5 +10,3 @@ type TUpdateCommentRepliesRequest = Pick<TCommentDto, 'id' | 'replies'> & {path:
 export const updateCommentRepliesRequest = ({path, ...data}: TUpdateCommentRepliesRequest) => {
     return createFirestoreRequest('UPDATE', `posts/${path}/comments`, data, data.id);
 };
-
-export const getCommentsRequest = (id: string) => createFirestoreRequest('GET_LIST', `posts/${id}/comments`);
