@@ -12,12 +12,13 @@ export const sendReplyRequest = ({id, ...data}: TSendReplyRequest) => {
     return createFirestoreRequest('ADD', `posts/${id}/comments/${data.discussion_id}/comments`, data);
 };
 
-type TUpdateCommentRequest = TCommentDto & {path: string};
-export const updateCommentRequest = ({path, ...data}: TUpdateCommentRequest) => {
-    return createFirestoreRequest('SET', `posts/${path}/comments`, data, data.id);
+type TUpdateCommentLikesRequest = Pick<TCommentDto, 'id' | 'liked' | 'disliked'> & {path: string};
+export const updateCommentLikesRequest = ({path, ...data}: TUpdateCommentLikesRequest) => {
+    return createFirestoreRequest('UPDATE', `posts/${path}/comments`, data, data.id);
 };
 
-export const updateCommentRepliesRequest = ({path, ...data}: Pick<TCommentDto, 'id' | 'replies'> & {path: string}) => {
+type TUpdateCommentRepliesRequest = Pick<TCommentDto, 'id' | 'replies'> & {path: string};
+export const updateCommentRepliesRequest = ({path, ...data}: TUpdateCommentRepliesRequest) => {
     return createFirestoreRequest('UPDATE', `posts/${path}/comments`, data, data.id);
 };
 
