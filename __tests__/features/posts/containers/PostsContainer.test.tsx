@@ -3,6 +3,8 @@ import {PostsContainer} from 'features/posts/containers/PostsContainer';
 import {getPostsFx} from 'features/posts/model/effects';
 import React from 'react';
 
+import 'features';
+
 const post = {text: 'text', title: 'title', id: 'id', author: 'author'} as any;
 
 describe('<PostsContainer />', () => {
