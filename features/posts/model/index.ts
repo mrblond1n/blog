@@ -2,10 +2,10 @@ import {forward, sample} from 'effector';
 import {createGate} from 'effector-react';
 import {$displayName, $uid} from 'features/common/app/model/stores';
 import {$formElem} from 'features/common/form/model';
-import {resetForm, submitForm, selectFile} from 'features/common/form/model/events';
+import {resetForm, selectFile, submitForm} from 'features/common/form/model/events';
 import {$form, $inputsApi} from 'features/common/form/model/stores';
 import {addPostFx, getPostsFx, removePostFx, saveImageFx} from 'features/posts/model/effects';
-import {addNewPost, addPost, getPosts, removePost, setMode} from 'features/posts/model/events';
+import {addNewPost, addPost, clearIndexes, getPosts, removePost, setMode} from 'features/posts/model/events';
 import {iterate} from 'utils/effector/iterate';
 import {getId} from 'utils/uniqueId';
 import {getUrl} from 'utils/window/url';
@@ -15,6 +15,11 @@ export const Gate = createGate();
 forward({
     from: Gate.open,
     to: [getPosts, $inputsApi.setCreatePostInputs],
+});
+
+forward({
+    from: Gate.close,
+    to: clearIndexes,
 });
 
 const newPostEvent = iterate(getPostsFx.doneData);
