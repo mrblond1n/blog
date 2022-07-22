@@ -7,6 +7,9 @@ export const addPost = createEvent<TPostDto>();
 export const addNewPost = createEvent<TPostDto>();
 export const removePost = createEvent<string>();
 
+export const onRemove = createEvent<string>();
+
+export const resetDisable = createEvent<string>();
 export const clearIndexes = createEvent<void>();
 
 type TMode = 'LOADING' | 'FAILURE' | 'SUCCESS';
