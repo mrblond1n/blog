@@ -10,7 +10,7 @@ export const removePost = createEvent<string>();
 export const onRemove = createEvent<string>();
 
 export const resetDisable = createEvent<string>();
-export const clearIndexes = createEvent<void>();
+export const clearIndex = createEvent<void>();
 
 type TMode = 'LOADING' | 'FAILURE' | 'SUCCESS';
 export const setMode = createEvent<TMode>();

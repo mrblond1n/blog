@@ -4,13 +4,21 @@ import {addExampleItemFx, getExampleItemsFx, removeExampleItemFx} from 'features
 import {clearExampleIndex} from 'features/example/models/events';
 import {$exampleItemIdsList, $exampleItemIndex} from 'features/example/models/stores';
 
+let currentHandler: any;
+
 beforeEach(async () => {
+    currentHandler = getExampleItemsFx.use.getCurrent();
     getExampleItemsFx.use(() => exampleItems);
     await getExampleItemsFx(null);
 });
 
 afterEach(() => {
     clearExampleIndex();
+    getExampleItemsFx.use(currentHandler);
+});
+
+afterAll(() => {
+    $exampleItemIndex.off(clearExampleIndex);
 });
 
 describe('$exampleItemIndex', () => {

@@ -12,7 +12,7 @@ import {
     onRemove,
     removePost,
     resetDisable,
-    clearIndexes,
+    clearIndex,
     setMode,
 } from 'features/posts/model/events';
 import {iterate} from 'utils/effector/iterate';
@@ -28,7 +28,7 @@ forward({
 
 forward({
     from: Gate.close,
-    to: clearIndexes,
+    to: clearIndex,
 });
 
 const newPostEvent = iterate(getPostsFx.doneData);
