@@ -11,7 +11,6 @@ export default () => {
     return (
         <SectionTemplate title={<h1>{'POSTS'}</h1>}>
             <CreatePostFormContainer />
-
             <ContentContainer />
         </SectionTemplate>
     );

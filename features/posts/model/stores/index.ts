@@ -3,12 +3,13 @@ import {$uid} from 'features/common/app/model/stores';
 import {
     addNewPost,
     addPost,
+    clearIndexes,
     onRemove,
     removePost,
     resetDisable,
-    clearIndexes,
     setMode,
 } from 'features/posts/model/events';
+
 import {TPostDto} from 'types/dtos/posts.dto';
 import {createIndex} from 'utils/stack';
 
