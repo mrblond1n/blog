@@ -8,6 +8,12 @@ export const INTL = {
             SEND: 'Send',
             SHOW_REPLIES: (replies: number) => `View ${replies} replies`,
         },
+        MENU: {
+            ACTION: {
+                CLOSE: 'close',
+                REMOVE: 'remove',
+            },
+        },
         PLACEHOLDER: {
             COMMENT: 'Comment',
         },
