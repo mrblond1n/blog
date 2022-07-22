@@ -1,6 +1,5 @@
-import {guard, sample} from 'effector';
+import {forward, guard, sample} from 'effector';
 import {createGate} from 'effector-react';
-import {forward} from 'effector/effector.mjs';
 import {setUser} from 'features/common/app/model/events';
 import {$appState, setAppState} from 'features/common/app/model/stores';
 import {resetForm, submitForm} from 'features/common/form/model/events';
