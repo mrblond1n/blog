@@ -1,7 +1,7 @@
 import {INTL} from 'constants/intl';
 import {useStore, useStoreMap} from 'effector-react';
 import {$appState} from 'features/common/app/model/stores';
-import {removePost} from 'features/posts/model/events';
+import {onRemove} from 'features/posts/model/events';
 import {$disabledIndex, $ownedIndex} from 'features/posts/model/stores';
 import React from 'react';
 import {Button} from 'ui/atoms/Button';
@@ -21,7 +21,7 @@ export const PostActionContainer = React.memo(({id}: {id: string}) => {
         fn: (state, [id]) => state[id],
     });
 
-    const handleClick = React.useCallback(() => removePost(id), [id]);
+    const handleClick = React.useCallback(() => onRemove(id), [id]);
 
     return state === 'AUTHORIZED' && isOwned ? (
         <Button disabled={disabled} onClick={handleClick}>

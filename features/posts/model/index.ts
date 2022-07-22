@@ -5,7 +5,16 @@ import {$formElem} from 'features/common/form/model';
 import {resetForm, selectFile, submitForm} from 'features/common/form/model/events';
 import {$form, $inputsApi} from 'features/common/form/model/stores';
 import {addPostFx, getPostsFx, removePostFx, saveImageFx} from 'features/posts/model/effects';
-import {addNewPost, addPost, clearIndexes, getPosts, removePost, setMode} from 'features/posts/model/events';
+import {
+    addNewPost,
+    addPost,
+    getPosts,
+    onRemove,
+    removePost,
+    resetDisable,
+    clearIndexes,
+    setMode,
+} from 'features/posts/model/events';
 import {iterate} from 'utils/effector/iterate';
 import {getId} from 'utils/uniqueId';
 import {getUrl} from 'utils/window/url';
@@ -57,8 +66,19 @@ sample({
 });
 
 forward({
-    from: removePost,
+    from: onRemove,
     to: removePostFx,
+});
+
+forward({
+    from: removePostFx.doneData,
+    to: removePost,
+});
+
+sample({
+    clock: removePostFx.failData,
+    source: removePostFx,
+    target: resetDisable,
 });
 
 forward({
