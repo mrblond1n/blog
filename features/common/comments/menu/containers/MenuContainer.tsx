@@ -1,11 +1,13 @@
-import {Close} from '@mui/icons-material';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import {Close, Delete} from '@mui/icons-material';
+import {INTL} from 'constants/intl';
 import {useStoreMap} from 'effector-react';
 import {OpenButtonContainer} from 'features/common/comments/menu/containers/OpenButtonContainer';
 import {onClose, onOpen, onRemove} from 'features/common/comments/menu/model/events';
 import {$accessToMenuIndex, $openMenuIndex} from 'features/common/comments/menu/model/store';
 import React from 'react';
+import {Menu} from 'ui/atoms/Menu';
+import {MenuItem} from 'ui/atoms/MenuItem';
+import {intl} from 'utils/intl';
 
 export const MenuContainer = React.memo(({id}: {id: string}) => {
     const hasAccess = useStoreMap({
@@ -41,12 +43,12 @@ const MenuContentContainer = React.memo(({id}: {id: string}) => {
             <Menu anchorEl={ref.current} onClose={handleClose} open={isOpened}>
                 <MenuItem disableRipple onClick={handleClose}>
                     <Close fontSize="small" />
-                    {'close'}
+                    {intl(INTL.COMMENT.MENU.ACTION.CLOSE)}
                 </MenuItem>
 
                 <MenuItem disableRipple onClick={handleRemove}>
-                    <Close fontSize="small" />
-                    {'remove'}
+                    <Delete fontSize="small" />
+                    {intl(INTL.COMMENT.MENU.ACTION.REMOVE)}
                 </MenuItem>
             </Menu>
         </div>
