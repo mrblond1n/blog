@@ -1,4 +1,4 @@
-import {createStore, sample} from 'effector';
+import {createStore} from 'effector';
 import {$uid} from 'features/common/app/model/stores';
 import {closeMenu, openMenu, resetMenus} from 'features/common/comments/menu/model/events';
 import {addReply} from 'features/common/comments/reply/model/events';
@@ -6,15 +6,7 @@ import {addComment} from 'features/common/comments/state/model/events';
 import {createIndex} from 'utils/stack';
 
 export const $accessToMenuIndex = createStore(createIndex<boolean>())
-    .on(
-        sample({
-            clock: [addComment],
-            source: $uid,
-            filter: (uid, comment) => uid === comment.uid,
-            fn: (_, {id}) => id,
-        }),
-        (index, id) => index.set({key: id, value: true})
-    )
+    .on(addComment, (index, {id, uid}) => index.set({key: id, value: uid === $uid.getState()}))
     .on(addReply, (index, {id}) => index.set({key: id, value: true}))
     .map(value => value.getRaw());
 
