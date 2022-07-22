@@ -35,4 +35,10 @@ export const INTL = {
         SUBMIT: 'Sign in',
         TO: "Already have account? Let's sign in",
     },
+    ERROR: {
+        NOT_FOUND_PAGE: {
+            TITLE: '404',
+            TEXT: 'This page could not be found.',
+        },
+    },
 };
