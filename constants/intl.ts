@@ -18,6 +18,12 @@ export const INTL = {
             COMMENT: 'Comment',
         },
     },
+    ERROR: {
+        NOT_FOUND_PAGE: {
+            TITLE: '404',
+            TEXT: 'This page could not be found.',
+        },
+    },
     HOME: {
         PATH: {
             [ROUTES.HOME]: 'Main',
@@ -41,10 +47,7 @@ export const INTL = {
         SUBMIT: 'Sign in',
         TO: "Already have account? Let's sign in",
     },
-    ERROR: {
-        NOT_FOUND_PAGE: {
-            TITLE: '404',
-            TEXT: 'This page could not be found.',
-        },
+    WELCOME: {
+        UNAUTHORIZED_USER: 'To fully try all the features of the service, please log in',
     },
 };
