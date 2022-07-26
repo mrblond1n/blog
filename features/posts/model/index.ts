@@ -81,9 +81,16 @@ sample({
     target: resetDisable,
 });
 
-forward({
-    from: getPostsFx.doneData,
-    to: setMode.prepend(() => 'SUCCESS'),
+sample({
+    clock: getPostsFx.doneData,
+    filter: collection => !!collection.length,
+    target: setMode.prepend(() => 'SUCCESS'),
+});
+
+sample({
+    clock: getPostsFx.doneData,
+    filter: collection => !collection.length,
+    target: setMode.prepend(() => 'NOT_FOUND'),
 });
 
 sample({
