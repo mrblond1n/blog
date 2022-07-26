@@ -5,6 +5,8 @@ export const addComment = createEvent<TCommentDto>();
 export const updateComment = createEvent<TCommentDto>();
 export const removeComment = createEvent<TCommentDto>();
 
+export const getCommentsCollection = createEvent<TCommentDto[]>();
+
 export const clearComments = createEvent<void>();
 
 export const clearDiscussion = createEvent<string>();
