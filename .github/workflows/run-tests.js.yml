@@ -1,4 +1,4 @@
-name: Run tests
+name: Run unit testing app
 
 on:
   push:
@@ -6,7 +6,6 @@ on:
       - '*/**'
 jobs:
   tests:
-    name: Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
