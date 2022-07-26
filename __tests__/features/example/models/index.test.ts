@@ -1,4 +1,5 @@
-import {exampleItem, exampleItems, makeIndex} from '__mocks__/example';
+import {exampleItem, exampleItems} from '__mocks__/example';
+import {makeIndex} from '__mocks__/utils';
 import 'features';
 import {addExampleItemFx, getExampleItemsFx, removeExampleItemFx} from 'features/example/models/effects';
 import {clearExampleIndex} from 'features/example/models/events';
