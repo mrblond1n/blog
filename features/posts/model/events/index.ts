@@ -12,5 +12,5 @@ export const onRemove = createEvent<string>();
 export const resetDisable = createEvent<string>();
 export const clearIndex = createEvent<void>();
 
-type TMode = 'LOADING' | 'FAILURE' | 'SUCCESS';
+type TMode = 'LOADING' | 'FAILURE' | 'SUCCESS' | 'NOT_FOUND';
 export const setMode = createEvent<TMode>();

@@ -37,6 +37,7 @@ export const INTL = {
         OPEN: 'Open',
         REMOVE: 'Remove',
         UPDATE: 'Update posts',
+        NOT_FOUND: 'Posts not found',
     },
     SIGN_IN: {
         SUBMIT: 'Sign in',
