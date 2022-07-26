@@ -15,7 +15,7 @@ export const INTL = {
             },
         },
         PLACEHOLDER: {
-            COMMENT: 'Comment',
+            COMMENT: 'Write your comment',
         },
     },
     ERROR: {
