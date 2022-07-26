@@ -15,6 +15,7 @@ import {
     clearIndex,
     setMode,
 } from 'features/posts/model/events';
+import {$mode} from 'features/posts/model/stores';
 import {iterate} from 'utils/effector/iterate';
 import {getId} from 'utils/uniqueId';
 import {getUrl} from 'utils/window/url';
@@ -91,6 +92,13 @@ sample({
     clock: getPostsFx.doneData,
     filter: collection => !collection.length,
     target: setMode.prepend(() => 'NOT_FOUND'),
+});
+
+sample({
+    clock: addPostFx.doneData,
+    source: $mode,
+    filter: mode => mode === 'NOT_FOUND',
+    target: setMode.prepend(() => 'SUCCESS'),
 });
 
 sample({
