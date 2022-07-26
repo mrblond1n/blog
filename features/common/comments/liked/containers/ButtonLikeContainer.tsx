@@ -1,7 +1,7 @@
 import {ThumbUp} from '@mui/icons-material';
 import {useStore, useStoreMap} from 'effector-react';
 import {$uid} from 'features/common/app/model/stores';
-import {onLike, onUnlike} from 'features/common/comments/liked/model/events';
+import {onLike} from 'features/common/comments/liked/model/events';
 import {$likedUsersIndex} from 'features/common/comments/liked/model/stores';
 
 import React from 'react';
@@ -21,7 +21,7 @@ export const ButtonLikeContainer = React.memo(({id}: {id: string}) => {
     const isClicked = React.useMemo(() => usersList.includes(uid), [usersList, uid]);
     const color = React.useMemo(() => (isClicked ? 'primary' : 'secondary'), [isClicked]);
 
-    const handleClick = React.useCallback(() => (isClicked ? onUnlike(id) : onLike(id)), [id, isClicked]);
+    const handleClick = React.useCallback(() => onLike(id), [id]);
 
     return (
         <Badge badgeContent={usersList.length} color="primary">

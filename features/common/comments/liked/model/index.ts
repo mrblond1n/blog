@@ -3,8 +3,6 @@ import {$uid} from 'features/common/app/model/stores';
 import {
     onDislike,
     onLike,
-    onUndislike,
-    onUnlike,
     removeDislike,
     removeLike,
     setDislike,
@@ -25,20 +23,6 @@ sample({
     source: $uid,
     fn: (value, key) => ({key, value}),
     target: setDislike,
-});
-
-sample({
-    clock: onUnlike,
-    source: $uid,
-    fn: (value, key) => ({key, value}),
-    target: removeLike,
-});
-
-sample({
-    clock: onUndislike,
-    source: $uid,
-    fn: (value, key) => ({key, value}),
-    target: removeDislike,
 });
 
 sample({
