@@ -1,14 +1,6 @@
 import {sample} from 'effector';
 import {$uid} from 'features/common/app/model/stores';
-import {
-    onDislike,
-    onLike,
-    removeDislike,
-    removeLike,
-    setDislike,
-    setLike,
-    updateCommentLikes,
-} from 'features/common/comments/liked/model/events';
+import {onDislike, onLike, setDislike, setLike, updateCommentLikes} from 'features/common/comments/liked/model/events';
 import {$dislikedUsersIndex, $likedUsersIndex} from 'features/common/comments/liked/model/stores';
 
 sample({
@@ -26,7 +18,7 @@ sample({
 });
 
 sample({
-    clock: [setLike, setDislike, removeLike, removeDislike],
+    clock: [setLike, setDislike],
     source: {liked: $likedUsersIndex, disliked: $dislikedUsersIndex},
     fn: ({liked, disliked}, {key}) => ({key, liked: liked[key], disliked: disliked[key]}),
     target: updateCommentLikes,
