@@ -3,6 +3,7 @@ import {post} from '__mocks__/post';
 import {admin} from '__mocks__/user';
 import {makeIndex} from '__mocks__/utils';
 import {setUser} from 'features/common/app/model/events';
+import 'features/common/comments/';
 import {
     addComment,
     clearComments,
