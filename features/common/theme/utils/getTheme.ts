@@ -35,4 +35,4 @@ export const lightTheme = createTheme({
     },
 });
 
-export const getTheme = (value: 'dark' | 'light') => (value === 'light' ? lightTheme : darkTheme);
+export const getTheme = (value: 'dark' | 'light') => (value === 'dark' ? darkTheme : lightTheme);
