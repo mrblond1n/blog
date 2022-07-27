@@ -7,12 +7,7 @@ import {getPostsFx, removePostFx} from 'features/posts/model/effects';
 import {addPost, clearIndex, onRemove, removePost, resetDisable} from 'features/posts/model/events';
 import {$disabledIndex, $idsList, $ownedIndex, $postsIndex} from 'features/posts/model/stores';
 
-let getPostsHandler: any;
-let removePostHandler: any;
-
 beforeEach(async () => {
-    getPostsHandler = getPostsFx.use.getCurrent();
-    removePostHandler = removePostFx.use.getCurrent();
     setUser(admin);
     getPostsFx.use(() => posts);
     await getPostsFx(null);
@@ -20,8 +15,6 @@ beforeEach(async () => {
 
 afterEach(() => {
     clearIndex();
-    getPostsFx.use(getPostsHandler);
-    removePostFx.use(removePostHandler);
 });
 
 afterAll(() => {
