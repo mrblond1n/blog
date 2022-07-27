@@ -1,11 +1,10 @@
 import {combine, createStore, restore} from 'effector';
 import {Gate} from 'features/post/index';
-import {getPostFx} from 'features/post/state/model/effects';
-import {setMode, updatePostComments} from 'features/post/state/model/events';
+import {setMode, setPost, updatePostComments} from 'features/post/state/model/events';
 import {TPostDto} from 'types/dtos/posts.dto';
 
 export const $post = createStore<TPostDto | null>(null)
-    .on(getPostFx.doneData, (_, payload) => payload)
+    .on(setPost, (_, payload) => payload)
     .on(updatePostComments, (state, payload) => state && {...state, ...payload})
     .reset(Gate.close);
 

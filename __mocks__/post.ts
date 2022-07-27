@@ -1,3 +1,4 @@
+import {comments} from '__mocks__/comments';
 import {TPostDto} from 'types/dtos/posts.dto';
 
 export const post: TPostDto = {
@@ -7,7 +8,7 @@ export const post: TPostDto = {
     created_at: 1658410408209,
     text: 'aaaaaaaaaa',
     title: 'taaaaaaat',
-    comments_count: 0,
+    comments_count: comments.length,
     watches_count: 0,
     id: 'qwedsaasdaskxkkzj',
 };
