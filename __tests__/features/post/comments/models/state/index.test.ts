@@ -1,8 +1,6 @@
 import {comment, comments} from '__mocks__/comments';
 import {post} from '__mocks__/post';
-import {admin} from '__mocks__/user';
 import {makeIndex} from '__mocks__/utils';
-import {setUser} from 'features/common/app/model/events';
 import 'features/common/comments/';
 import {
     addComment,
@@ -17,13 +15,12 @@ import {getCommentsFx} from 'features/post/comments/models/get/effects';
 import {removeCommentFx} from 'features/post/comments/models/remove/effects';
 import {sendCommentFx} from 'features/post/comments/models/send/effects';
 
-beforeEach(async () => {
-    setUser(admin);
+beforeAll(async () => {
     getCommentsFx.use(() => comments);
     await getCommentsFx(post.id);
 });
 
-afterEach(() => {
+afterAll(() => {
     clearComments();
 });
 
@@ -32,24 +29,24 @@ describe('$commentsIndex', () => {
         expect($commentsIndex.getState()).toEqual(makeIndex(comments));
     });
 
-    test('should $postsIndex be one more item', async () => {
+    test('should $commentsIndex be one more item', async () => {
         sendCommentFx.use(() => comment);
         await sendCommentFx(comment);
 
         expect($commentsIndex.getState()).toEqual(makeIndex([...comments, comment]));
     });
 
-    test('should $postsIndex be one less item', async () => {
+    test('after remove comment, it should not be in store', async () => {
         const item = comments[0];
 
         removeCommentFx.use(() => item.id);
         await removeCommentFx({id: item.id, path: ''});
 
-        expect($commentsIndex.getState()).toEqual(makeIndex(comments.filter(({id}) => id !== item.id)));
+        expect($commentsIndex.getState()[item.id]).toBeUndefined();
     });
 
     test('should be updated comment', () => {
-        const item = comments[0];
+        const [item] = Object.values($commentsIndex.getState());
 
         updateComment({...item, replies: 10});
 
@@ -62,7 +59,7 @@ describe('$commentsIndex', () => {
 describe('$discussionIdsIndex', () => {
     test(`keys of $discussionIdsIndex should be as comments without discussion id length`, () => {
         expect(Object.keys($discussionIdsIndex.getState()).length).toEqual(
-            comments.filter(({discussion_id}) => !discussion_id).length
+            Object.values($commentsIndex.getState()).filter(({discussion_id}) => !discussion_id).length
         );
     });
 
@@ -78,18 +75,18 @@ describe('$discussionIdsIndex', () => {
     });
 
     test('lengths should be not equal in case remove reply comment', () => {
-        const firstMatchItem = comments.find(({discussion_id}) => !discussion_id) || comments[0];
+        const commentsArr = Object.values($commentsIndex.getState()).filter(({discussion_id}) => !discussion_id);
+        const [item] = commentsArr;
 
-        removeComment(firstMatchItem);
+        removeComment(item);
 
         const arrOfDiscussionsId = Object.keys($discussionIdsIndex.getState());
-        const arrayOfDiscussionComment = comments.filter(({discussion_id}) => !discussion_id);
 
-        expect(arrOfDiscussionsId.length).toEqual(arrayOfDiscussionComment.length - 1);
+        expect(arrOfDiscussionsId.length).toEqual(commentsArr.length - 1);
     });
 
     test('after clear discussion his array should be empty', () => {
-        comments
+        Object.values($commentsIndex.getState())
             .filter(({discussion_id}) => !discussion_id)
             .forEach(item => {
                 clearDiscussion(item.id);
@@ -100,48 +97,56 @@ describe('$discussionIdsIndex', () => {
 
 describe('$discussionIdsList', () => {
     test(`keys of $discussionIdsIndex should be as comments without discussion id length`, () => {
-        expect(Object.keys($discussionIdsList.getState()).length).toEqual(
-            comments.filter(({discussion_id}) => !discussion_id).length
-        );
+        const index = $commentsIndex.getState();
+        const arr = Object.values(index).filter(({discussion_id}) => !discussion_id);
+
+        expect(Object.keys($discussionIdsList.getState()).length).toEqual(arr.length);
     });
 
     test('lengths should be equal in case remove reply comment', () => {
-        const firstMatchItem = comments.find(({discussion_id}) => !!discussion_id) || comments[0];
+        const index = $commentsIndex.getState();
+        const arr = Object.values(index).filter(({discussion_id}) => !!discussion_id);
+        const discussionArr = Object.values(index).filter(({discussion_id}) => !discussion_id);
+        const [item] = arr;
 
-        removeComment(firstMatchItem);
+        removeComment(item);
 
         const idsList = $discussionIdsList.getState();
-        const arrayOfDiscussionComment = comments.filter(({discussion_id}) => !discussion_id);
 
-        expect(idsList.length).toEqual(arrayOfDiscussionComment.length);
+        expect(idsList.length).toEqual(discussionArr.length);
     });
 
     test('lengths should be not equal in case remove discussion comment', () => {
-        const firstMatchItem = comments.find(({discussion_id}) => !discussion_id) || comments[0];
+        const index = $commentsIndex.getState();
+        const arr = Object.values(index).filter(({discussion_id}) => !discussion_id);
+        const [item] = arr;
 
-        removeComment(firstMatchItem);
+        removeComment(item);
 
         const idsList = $discussionIdsList.getState();
-        const arrayOfDiscussionComment = comments.filter(({discussion_id}) => !discussion_id);
 
-        expect(idsList.length).not.toEqual(arrayOfDiscussionComment.length);
+        expect(idsList.length).not.toEqual(arr.length);
     });
 
     test('lengths should be equal in case add discussion comment', () => {
+        const index = $commentsIndex.getState();
+        const arr = Object.values(index).filter(({discussion_id}) => !discussion_id);
+
         addComment({...comment, discussion_id: 'example'});
 
         const idsList = $discussionIdsList.getState();
-        const arrayOfDiscussionComment = comments.filter(({discussion_id}) => !discussion_id);
 
-        expect(idsList.length).toEqual(arrayOfDiscussionComment.length);
+        expect(idsList.length).toEqual(arr.length);
     });
 
     test('lengths should be not equal in case add reply comment', () => {
+        const index = $commentsIndex.getState();
+        const arr = Object.values(index).filter(({discussion_id}) => !discussion_id);
+
         addComment(comment);
 
         const idsList = $discussionIdsList.getState();
-        const arrayOfDiscussionComment = comments.filter(({discussion_id}) => !discussion_id);
 
-        expect(idsList.length).not.toEqual(arrayOfDiscussionComment.length);
+        expect(idsList.length).not.toEqual(arr.length);
     });
 });
