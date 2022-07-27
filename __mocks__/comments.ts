@@ -98,7 +98,7 @@ export const comments = [
         reply_id: null,
     },
     {
-        uid: 'q3TaIeyqSLEwdT1W1Mg6Cr9mHRoZ',
+        uid: 'aezakmiaezakmiaezakmi',
         author: 'qwe qwe',
         created_at: 1658494903274,
         text: 'йц\n',
@@ -134,7 +134,7 @@ export const comments = [
         replies: 0,
     },
     {
-        uid: 'q3TaIeyqSLEwdT1W1Mg6Cr9mHRoZ',
+        uid: 'aezakmiaezakmiaezakmi',
         reply_id: 'Oan44p9K9XFwnCsffzCS',
         author: 'qwe qwe',
         discussion_id: 'B3cgWGoyaSroBi8zLNEF',
@@ -158,7 +158,7 @@ export const comments = [
         replies: 0,
     },
     {
-        uid: 'q3TaIeyqSLEwdT1W1Mg6Cr9mHRoZ',
+        uid: 'aezakmiaezakmiaezakmi',
         reply_id: 'oWqPoU45V4c7qZG3H2ce',
         author: 'qwe qwe',
         discussion_id: 'oWqPoU45V4c7qZG3H2ce',
