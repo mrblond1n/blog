@@ -1,11 +1,11 @@
 import 'features/post/comments/models';
 import {forward, sample} from 'effector';
 import {getPostFx, updatePostCommentsFx, updatePostWatchesFx} from 'features/post/state/model/effects';
-import {setMode, updatePostComments} from 'features/post/state/model/events';
+import {setMode, setPost, updatePostComments} from 'features/post/state/model/events';
 
 forward({
     from: getPostFx.doneData,
-    to: setMode.prepend(() => 'SUCCESS'),
+    to: [setMode.prepend(() => 'SUCCESS'), setPost],
 });
 
 forward({

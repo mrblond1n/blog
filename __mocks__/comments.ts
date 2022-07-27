@@ -3,7 +3,7 @@ export const comment = {
     author: 'qwe qwe',
     created_at: 1658494905635,
     text: 'йцййц',
-    replies: 1,
+    replies: 0,
     id: 'dJAGVjT6vjkma38cIeVB',
     discussion_id: null,
     disliked: [],
