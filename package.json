@@ -7,8 +7,8 @@
     "start": "next dev",
     "firebase:emulators": "firebase emulators:start",
     "build": "next build && next export -o build/",
-    "lint": "eslint './**/*.{ts, tsx}'",
-    "prettier": "prettier --check './**/*.{ts,tsx}'",
+    "lint": "eslint \"./**/*.{ts, tsx}\"",
+    "prettier": "prettier --check \"./**/*.{ts,tsx}\"",
     "test": "npm run lint && npm run prettier && jest --detectOpenHandles --forceExit",
     "test:watch": "jest --watch",
     "prepare": "husky install"
