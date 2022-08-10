@@ -4,7 +4,7 @@ import {useList, useStoreMap} from 'effector-react';
 import {PostContent} from 'features/post/state/ui/molecules/PostContent';
 import {PostHeader} from 'features/post/state/ui/molecules/PostHeader';
 import {PostMedia} from 'features/post/state/ui/molecules/PostMedia';
-import {concatStrings, formattedDate, getInitials} from 'features/post/utils';
+import {concatStrings, getInitials} from 'features/post/utils';
 import {$idsList, $postsIndex} from 'features/posts/model/stores';
 import {PostsWrapper} from 'features/posts/ui/atoms/PostsWrapper';
 import {PostWrapper} from 'features/posts/ui/atoms/PostWrapper';
@@ -13,6 +13,7 @@ import {ROUTES} from 'routes';
 import {Badge} from 'ui/atoms/Badge';
 import {Card} from 'ui/atoms/Card';
 import {NavLink} from 'ui/atoms/NavLink';
+import {dateFromNow} from 'utils/date';
 import {intl} from 'utils/intl';
 
 export const PostsContainer = React.memo(() => (
@@ -32,7 +33,7 @@ export const PostContainer = React.memo(({id}: {id: string}) => {
         fn: (state, [id]) => state[id],
     });
 
-    const date = formattedDate(post.created_at);
+    const date = dateFromNow(post.created_at);
 
     const headerTitle = React.useMemo(() => concatStrings(post.author, date), [post.author, date]);
     const initials = React.useMemo(() => getInitials(post.author), [post.author]);
