@@ -1,8 +1,4 @@
-import {formatDate} from 'utils/date';
-
-export const concatStrings = (...strings: string[]) => strings.join(' * ');
-
-export const formattedDate = (date: string | number) => formatDate(date, 'hh:mm DD.MM.YY');
+export const concatStrings = (...strings: string[]) => strings.join(' – ');
 
 export const getInitials = (name: string) =>
     name

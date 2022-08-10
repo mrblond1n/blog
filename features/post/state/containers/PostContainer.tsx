@@ -4,8 +4,9 @@ import {PostWrapper} from 'features/post/state/ui/atoms/PostWrapper';
 import {PostContent} from 'features/post/state/ui/molecules/PostContent';
 import {PostHeader} from 'features/post/state/ui/molecules/PostHeader';
 import {PostMedia} from 'features/post/state/ui/molecules/PostMedia';
-import {concatStrings, formattedDate, getInitials} from 'features/post/utils';
+import {concatStrings, getInitials} from 'features/post/utils';
 import React from 'react';
+import {dateFromNow} from 'utils/date';
 
 export const PostContainer = () => {
     const author = useStore($author);
@@ -14,7 +15,7 @@ export const PostContainer = () => {
     const img = useStore($img);
     const createdAt = useStore($createdAt);
 
-    const date = formattedDate(createdAt);
+    const date = dateFromNow(createdAt);
 
     const headerTitle = React.useMemo(() => concatStrings(author, date), [author, date]);
     const initials = React.useMemo(() => getInitials(author), [author]);
