@@ -7,6 +7,7 @@ import {PostMedia} from 'features/post/state/ui/molecules/PostMedia';
 import {concatStrings, formattedDate, getInitials} from 'features/post/utils';
 import {$idsList, $postsIndex} from 'features/posts/model/stores';
 import {PostsWrapper} from 'features/posts/ui/atoms/PostsWrapper';
+import {PostWrapper} from 'features/posts/ui/atoms/PostWrapper';
 import React from 'react';
 import {ROUTES} from 'routes';
 import {Badge} from 'ui/atoms/Badge';
@@ -17,9 +18,9 @@ import {intl} from 'utils/intl';
 export const PostsContainer = React.memo(() => (
     <PostsWrapper>
         {useList($idsList, id => (
-            <div key={id} data-testid={`post_${id}`}>
+            <PostWrapper id={id}>
                 <PostContainer id={id} />
-            </div>
+            </PostWrapper>
         ))}
     </PostsWrapper>
 ));
