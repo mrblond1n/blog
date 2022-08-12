@@ -99,14 +99,13 @@ export const firestoreRequest = async <Result>(
         case 'GET_LIST': {
             const {options} = config;
 
-            const order = options?.order ? orderBy(...options.order) : orderBy('created_at', 'asc');
-            let neededData = query(collection(db, config.collection), order);
+            const params = [
+                collection(db, config.collection),
+                options?.condition ? where(...options.condition) : where('created_at', '!=', ''),
+                options?.order ? orderBy(...options.order) : orderBy('created_at', 'asc'),
+            ] as const;
 
-            if (options?.condition) {
-                neededData = query(collection(db, config.collection), where(...options.condition), order);
-            }
-
-            const querySnapshot = await getDocs(neededData);
+            const querySnapshot = await getDocs(query(...params));
 
             response = querySnapshot.docs.map(doc => ({...doc.data(), id: doc.id}));
             break;
