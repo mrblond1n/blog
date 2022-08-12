@@ -1,5 +1,8 @@
-import {FieldPath, limit, orderBy, OrderByDirection, setDoc, updateDoc} from '@firebase/firestore';
+import {FieldPath, limit, orderBy, OrderByDirection, setDoc, startAfter, updateDoc} from '@firebase/firestore';
 import db from 'config';
+import {LIMITS} from 'constants/business';
+import {setLastItem} from 'features/firebase/pagination/models/events';
+import {$paginationIndex} from 'features/firebase/pagination/models/stores';
 import {addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, where, WhereFilterOp} from 'firebase/firestore';
 import {defaultInterceptor, TInterceptor, TResponse} from 'utils/requests';
 import {TOverloadedReturnType} from 'utils/typescript/overload';
@@ -98,16 +101,28 @@ export const firestoreRequest = async <Result>(
         }
 
         case 'GET_LIST': {
+            const key = config.collection.split('/').slice(-2, -1)[0] || config.collection;
+            const currentLastItem = $paginationIndex.getState()[key];
             const {options} = config;
 
             const params = [
                 collection(db, config.collection),
                 options?.condition ? where(...options.condition) : where('created_at', '!=', ''),
-                options?.limit ? limit(options.limit) : limit(25),
+                options?.limit ? limit(options.limit) : limit(LIMITS.DEFAULT),
                 options?.order ? orderBy(...options.order) : orderBy('created_at', 'asc'),
             ] as const;
 
+            if (currentLastItem) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                params.push(startAfter(currentLastItem));
+            }
+
             const querySnapshot = await getDocs(query(...params));
+
+            const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+
+            setLastItem({key, value: lastVisible});
 
             response = querySnapshot.docs.map(doc => ({...doc.data(), id: doc.id}));
             break;
