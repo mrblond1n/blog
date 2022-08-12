@@ -5,7 +5,7 @@
     "dev": "firebase emulators:exec \"next dev\"",
     "dev:external": "sh -c 'export IP=$(ipconfig getifaddr en0); next dev -H $IP -p 4283'",
     "start": "next dev",
-    "firebase:emulators": "firebase emulators:start",
+    "firebase:emulators": "firebase emulators:start --only auth,firestore,storage",
     "build": "next build && next export -o build/",
     "lint": "eslint \"./**/*.{ts, tsx}\"",
     "prettier": "prettier --check \"./**/*.{ts,tsx}\"",
@@ -68,7 +68,6 @@
     "husky": "^7.0.4",
     "identity-obj-proxy": "^3.0.0",
     "prettier": "2.5.1",
-    "sass": "^1.52.3",
     "typescript": "^4.6.2"
   }
 }
