@@ -8,14 +8,15 @@ import {addPostFx, getPostsFx, removePostFx, saveImageFx} from 'features/posts/m
 import {
     addNewPost,
     addPost,
+    clearIndex,
     getPosts,
+    onGetPosts,
     onRemove,
     removePost,
     resetDisable,
-    clearIndex,
     setMode,
 } from 'features/posts/model/events';
-import {$mode} from 'features/posts/model/stores';
+import {$idsList, $mode} from 'features/posts/model/stores';
 import {iterate} from 'utils/effector/iterate';
 import {getId} from 'utils/uniqueId';
 import {getUrl} from 'utils/window/url';
@@ -25,6 +26,11 @@ export const Gate = createGate();
 forward({
     from: Gate.open,
     to: [getPosts, $inputsApi.setCreatePostInputs],
+});
+
+forward({
+    from: onGetPosts,
+    to: getPostsFx,
 });
 
 forward({
@@ -90,7 +96,8 @@ sample({
 
 sample({
     clock: getPostsFx.doneData,
-    filter: collection => !collection.length,
+    source: $idsList,
+    filter: (ids, collection) => !ids.length && !collection.length,
     target: setMode.prepend(() => 'NOT_FOUND'),
 });
 
