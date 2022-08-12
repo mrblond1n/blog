@@ -1,5 +1,7 @@
-import {createStore, restore} from 'effector';
+import {LIMITS} from 'constants/business';
+import {combine, createStore, restore} from 'effector';
 import {$uid} from 'features/common/app/model/stores';
+import {getPostsFx} from 'features/posts/model/effects';
 import {
     addNewPost,
     addPost,
@@ -14,6 +16,12 @@ import {TPostDto} from 'types/dtos/posts.dto';
 import {createIndex} from 'utils/stack';
 
 export const $mode = restore(setMode, 'LOADING');
+
+export const $buttonIsVisible = createStore<boolean>(false)
+    .on(getPostsFx.doneData, (_, payload) => payload.length === LIMITS.POSTS)
+    .reset(clearIndex);
+
+export const $buttonIsDisabled = combine(getPostsFx.pending, value => value);
 
 export const $postsIndex = createStore(createIndex<TPostDto>())
     .on(addPost, (index, post) => index.set({key: post.id, value: post}))

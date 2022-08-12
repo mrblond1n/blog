@@ -34,10 +34,11 @@ export const INTL = {
     },
     POSTS: {
         CREATE: 'Create',
+        LOAD_MORE: 'Load more',
+        NOT_FOUND: 'Posts not found',
         OPEN: 'Open',
         REMOVE: 'Remove',
         UPDATE: 'Update posts',
-        NOT_FOUND: 'Posts not found',
     },
     SIGN_IN: {
         SUBMIT: 'Sign in',

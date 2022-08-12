@@ -3,6 +3,8 @@ import {TPostDto} from 'types/dtos/posts.dto';
 
 export const getPosts = createEvent<void>();
 
+export const onGetPosts = createEvent<void>();
+
 export const addPost = createEvent<TPostDto>();
 export const addNewPost = createEvent<TPostDto>();
 export const removePost = createEvent<string>();
