@@ -1,4 +1,4 @@
-import {FieldPath, orderBy, OrderByDirection, setDoc, updateDoc} from '@firebase/firestore';
+import {FieldPath, limit, orderBy, OrderByDirection, setDoc, updateDoc} from '@firebase/firestore';
 import db from 'config';
 import {addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, where, WhereFilterOp} from 'firebase/firestore';
 import {defaultInterceptor, TInterceptor, TResponse} from 'utils/requests';
@@ -12,6 +12,7 @@ type TCollection =
     | 'users';
 type TOptions = {
     condition?: [fieldPath: string | FieldPath, opString: WhereFilterOp, value: unknown];
+    limit?: number;
     order?: [fieldPath: string | FieldPath, directionStr: OrderByDirection];
 };
 
@@ -102,6 +103,7 @@ export const firestoreRequest = async <Result>(
             const params = [
                 collection(db, config.collection),
                 options?.condition ? where(...options.condition) : where('created_at', '!=', ''),
+                options?.limit ? limit(options.limit) : limit(25),
                 options?.order ? orderBy(...options.order) : orderBy('created_at', 'asc'),
             ] as const;
 
