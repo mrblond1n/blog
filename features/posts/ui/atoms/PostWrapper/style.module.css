@@ -1,6 +1,7 @@
 .container {
     display: inline-block;
     margin:  0 24px 24px 0;
+    min-width: 94%;
 }
 
 .container img {
