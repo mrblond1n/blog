@@ -4,6 +4,7 @@ import {$displayName, $uid} from 'features/common/app/model/stores';
 import {$formElem} from 'features/common/form/model';
 import {resetForm, selectFile, submitForm} from 'features/common/form/model/events';
 import {$form, $inputsApi} from 'features/common/form/model/stores';
+import {resetPaginationIndexes} from 'features/firebase/pagination/models/events';
 import {addPostFx, getPostsFx, removePostFx, saveImageFx} from 'features/posts/model/effects';
 import {
     addNewPost,
@@ -35,7 +36,7 @@ forward({
 
 forward({
     from: Gate.close,
-    to: clearIndex,
+    to: [clearIndex, resetPaginationIndexes],
 });
 
 const newPostEvent = iterate(getPostsFx.doneData);
