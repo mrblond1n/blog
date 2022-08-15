@@ -45,6 +45,7 @@ export const $ownedIndex = createStore(createIndex<boolean>())
     .map(value => value.getRaw());
 
 export const $idsList = createStore<string[]>([])
-    .on([addPost, addNewPost], (state, {id}) => (state.includes(id) ? state : [id, ...state]))
+    .on(addPost, (state, {id}) => (state.includes(id) ? state : [...state, id]))
+    .on(addNewPost, (state, {id}) => [id, ...state])
     .on(removePost, (state, id) => state.filter(item => item !== id))
     .reset(clearIndex);
