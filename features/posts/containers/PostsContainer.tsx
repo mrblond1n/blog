@@ -1,4 +1,3 @@
-import {Comment, RemoveRedEye} from '@mui/icons-material';
 import {INTL} from 'constants/intl';
 import {useList, useStoreMap} from 'effector-react';
 import {PostContent} from 'features/post/state/ui/molecules/PostContent';
@@ -8,6 +7,7 @@ import {concatStrings, getInitials} from 'features/post/utils';
 import {$idsList, $postsIndex} from 'features/posts/model/stores';
 import {PostsWrapper} from 'features/posts/ui/atoms/PostsWrapper';
 import {PostWrapper} from 'features/posts/ui/atoms/PostWrapper';
+import {Icons} from 'icons';
 import React from 'react';
 import {ROUTES} from 'routes';
 import {Badge} from 'ui/atoms/Badge';
@@ -48,11 +48,11 @@ export const PostContainer = React.memo(({id}: {id: string}) => {
 
             <Card.Actions>
                 <Badge badgeContent={post.watches_count} color="primary">
-                    <RemoveRedEye />
+                    <Icons.RemoveRedEye />
                 </Badge>
 
                 <Badge badgeContent={post.comments_count} color="primary">
-                    <Comment />
+                    <Icons.Comment />
                 </Badge>
 
                 <NavLink href={`${ROUTES.POSTS}/${id}`} passHref>

@@ -1,8 +1,8 @@
-import {ThumbDown} from '@mui/icons-material';
 import {useStore, useStoreMap} from 'effector-react';
 import {$uid} from 'features/common/app/model/stores';
 import {onDislike} from 'features/common/comments/liked/model/events';
 import {$dislikedUsersIndex} from 'features/common/comments/liked/model/stores';
+import {Icons} from 'icons';
 
 import React from 'react';
 import {Badge} from 'ui/atoms/Badge';
@@ -26,7 +26,7 @@ export const ButtonDislikeContainer = React.memo(({id}: {id: string}) => {
     return (
         <Badge badgeContent={usersList.length} color="primary">
             <IconButton color={color} disabled={!uid} onClick={handleClick} size="small">
-                <ThumbDown fontSize="inherit" />
+                <Icons.ThumbDown fontSize="inherit" />
             </IconButton>
         </Badge>
     );

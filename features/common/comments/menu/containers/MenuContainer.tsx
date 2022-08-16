@@ -1,9 +1,9 @@
-import {Close, Delete} from '@mui/icons-material';
 import {INTL} from 'constants/intl';
 import {useStoreMap} from 'effector-react';
 import {OpenButtonContainer} from 'features/common/comments/menu/containers/OpenButtonContainer';
 import {onClose, onOpen, onRemove} from 'features/common/comments/menu/model/events';
 import {$accessToMenuIndex, $openMenuIndex} from 'features/common/comments/menu/model/store';
+import {Icons} from 'icons';
 import React from 'react';
 import {Menu} from 'ui/atoms/Menu';
 import {MenuItem} from 'ui/atoms/MenuItem';
@@ -42,12 +42,12 @@ const MenuContentContainer = React.memo(({id}: {id: string}) => {
 
             <Menu anchorEl={ref.current} onClose={handleClose} open={isOpened}>
                 <MenuItem disableRipple onClick={handleClose}>
-                    <Close fontSize="small" />
+                    <Icons.Close fontSize="small" />
                     {intl(INTL.COMMENT.MENU.ACTION.CLOSE)}
                 </MenuItem>
 
                 <MenuItem disableRipple onClick={handleRemove}>
-                    <Delete fontSize="small" />
+                    <Icons.Delete fontSize="small" />
                     {intl(INTL.COMMENT.MENU.ACTION.REMOVE)}
                 </MenuItem>
             </Menu>

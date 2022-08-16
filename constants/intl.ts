@@ -1,6 +1,11 @@
 import {ROUTES} from 'routes';
 
 export const INTL = {
+    APP: {
+        HEADER: {
+            THEME_BUTTON: 'Theme switcher',
+        },
+    },
     COMMENT: {
         ACTION: {
             HIDE_REPLIES: 'Hide replies',
