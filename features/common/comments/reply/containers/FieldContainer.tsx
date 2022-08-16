@@ -1,4 +1,4 @@
-import {TextField} from '@mui/material';
+import {Input} from 'ui/atoms/Input';
 import {useStoreMap} from 'effector-react';
 import {onChange, onKeyDown} from 'features/common/comments/reply/model/events';
 import {$openedIndex, $valueIndex} from 'features/common/comments/reply/model/stores';
@@ -26,7 +26,7 @@ export const FieldContainer = React.memo(({id}: {id: string}) => {
     if (!isOpened) return null;
 
     return (
-        <TextField
+        <Input
             autoFocus
             fullWidth
             multiline

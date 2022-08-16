@@ -1,11 +1,11 @@
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import IconButton from '@mui/material/IconButton';
+import {Icons} from 'icons';
 import React from 'react';
+import {IconButton} from 'ui/atoms/IconButton';
 
 export const OpenButtonContainer = React.memo(({onClick}: {onClick: (props: any) => any}) => {
     return (
         <IconButton onClick={onClick}>
-            <MoreVertIcon />
+            <Icons.MoreVert />
         </IconButton>
     );
 });
