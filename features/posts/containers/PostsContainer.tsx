@@ -1,4 +1,3 @@
-import {INTL} from 'constants/intl';
 import {useList, useStoreMap} from 'effector-react';
 import {PostContent} from 'features/post/state/ui/molecules/PostContent';
 import {PostHeader} from 'features/post/state/ui/molecules/PostHeader';
@@ -14,13 +13,14 @@ import {Badge} from 'ui/atoms/Badge';
 import {Card} from 'ui/atoms/Card';
 import {NavLink} from 'ui/atoms/NavLink';
 import {dateFromNow} from 'utils/date';
-import {intl} from 'utils/intl';
 
 export const PostsContainer = React.memo(() => (
     <PostsWrapper>
         {useList($idsList, id => (
             <PostWrapper id={id}>
-                <PostContainer id={id} />
+                <NavLink href={`${ROUTES.POSTS}/${id}`} passHref>
+                    <PostContainer id={id} />
+                </NavLink>
             </PostWrapper>
         ))}
     </PostsWrapper>
@@ -54,10 +54,6 @@ export const PostContainer = React.memo(({id}: {id: string}) => {
                 <Badge badgeContent={post.comments_count} color="primary">
                     <Icons.Comment />
                 </Badge>
-
-                <NavLink href={`${ROUTES.POSTS}/${id}`} passHref>
-                    {intl(INTL.POSTS.OPEN)}
-                </NavLink>
             </Card.Actions>
         </Card.Main>
     );

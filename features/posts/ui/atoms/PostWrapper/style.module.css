@@ -6,4 +6,13 @@
 
 .container img {
     height: 100%;
+    transition: .4s;
+}
+
+.container a {
+    text-decoration: none;
+}
+
+.container a:focus img {
+    transform: scale(1.02);
 }
