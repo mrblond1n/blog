@@ -4,6 +4,7 @@ const PostDto = t.type({
     author: t.string,
     comments_count: t.withFallback(t.number, 0),
     created_at: t.number,
+    tags: t.withFallback(t.array(t.string), []),
     id: t.string,
     img: t.string,
     text: t.string,

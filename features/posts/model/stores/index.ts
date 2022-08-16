@@ -6,6 +6,7 @@ import {
     addNewPost,
     addPost,
     clearIndex,
+    onChange,
     onRemove,
     removePost,
     resetDisable,
@@ -49,3 +50,5 @@ export const $idsList = createStore<string[]>([])
     .on(addNewPost, (state, {id}) => [id, ...state])
     .on(removePost, (state, id) => state.filter(item => item !== id))
     .reset(clearIndex);
+
+export const $tags = restore(onChange, []).reset(clearIndex);

@@ -17,7 +17,7 @@ import {
     resetDisable,
     setMode,
 } from 'features/posts/model/events';
-import {$idsList, $mode} from 'features/posts/model/stores';
+import {$idsList, $mode, $tags} from 'features/posts/model/stores';
 import {iterate} from 'utils/effector/iterate';
 import {getId} from 'utils/uniqueId';
 import {getUrl} from 'utils/window/url';
@@ -61,8 +61,8 @@ sample({
 
 sample({
     clock: saveImageFx.doneData,
-    source: {author: $displayName, form: $form, uid: $uid},
-    fn: ({author, form, uid}, img) => ({...(form as {text: string; title: string}), author, img, uid}),
+    source: {author: $displayName, form: $form, tags: $tags, uid: $uid},
+    fn: ({form, ...source}, img) => ({...source, ...(form as {text: string; title: string}), img}),
     target: addPostFx,
 });
 
