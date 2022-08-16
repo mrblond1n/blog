@@ -13,6 +13,7 @@ export const onRemove = createEvent<string>();
 
 export const resetDisable = createEvent<string>();
 export const clearIndex = createEvent<void>();
+export const onChange = createEvent<string[]>();
 
 type TMode = 'LOADING' | 'FAILURE' | 'SUCCESS' | 'NOT_FOUND';
 export const setMode = createEvent<TMode>();

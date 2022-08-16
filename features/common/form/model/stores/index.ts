@@ -22,8 +22,8 @@ export const signUpInputs = [
 ];
 
 export const createPostInputs = [
-    {name: 'title', placeholder: 'Title', required: true, type: 'text'},
-    {name: 'text', placeholder: 'Text', required: true, type: 'text'},
+    {name: 'title', placeholder: 'Title', required: true, type: 'text', label: 'title'},
+    {name: 'text', placeholder: 'Text', required: true, type: 'text', label: 'text'},
     {name: 'img', placeholder: 'Image', required: true, type: 'file'},
 ];
 
