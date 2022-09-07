@@ -73,10 +73,3 @@ sample({
     },
     target: updateCommentLikesFx,
 });
-
-sample({
-    clock: updateCommentLikesFx.done,
-    source: $commentsIndex,
-    fn: (index, {params: {id, liked, disliked}}) => ({...index[id], liked, disliked}),
-    target: updateComment,
-});
