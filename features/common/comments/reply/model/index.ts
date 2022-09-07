@@ -23,6 +23,7 @@ import {
 } from 'features/common/comments/reply/model/stores';
 import {clearDiscussion} from 'features/common/comments/state/model/events';
 import {$commentsIndex} from 'features/common/comments/state/model/stores';
+import {resetListItem} from 'features/firebase/pagination/models/events';
 
 sample({
     clock: onReply,
@@ -93,7 +94,7 @@ split({
 sample({
     clock: hideReplies,
     source: onToggle,
-    target: clearDiscussion,
+    target: [clearDiscussion, resetListItem],
 });
 
 sample({
