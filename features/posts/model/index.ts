@@ -1,7 +1,6 @@
 import {forward, sample} from 'effector';
 import {createGate} from 'effector-react';
 import {$displayName, $uid} from 'features/common/app/model/stores';
-import {$formElem} from 'features/common/form/model';
 import {resetForm, selectFile, submitForm} from 'features/common/form/model/events';
 import {$form, $inputsApi} from 'features/common/form/model/stores';
 import {resetPaginationIndexes} from 'features/firebase/pagination/models/events';
@@ -62,6 +61,7 @@ sample({
 sample({
     clock: saveImageFx.doneData,
     source: {author: $displayName, form: $form, tags: $tags, uid: $uid},
+    filter: ({form}) => !!form.text && !!form.title,
     fn: ({form, ...source}, img) => ({...source, ...(form as {text: string; title: string}), img}),
     target: addPostFx,
 });
@@ -109,12 +109,12 @@ sample({
     target: setMode.prepend(() => 'SUCCESS'),
 });
 
-sample({
-    clock: addPostFx.doneData,
-    source: $formElem,
-    filter: Boolean,
-    target: resetForm,
-});
+// sample({
+//     clock: addPostFx.doneData,
+//     source: $formElem,
+//     filter: Boolean,
+//     target: resetForm,
+// });
 
 forward({
     from: getPostsFx.failData,
