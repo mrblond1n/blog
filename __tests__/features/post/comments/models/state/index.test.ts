@@ -2,13 +2,7 @@ import {comment, comments} from '__mocks__/comments';
 import {post} from '__mocks__/post';
 import {makeIndex} from '__mocks__/utils';
 import 'features/common/comments/';
-import {
-    addComment,
-    clearComments,
-    clearDiscussion,
-    removeComment,
-    updateComment,
-} from 'features/common/comments/state/model/events';
+import {addComment, clearComments, clearDiscussion, removeComment} from 'features/common/comments/state/model/events';
 import {$commentsIndex, $discussionIdsIndex, $discussionIdsList} from 'features/common/comments/state/model/stores';
 import 'features/post/comments/models';
 import {getCommentsFx} from 'features/post/comments/models/get/effects';
@@ -43,16 +37,6 @@ describe('$commentsIndex', () => {
         await removeCommentFx({id: item.id, path: ''});
 
         expect($commentsIndex.getState()[item.id]).toBeUndefined();
-    });
-
-    test('should be updated comment', () => {
-        const [item] = Object.values($commentsIndex.getState());
-
-        updateComment({...item, replies: 10});
-
-        const itemInIndex = $commentsIndex.getState()[item.id];
-
-        expect(itemInIndex.replies).toEqual(10);
     });
 });
 

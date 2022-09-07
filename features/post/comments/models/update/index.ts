@@ -1,7 +1,7 @@
 import {sample} from 'effector';
 import {updateCommentLikes} from 'features/common/comments/liked/model/events';
 import {$discussion} from 'features/common/comments/reply/model/stores';
-import {removeComment, updateComment} from 'features/common/comments/state/model/events';
+import {removeComment} from 'features/common/comments/state/model/events';
 import {$commentsIndex} from 'features/common/comments/state/model/stores';
 import {sendCommentFx, sendReplyFx} from 'features/post/comments/models/send/effects';
 import {updateCommentLikesFx, updateCommentRepliesFx} from 'features/post/comments/models/update/effects';
@@ -51,14 +51,6 @@ sample({
         return {id: discussion.id, replies: ++discussion.replies, path: post.id};
     },
     target: updateCommentRepliesFx,
-});
-
-sample({
-    clock: updateCommentRepliesFx.done,
-    source: $discussion,
-    filter: Boolean,
-    fn: (comment, {params: {replies}}) => ({...comment, replies}),
-    target: updateComment,
 });
 
 sample({

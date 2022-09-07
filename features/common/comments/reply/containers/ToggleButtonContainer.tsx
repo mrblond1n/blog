@@ -13,7 +13,6 @@ export const ToggleButtonContainer = React.memo(({id}: {id: string}) => {
     const {replies} = useStoreMap({
         store: $commentsIndex,
         keys: [id],
-        updateFilter: () => false,
         fn: (state, [id]) => state[id],
     });
 
