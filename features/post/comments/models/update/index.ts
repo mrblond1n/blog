@@ -1,8 +1,9 @@
 import {sample} from 'effector';
 import {updateCommentLikes} from 'features/common/comments/liked/model/events';
-import {$discussion} from 'features/common/comments/reply/model/stores';
+import {$discussion, $repliesCount} from 'features/common/comments/reply/model/stores';
 import {removeComment} from 'features/common/comments/state/model/events';
 import {$commentsIndex} from 'features/common/comments/state/model/stores';
+import {removeCommentFx} from 'features/post/comments/models/remove/effects';
 import {sendCommentFx, sendReplyFx} from 'features/post/comments/models/send/effects';
 import {updateCommentLikesFx, updateCommentRepliesFx} from 'features/post/comments/models/update/effects';
 import {updatePostCommentsFx} from 'features/post/state/model/effects';
@@ -30,25 +31,13 @@ sample({
 });
 
 sample({
-    clock: removeComment,
-    source: {post: $post, discussion: $discussion},
+    clock: [removeCommentFx.doneData, sendReplyFx.doneData],
+    source: {post: $post, discussion: $discussion, replies: $repliesCount},
     filter: ({discussion, post}) => !!discussion && !!post,
-    fn: ({discussion, post}) => {
+    fn: ({discussion, post, replies}) => {
         if (!discussion || !post) throw new Error('fail');
 
-        return {id: discussion.id, replies: discussion.replies - 1, path: post.id};
-    },
-    target: updateCommentRepliesFx,
-});
-
-sample({
-    clock: sendReplyFx.doneData,
-    source: {post: $post, discussion: $discussion},
-    filter: ({discussion, post}) => !!discussion && !!post,
-    fn: ({discussion, post}) => {
-        if (!discussion || !post) throw new Error('fail');
-
-        return {id: discussion.id, replies: ++discussion.replies, path: post.id};
+        return {id: discussion.id, replies, path: post.id};
     },
     target: updateCommentRepliesFx,
 });

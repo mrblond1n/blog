@@ -9,7 +9,7 @@ import {
     onToggle,
     setDiscussionId,
 } from 'features/common/comments/reply/model/events';
-import {clearComments, removeComment} from 'features/common/comments/state/model/events';
+import {addComment, clearComments, removeComment} from 'features/common/comments/state/model/events';
 import {$commentsIndex} from 'features/common/comments/state/model/stores';
 import {getById} from 'utils/effector/getById';
 import {createIndex} from 'utils/stack';
@@ -46,6 +46,19 @@ export const $replyIdsIndex = createStore(createIndex<string[]>())
     .on(clearComments, index => index.clear())
     .map(value => value.getRaw());
 
+export const $repliesCountIndex = createStore(createIndex<number>())
+    .on(addComment, (index, {discussion_id, id, replies}) => {
+        if (!discussion_id) return index.set({key: id, value: replies});
+    })
+    .on(addReply, (index, {discussion_id}) => {
+        if (discussion_id) return index.update({key: discussion_id, fn: value => value + 1});
+    })
+    .on(removeComment, (index, {discussion_id}) => {
+        if (discussion_id) return index.update({key: discussion_id, fn: value => value - 1});
+    })
+    .on(clearComments, index => index.clear())
+    .map(value => value.getRaw());
+
 const $replyIdHistory = createStore<[string, string]>(['', ''])
     .on(onReply, ([, current], state) => (state !== current ? [current, state] : void 0))
     .reset(clearComments);
@@ -60,4 +73,5 @@ const $discussionIdHistory = createStore<[string, string]>(['', '']).on(setDiscu
 export const $discussionId = $discussionIdHistory.map(([, current]) => current);
 
 export const $discussion = getById($commentsIndex, $discussionId);
+export const $repliesCount = getById($repliesCountIndex, $discussionId).map(value => value || 0);
 export const $text = getById($valueIndex, $replyId).map(value => value || '');

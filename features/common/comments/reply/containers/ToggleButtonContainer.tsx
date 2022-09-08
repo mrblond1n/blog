@@ -24,11 +24,7 @@ export const ToggleButtonContainer = React.memo(({id}: {id: string}) => {
     });
 
     const handleClick = React.useCallback(() => onToggle(id), [id]);
-    const text = React.useMemo(() => {
-        if (!replies) return;
-
-        return !isOpened ? intl(INTL.COMMENT.ACTION.SHOW_REPLIES(replies)) : intl(INTL.COMMENT.ACTION.HIDE_REPLIES);
-    }, [isOpened, replies]);
+    const text = React.useMemo(() => intl(INTL.COMMENT.ACTION[isOpened ? 'HIDE_REPLIES' : 'SHOW_REPLIES']), [isOpened]);
 
     if (!replies) return null;
 
