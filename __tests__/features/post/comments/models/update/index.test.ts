@@ -41,6 +41,7 @@ describe('update post', () => {
         await updatePostCommentsFx({id: post.id, comments_count: ++post.comments_count});
         expect(Object.values($commentsIndex.getState()).length).toEqual($post.getState()?.comments_count);
     });
+
     test('should decrease comments_count after remove comment', async () => {
         const [comment] = Object.values($commentsIndex.getState()).filter(({replies}) => replies >= 2);
 

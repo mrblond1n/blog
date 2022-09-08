@@ -11,7 +11,7 @@ export const INTL = {
             HIDE_REPLIES: 'Hide replies',
             REPLY: 'REPLY',
             SEND: 'Send',
-            SHOW_REPLIES: (replies: number) => `View ${replies} replies`,
+            SHOW_REPLIES: 'View more replies',
         },
         MENU: {
             ACTION: {
