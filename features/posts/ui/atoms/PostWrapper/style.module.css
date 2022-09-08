@@ -1,12 +1,13 @@
 .container {
     display: inline-block;
-    margin:  0 24px 24px 0;
-    min-width: 94%;
+    margin-bottom: 24px;
+    width: 100%;
 }
 
 .container img {
     height: 100%;
     transition: .4s;
+    max-height: 500px;
 }
 
 .container a {
