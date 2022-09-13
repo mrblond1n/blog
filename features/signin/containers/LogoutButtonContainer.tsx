@@ -1,9 +1,11 @@
+import {INTL} from 'constants/intl';
 import {useStore} from 'effector-react';
 import {$appState} from 'features/common/app/model/stores';
 import {signOut} from 'features/signin/model/events';
 import {Icons} from 'icons';
 import React from 'react';
 import {IconButton} from 'ui/atoms/IconButton';
+import {intl} from 'utils/intl';
 
 export const LogoutButtonContainer = React.memo(() => {
     const state = useStore($appState);
@@ -12,7 +14,7 @@ export const LogoutButtonContainer = React.memo(() => {
     if (state === 'UNAUTHORIZED') return null;
 
     return (
-        <IconButton onClick={handleClick}>
+        <IconButton aria-label={intl(INTL.SIGN_OUT)} onClick={handleClick}>
             <Icons.Logout />
         </IconButton>
     );
