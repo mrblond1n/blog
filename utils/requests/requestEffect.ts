@@ -1,5 +1,5 @@
 import {createEffect, Effect, sample} from 'effector';
-import {setNotify, setNotifyMode, setNotifyState} from 'features/common/notifications/model/events';
+import {setNotify, setNotifyMode, setNotifyState} from 'features/notifications/model/events';
 import {authRequest, TAuthRequestConfig} from 'utils/requests/requestAuth';
 import {firestoreRequest, TFirestoreRequestConfig} from 'utils/requests/requestFirestore';
 import {storageRequest, TStorageRequestConfig} from 'utils/requests/requestStorage';

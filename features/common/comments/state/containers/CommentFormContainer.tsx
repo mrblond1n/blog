@@ -1,6 +1,6 @@
 import {INTL} from 'constants/intl';
 import {useStore} from 'effector-react';
-import {$appState} from 'features/common/app/model/stores';
+import {$appState} from 'features/app/model/stores';
 import {FormContainer} from 'features/common/form/containers/FormContainer';
 import React from 'react';
 import {Button} from 'ui/atoms/Button';

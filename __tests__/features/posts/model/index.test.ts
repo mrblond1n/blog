@@ -1,11 +1,11 @@
 import {post, posts} from '__mocks__/post';
 import {admin} from '__mocks__/user';
 import {makeIndex} from '__mocks__/utils';
-import {setUser} from 'features/common/app/model/events';
-import 'features/posts/model';
-import {getPostsFx, removePostFx} from 'features/posts/model/effects';
-import {addPost, clearIndex, onRemove, removePost, resetDisable} from 'features/posts/model/events';
-import {$disabledIndex, $idsList, $ownedIndex, $postsIndex} from 'features/posts/model/stores';
+import {setUser} from 'features/app/model/events';
+import 'features/pages/posts/model';
+import {getPostsFx, removePostFx} from 'features/pages/posts/model/effects';
+import {addPost, clearIndex, onRemove, removePost, resetDisable} from 'features/pages/posts/model/events';
+import {$disabledIndex, $idsList, $ownedIndex, $postsIndex} from 'features/pages/posts/model/stores';
 
 beforeEach(async () => {
     setUser(admin);

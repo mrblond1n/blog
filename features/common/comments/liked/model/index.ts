@@ -1,5 +1,5 @@
 import {sample} from 'effector';
-import {$uid} from 'features/common/app/model/stores';
+import {$uid} from 'features/app/model/stores';
 import {
     onDislike,
     onLike,

@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import {INTL} from 'constants/intl';
-import {LinkContainer} from 'features/signin/containers/LinkContainer';
+import {LinkContainer} from 'features/pages/signin/containers/LinkContainer';
 import React from 'react';
 import {intl} from 'utils/intl';
 

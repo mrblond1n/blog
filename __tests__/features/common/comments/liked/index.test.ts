@@ -1,6 +1,6 @@
 import {comments} from '__mocks__/comments';
 import {admin} from '__mocks__/user';
-import {setUser} from 'features/common/app/model/events';
+import {setUser} from 'features/app/model/events';
 import 'features/common/comments';
 import {onDislike, onLike} from 'features/common/comments/liked/model/events';
 import {$dislikedUsersIndex, $likedUsersIndex} from 'features/common/comments/liked/model/stores';

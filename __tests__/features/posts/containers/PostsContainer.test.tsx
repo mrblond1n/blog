@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
 import {posts} from '__mocks__/post';
-import {PostsContainer} from 'features/posts/containers/PostsContainer';
-import {getPostsFx} from 'features/posts/model/effects';
+import {PostsContainer} from 'features/pages/posts/containers/PostsContainer';
+import {getPostsFx} from 'features/pages/posts/model/effects';
 import React from 'react';
 
 import 'features';

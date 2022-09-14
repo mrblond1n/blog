@@ -1,8 +1,8 @@
 import {post} from '__mocks__/post';
-import 'features/post/state/model';
-import {getPostFx} from 'features/post/state/model/effects';
-import {updatePostComments} from 'features/post/state/model/events';
-import {$post} from 'features/post/state/model/stores';
+import 'features/pages/post/state/model';
+import {getPostFx} from 'features/pages/post/state/model/effects';
+import {updatePostComments} from 'features/pages/post/state/model/events';
+import {$post} from 'features/pages/post/state/model/stores';
 
 beforeEach(async () => {
     getPostFx.use(() => post);

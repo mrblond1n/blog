@@ -1,8 +1,8 @@
 import {comments, reply} from '__mocks__/comments';
 import {admin} from '__mocks__/user';
-import {setUser} from 'features/common/app/model/events';
-import {$uid} from 'features/common/app/model/stores';
-import 'features/common/app/model/stores';
+import {setUser} from 'features/app/model/events';
+import {$uid} from 'features/app/model/stores';
+import 'features/app/model/stores';
 import 'features/common/comments';
 import {openMenu} from 'features/common/comments/menu/model/events';
 import {

@@ -1,6 +1,6 @@
 import {INTL} from 'constants/intl';
 import {useStore} from 'effector-react';
-import {$appState, $displayName} from 'features/common/app/model/stores';
+import {$appState, $displayName} from 'features/app/model/stores';
 import React from 'react';
 import {Body} from 'ui/atoms/Body';
 import {SectionTemplate} from 'ui/templates/SectionTemplate';

@@ -1,10 +1,10 @@
 import {useGate, useStore} from 'effector-react';
-import {$appState} from 'features/common/app/model/stores';
-import {LinkContainer} from 'features/signin/containers/LinkContainer';
-import {Gate} from 'features/signin/model';
+import {$appState} from 'features/app/model/stores';
+import {LinkContainer} from 'features/pages/signin/containers/LinkContainer';
+import {Gate} from 'features/pages/signin/model';
 import {FormContainer} from 'features/common/form/containers/FormContainer';
 import React from 'react';
-import {SubmitButtonContainer} from 'features/signin/containers/SubmitButtonContainer';
+import {SubmitButtonContainer} from 'features/pages/signin/containers/SubmitButtonContainer';
 import {SectionTemplate} from 'ui/templates/SectionTemplate';
 import {Row} from 'ui/atoms/Row';
 

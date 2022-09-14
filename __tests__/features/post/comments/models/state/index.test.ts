@@ -4,10 +4,10 @@ import {makeIndex} from '__mocks__/utils';
 import 'features/common/comments/';
 import {addComment, clearComments, clearDiscussion, removeComment} from 'features/common/comments/state/model/events';
 import {$commentsIndex, $discussionIdsIndex, $discussionIdsList} from 'features/common/comments/state/model/stores';
-import 'features/post/comments/models';
-import {getCommentsFx} from 'features/post/comments/models/get/effects';
-import {removeCommentFx} from 'features/post/comments/models/remove/effects';
-import {sendCommentFx} from 'features/post/comments/models/send/effects';
+import 'features/pages/post/comments/models';
+import {getCommentsFx} from 'features/pages/post/comments/models/get/effects';
+import {removeCommentFx} from 'features/pages/post/comments/models/remove/effects';
+import {sendCommentFx} from 'features/pages/post/comments/models/send/effects';
 
 beforeAll(async () => {
     getCommentsFx.use(() => comments);
