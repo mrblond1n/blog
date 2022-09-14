@@ -8,8 +8,7 @@ export const darkTheme = createTheme({
         secondary: grey,
         divider: deepOrange[700],
         background: {
-            default: deepOrange[900],
-            paper: deepOrange[900],
+            default: '#020202',
         },
         text: {
             primary: '#fff',
@@ -25,8 +24,7 @@ export const lightTheme = createTheme({
         secondary: grey,
         divider: deepPurple[300],
         background: {
-            default: deepPurple[300],
-            paper: deepPurple[300],
+            default: '#020202',
         },
         text: {
             primary: '#000',
