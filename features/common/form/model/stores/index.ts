@@ -10,15 +10,15 @@ export const $form = createStore(createIndex<string>())
 
 export const signInInputs = [
     {name: 'email', label: 'E-mail', required: true, type: 'email'},
-    {name: 'password', label: 'Password', required: true, type: 'password'},
+    {autoComplete: 'on', name: 'password', label: 'Password', required: true, type: 'password'},
 ];
 
 export const signUpInputs = [
-    {autoComplete: 'off', name: 'firstName', label: 'First name', required: true, type: 'text'},
-    {autoComplete: 'off', name: 'lastName', label: 'Last name', required: true, type: 'text'},
+    {autoComplete: 'on', name: 'firstName', label: 'First name', required: true, type: 'text'},
+    {autoComplete: 'on', name: 'lastName', label: 'Last name', required: true, type: 'text'},
     {name: 'email', label: 'E-mail', required: true, type: 'email'},
-    {name: 'password', label: 'Password', required: true, type: 'password'},
-    {name: 'confirmPassword', label: 'Repeat password', required: true, type: 'password'},
+    {autoComplete: 'on', name: 'password', label: 'Password', required: true, type: 'password'},
+    {autoComplete: 'on', name: 'confirmPassword', label: 'Repeat password', required: true, type: 'password'},
 ];
 
 export const createPostInputs = [
