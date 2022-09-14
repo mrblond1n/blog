@@ -1,5 +1,5 @@
 .container {
-    column-count: auto;
+    column-count: 3;
     column-width: 340px;
     column-gap: 24px;
 }
