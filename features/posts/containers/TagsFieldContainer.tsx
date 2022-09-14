@@ -12,7 +12,7 @@ export const TagsFieldContainer = React.memo(() => {
             multiple
             onChange={handleChange}
             options={POST_TAGS}
-            renderInput={params => <Input {...params} name="tags" placeholder="tags" variant="outlined" />}
+            renderInput={params => <Input {...params} label="tags" name="tags" variant="outlined" />}
         />
     );
 });
