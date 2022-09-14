@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import {INTL} from 'constants/intl';
-import {SubmitButtonContainer} from 'features/signup/containers/SubmitButtonContainer';
+import {SubmitButtonContainer} from 'features/pages/signup/containers/SubmitButtonContainer';
 import React from 'react';
 import {intl} from 'utils/intl';
 

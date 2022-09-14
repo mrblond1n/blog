@@ -3,13 +3,13 @@ import {post} from '__mocks__/post';
 import 'features/common/comments/';
 import {clearComments} from 'features/common/comments/state/model/events';
 import {$commentsIndex} from 'features/common/comments/state/model/stores';
-import 'features/post/comments/models';
-import {getCommentsFx} from 'features/post/comments/models/get/effects';
-import {removeCommentFx} from 'features/post/comments/models/remove/effects';
-import {sendCommentFx, sendReplyFx} from 'features/post/comments/models/send/effects';
-import 'features/post/state/model';
-import {getPostFx, updatePostCommentsFx} from 'features/post/state/model/effects';
-import {$post} from 'features/post/state/model/stores';
+import 'features/pages/post/comments/models';
+import {getCommentsFx} from 'features/pages/post/comments/models/get/effects';
+import {removeCommentFx} from 'features/pages/post/comments/models/remove/effects';
+import {sendCommentFx, sendReplyFx} from 'features/pages/post/comments/models/send/effects';
+import 'features/pages/post/state/model';
+import {getPostFx, updatePostCommentsFx} from 'features/pages/post/state/model/effects';
+import {$post} from 'features/pages/post/state/model/stores';
 
 beforeAll(async () => {
     getPostFx.use(() => post);

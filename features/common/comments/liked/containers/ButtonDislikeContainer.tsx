@@ -1,5 +1,5 @@
 import {useStore, useStoreMap} from 'effector-react';
-import {$uid} from 'features/common/app/model/stores';
+import {$uid} from 'features/app/model/stores';
 import {onDislike} from 'features/common/comments/liked/model/events';
 import {$dislikedUsersIndex} from 'features/common/comments/liked/model/stores';
 import {Icons} from 'icons';

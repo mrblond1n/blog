@@ -1,6 +1,6 @@
 import {comment, comments, reply} from '__mocks__/comments';
 import {admin} from '__mocks__/user';
-import {setUser} from 'features/common/app/model/events';
+import {setUser} from 'features/app/model/events';
 import 'features/common/comments';
 import {
     addReply,
