@@ -1,18 +1,16 @@
 import {POST_TAGS} from 'constants/business';
 import {onChange} from 'features/pages/posts/model/events';
 import React from 'react';
-import {Autocomplete} from 'ui/atoms';
-import {TextField} from 'ui/atoms/TextField';
+import {MultipleAutocomplete} from 'ui/atoms/MultipleAutocomplete';
+
+const fieldProps = {
+    label: 'tags',
+    name: 'tags',
+    variant: 'outlined',
+} as const;
 
 export const TagsFieldContainer = React.memo(() => {
-    const handleChange = React.useCallback((_, value) => onChange(value), []);
+    const handleChange = (value: string[]) => onChange(value);
 
-    return (
-        <Autocomplete
-            multiple
-            onChange={handleChange}
-            options={POST_TAGS}
-            renderInput={params => <TextField {...params} label="tags" name="tags" variant="outlined" />}
-        />
-    );
+    return <MultipleAutocomplete fieldProps={fieldProps} onChange={handleChange} options={POST_TAGS} />;
 });
