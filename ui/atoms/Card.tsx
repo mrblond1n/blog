@@ -1,3 +1,4 @@
+import React from 'react';
 import {
     Card as MUICard,
     CardActionArea,
@@ -11,8 +12,7 @@ import {
     CardMedia,
     CardMediaProps,
     CardProps,
-} from '@mui/material';
-import React from 'react';
+} from 'ui/atoms';
 
 export class Card {
     static Actions = React.memo(({children, ...props}: CardActionsProps) => (

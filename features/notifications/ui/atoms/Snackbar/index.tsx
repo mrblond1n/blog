@@ -1,8 +1,8 @@
 import classnames from 'classnames';
-import React from 'react';
-import {Row} from 'ui/atoms/Row';
 
 import style from 'features/notifications/ui/atoms/Snackbar/style.module.css';
+import React from 'react';
+import {Stack} from 'ui/atoms/Stack';
 
 type TProps = {
     children: React.ReactNode;
@@ -10,13 +10,13 @@ type TProps = {
 };
 
 export const SnackbarWrapper = React.memo(({children, colorScheme}: TProps) => (
-    <Row
+    <Stack
         alignItems="flex-start"
         className={classnames(style.container, style[colorScheme])}
         justifyContent="space-between"
     >
         {children}
-    </Row>
+    </Stack>
 ));
 
 export default SnackbarWrapper;

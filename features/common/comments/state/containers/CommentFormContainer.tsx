@@ -4,7 +4,7 @@ import {$appState} from 'features/app/model/stores';
 import {FormContainer} from 'features/common/form/containers/FormContainer';
 import React from 'react';
 import {Button} from 'ui/atoms/Button';
-import {Row} from 'ui/atoms/Row';
+import {Stack} from 'ui/atoms/Stack';
 import {intl} from 'utils/intl';
 
 export const CommentFormContainer = React.memo(() => {
@@ -12,9 +12,9 @@ export const CommentFormContainer = React.memo(() => {
 
     return state === 'AUTHORIZED' ? (
         <FormContainer>
-            <Row justifyContent="flex-end">
+            <Stack justifyContent="flex-end">
                 <Button type="submit">{intl(INTL.COMMENT.ACTION.SEND)}</Button>
-            </Row>
+            </Stack>
         </FormContainer>
     ) : null;
 });

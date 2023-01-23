@@ -4,7 +4,7 @@ import {FormContainer} from 'features/common/form/containers/FormContainer';
 import {SubmitButtonContainer} from 'features/pages/posts/containers/SubmitButtonContainer';
 import {TagsFieldContainer} from 'features/pages/posts/containers/TagsFieldContainer';
 import React from 'react';
-import {Row} from 'ui/atoms/Row';
+import {Stack} from 'ui/atoms/Stack';
 
 export const CreatePostFormContainer = React.memo(() => {
     const state = useStore($appState);
@@ -13,12 +13,12 @@ export const CreatePostFormContainer = React.memo(() => {
     if (!isAdmin || state !== 'AUTHORIZED') return null;
 
     return (
-        <Row justifyContent="center">
+        <Stack justifyContent="center">
             <FormContainer>
                 <TagsFieldContainer />
 
                 <SubmitButtonContainer />
             </FormContainer>
-        </Row>
+        </Stack>
     );
 });

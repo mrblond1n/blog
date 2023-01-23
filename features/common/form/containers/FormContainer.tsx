@@ -4,7 +4,7 @@ import {onChange, submitForm} from 'features/common/form/model/events';
 import {$inputs} from 'features/common/form/model/stores';
 
 import React from 'react';
-import {Input} from 'ui/atoms/Input';
+import {TextField} from 'ui/atoms/TextField';
 import {Form} from 'ui/molecules/Form';
 
 export const FormContainer = React.memo(({children}) => {
@@ -24,7 +24,7 @@ export const FormContainer = React.memo(({children}) => {
     return (
         <Form onSubmit={handleSubmit} refWrapper={ref}>
             {useList($inputs, input => (
-                <Input onChange={handleChange} onKeyDown={onKeyDown} {...input} />
+                <TextField onChange={handleChange} onKeyDown={onKeyDown} {...input} />
             ))}
 
             {children}

@@ -1,3 +1,2 @@
-import {styled} from '@mui/material';
-
-export {styled};
+export {styled, createTheme} from '@mui/material';
+export {deepOrange, deepPurple, grey} from '@mui/material/colors';
