@@ -6,7 +6,7 @@ import {FormContainer} from 'features/common/form/containers/FormContainer';
 import React from 'react';
 import {SubmitButtonContainer} from 'features/pages/signin/containers/SubmitButtonContainer';
 import {SectionTemplate} from 'ui/templates/SectionTemplate';
-import {Row} from 'ui/atoms/Row';
+import {Stack} from 'ui/atoms/Stack';
 
 export default () => {
     useGate(Gate);
@@ -16,11 +16,11 @@ export default () => {
 
     return (
         <SectionTemplate title={<h1>{'SIGN IN PAGE'}</h1>}>
-            <Row justifyContent="center">
+            <Stack justifyContent="center">
                 <FormContainer>
                     <SubmitButtonContainer />
                 </FormContainer>
-            </Row>
+            </Stack>
 
             <LinkContainer />
         </SectionTemplate>

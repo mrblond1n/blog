@@ -6,7 +6,7 @@ import {$commentsIndex} from 'features/common/comments/state/model/stores';
 
 import React from 'react';
 import {ButtonLink} from 'ui/atoms/ButtonLink';
-import {Row} from 'ui/atoms/Row';
+import {Stack} from 'ui/atoms/Stack';
 import {intl} from 'utils/intl';
 
 export const ToggleButtonContainer = React.memo(({id}: {id: string}) => {
@@ -29,8 +29,8 @@ export const ToggleButtonContainer = React.memo(({id}: {id: string}) => {
     if (!replies) return null;
 
     return (
-        <Row margin>
+        <Stack>
             <ButtonLink onClick={handleClick}>{text}</ButtonLink>
-        </Row>
+        </Stack>
     );
 });

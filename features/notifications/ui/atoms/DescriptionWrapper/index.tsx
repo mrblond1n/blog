@@ -1,10 +1,9 @@
-import React from 'react';
-import {Row} from 'ui/atoms/Row';
-
 import style from 'features/notifications/ui/atoms/DescriptionWrapper/style.module.css';
+import React from 'react';
+import {Stack} from 'ui/atoms/Stack';
 
 export const DescriptionWrapper = React.memo(({children}) => (
-    <Row className={style.container} direction="column">
+    <Stack className={style.container} direction="column">
         {children}
-    </Row>
+    </Stack>
 ));

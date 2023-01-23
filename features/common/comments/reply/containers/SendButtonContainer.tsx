@@ -5,7 +5,7 @@ import {$openedIndex} from 'features/common/comments/reply/model/stores';
 
 import React from 'react';
 import {Button} from 'ui/atoms/Button';
-import {Row} from 'ui/atoms/Row';
+import {Stack} from 'ui/atoms/Stack';
 import {intl} from 'utils/intl';
 
 export const SendButtonContainer = React.memo(({id}: {id: string}) => {
@@ -20,8 +20,8 @@ export const SendButtonContainer = React.memo(({id}: {id: string}) => {
     if (!isOpened) return null;
 
     return (
-        <Row fullWidth justifyContent="flex-end" margin>
+        <Stack justifyContent="flex-end">
             <Button onClick={handleClick}>{intl(INTL.COMMENT.ACTION.SEND)}</Button>
-        </Row>
+        </Stack>
     );
 });

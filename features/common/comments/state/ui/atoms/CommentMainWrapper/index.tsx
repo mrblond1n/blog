@@ -1,9 +1,9 @@
 import React from 'react';
-import {Row} from 'ui/atoms/Row';
+import {Stack} from 'ui/atoms/Stack';
 import style from './style.module.css';
 
 export const CommentMainWrapper = React.memo(({children}) => (
-    <Row className={style.container} direction="column">
+    <Stack className={style.container} direction="column">
         {children}
-    </Row>
+    </Stack>
 ));

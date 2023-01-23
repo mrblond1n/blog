@@ -17,7 +17,7 @@ import React from 'react';
 import {Avatar} from 'ui/atoms/Avatar';
 import {Body} from 'ui/atoms/Body';
 import {Caption} from 'ui/atoms/Caption';
-import {Row} from 'ui/atoms/Row';
+import {Stack} from 'ui/atoms/Stack';
 import {dateFromNow} from 'utils/date';
 
 export const CommentContainer = React.memo(({id}: {id: string}) => {
@@ -26,10 +26,10 @@ export const CommentContainer = React.memo(({id}: {id: string}) => {
             <CommentAvatar id={id} />
 
             <CommentMainWrapper>
-                <Row fullWidth justifyContent="space-between">
+                <Stack justifyContent="space-between">
                     <CommentHeader id={id} />
                     <MenuContainer id={id} />
-                </Row>
+                </Stack>
 
                 <CommentBodyContainer id={id} />
 
@@ -92,10 +92,10 @@ const CommentFooter = React.memo(({id}: {id: string}) => {
 
 const CommentActions = React.memo(({id}: {id: string}) => {
     return (
-        <Row direction="column" fullWidth margin>
+        <Stack direction="column">
             <FieldContainer id={id} />
             <SendButtonContainer id={id} />
             <ToggleButtonContainer id={id} />
-        </Row>
+        </Stack>
     );
 });
