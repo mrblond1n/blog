@@ -1,5 +1,6 @@
 import React from 'react';
-import {Badge as Component, BadgeProps} from 'ui/atoms';
+import {BadgeProps} from 'types/components';
+import {Badge as Component} from 'ui/atoms';
 import {styled} from 'utils/styles';
 
 export const Badge = React.memo(({children, ...props}: BadgeProps) => (

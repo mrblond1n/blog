@@ -1,5 +1,6 @@
 import React from 'react';
-import {MenuItem as Component, MenuItemProps} from 'ui/atoms';
+import {MenuItemProps} from 'types/components';
+import {MenuItem as Component} from 'ui/atoms';
 
 export const MenuItem = React.memo(({children, ...props}: MenuItemProps) => (
     <Component {...props}>{children}</Component>
