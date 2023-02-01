@@ -1,7 +1,7 @@
 import {LinkProps} from 'next/dist/client/link';
 import Link from 'next/link';
 import React from 'react';
-import {LinkProps as MUILinkProps} from 'ui/atoms';
+import {LinkProps as MUILinkProps} from 'types/components';
 import {styled} from 'utils/styles';
 
 type TProps = React.PropsWithChildren<LinkProps> & MUILinkProps;

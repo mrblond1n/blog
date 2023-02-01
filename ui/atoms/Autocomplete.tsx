@@ -1,6 +1,7 @@
 import React from 'react';
 import {TNullable} from 'types';
-import {Autocomplete as Component, TextFieldProps} from 'ui/atoms';
+import {TextFieldProps} from 'types/components';
+import {Autocomplete as Component} from 'ui/atoms';
 import {TextField} from 'ui/atoms/TextField';
 
 type TProps = {

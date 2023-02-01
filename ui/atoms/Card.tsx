@@ -1,18 +1,13 @@
 import React from 'react';
 import {
-    Card as MUICard,
-    CardActionArea,
     CardActionAreaProps,
-    CardActions,
     CardActionsProps,
-    CardContent,
     CardContentProps,
-    CardHeader,
     CardHeaderProps,
-    CardMedia,
     CardMediaProps,
     CardProps,
-} from 'ui/atoms';
+} from 'types/components';
+import {Card as MUICard, CardActionArea, CardActions, CardContent, CardHeader, CardMedia} from 'ui/atoms';
 
 export class Card {
     static Actions = React.memo(({children, ...props}: CardActionsProps) => (

@@ -1,5 +1,6 @@
 import React from 'react';
-import {Link, LinkProps} from 'ui/atoms';
+import {LinkProps} from 'types/components';
+import {Link} from 'ui/atoms';
 
 type TProps = {
     onClick: () => any;
