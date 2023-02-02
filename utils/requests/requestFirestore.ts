@@ -4,6 +4,7 @@ import {LIMITS} from 'constants/business';
 import {setLastItem} from 'features/firebase/pagination/models/events';
 import {$paginationIndex} from 'features/firebase/pagination/models/stores';
 import {addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, where, WhereFilterOp} from 'firebase/firestore';
+import {TData} from 'types';
 import {defaultInterceptor, TInterceptor, TResponse} from 'utils/requests';
 import {TOverloadedReturnType} from 'utils/typescript/overload';
 
@@ -20,7 +21,7 @@ type TOptions = {
 };
 
 type TType = 'GET_LIST' | 'ADD' | 'SET' | 'GET' | 'REMOVE' | 'UPDATE';
-type TData = {[key: string]: any};
+
 type TConfig = {collection: TCollection; data: TData; options: TOptions; id: string};
 type TConfigType<K extends keyof TConfig, T extends TType> = Pick<TConfig, K> & {type: T};
 

@@ -1,6 +1,5 @@
 import {guard, sample} from 'effector';
 import {createGate} from 'effector-react';
-import {$inputsApi} from 'features/common/form/model/stores';
 import {getComments} from 'features/pages/post/comments/models/get/events';
 import {getPostFx} from 'features/pages/post/state/model/effects';
 import {setMode} from 'features/pages/post/state/model/events';
@@ -18,7 +17,7 @@ sample({
     ],
     source: $id,
     filter: Boolean,
-    target: [getPostFx, setMode.prepend(() => 'LOADING'), $inputsApi.setAddCommentInputs],
+    target: [getPostFx, setMode.prepend(() => 'LOADING')],
 });
 
 sample({

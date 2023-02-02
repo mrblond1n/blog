@@ -1,12 +1,11 @@
-import {TCommentDto} from 'types/dtos/comments.dto';
+import {TData} from 'types';
 import {createFirestoreRequest} from 'utils/requests/requestFirestore';
 
-type TUpdateCommentLikesRequest = Pick<TCommentDto, 'id' | 'liked' | 'disliked'> & {path: string};
-export const updateCommentLikesRequest = ({path, ...data}: TUpdateCommentLikesRequest) => {
+type TProps = TData & {path: string; id: string};
+export const updateCommentLikesRequest = ({path, ...data}: TProps) => {
     return createFirestoreRequest('UPDATE', `posts/${path}/comments`, data, data.id);
 };
 
-type TUpdateCommentRepliesRequest = Pick<TCommentDto, 'id' | 'replies'> & {path: string};
-export const updateCommentRepliesRequest = ({path, ...data}: TUpdateCommentRepliesRequest) => {
+export const updateCommentRepliesRequest = ({path, ...data}: TProps) => {
     return createFirestoreRequest('UPDATE', `posts/${path}/comments`, data, data.id);
 };

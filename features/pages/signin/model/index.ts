@@ -3,11 +3,13 @@ import {createGate} from 'effector-react';
 import {getUserFx} from 'features/app/model/effects';
 import {setUser} from 'features/app/model/events';
 import {$appState, setAppState} from 'features/app/model/stores';
-import {submitForm} from 'features/common/form/model/events';
-import {$form, $inputsApi} from 'features/common/form/model/stores';
-import {toMain} from 'features/router/model/events';
+import {addField, addFields, onSubmit} from 'features/common/form/model/events';
+import {$valueIndex} from 'features/common/form/model/stores';
 import {signInFx, signOutFx} from 'features/pages/signin/model/effects';
 import {signOut} from 'features/pages/signin/model/events';
+import {fields} from 'features/pages/signin/utils/form';
+import {toMain} from 'features/router/model/events';
+import {iterate} from 'utils/effector/iterate';
 
 export const Gate = createGate();
 
@@ -18,14 +20,22 @@ guard({
     target: toMain,
 });
 
+sample({
+    clock: Gate.open,
+    fn: () => fields,
+    target: addFields,
+});
+
+const newFieldEvent = iterate(addFields);
+
 forward({
-    from: Gate.open,
-    to: $inputsApi.setSignInInputs,
+    from: newFieldEvent,
+    to: addField,
 });
 
 sample({
-    clock: submitForm,
-    source: $form,
+    clock: onSubmit,
+    source: $valueIndex,
     filter: Gate.status,
     target: signInFx,
 });

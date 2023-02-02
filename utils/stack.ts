@@ -1,19 +1,23 @@
 export type TStack<V> = {
-    push(item: V): TStack<V>;
-    pop(): TStack<V>;
-    replaceTop(item: V): TStack<V>;
-    isEmpty(): boolean;
-    top(): V;
+    clear(): TStack<V>;
     getRaw(): V[];
+    isEmpty(): boolean;
+    pop(): TStack<V>;
+    push(item: V): TStack<V>;
+    replaceTop(item: V): TStack<V>;
+    top(): V;
+    update(fn: (prev: V[]) => V[]): TStack<V>;
 };
 
 export const createStack = <V>(items: V[] = []): TStack<V> => ({
-    push: (item: V) => createStack([...items, item]),
-    pop: () => createStack(items.slice(0, -1)),
-    replaceTop: (item: V) => createStack([...items.slice(0, -1), item]),
-    isEmpty: () => !items.length,
-    top: () => items[items.length - 1],
+    clear: (): TStack<V> => createStack([]),
     getRaw: (): V[] => items,
+    isEmpty: () => !items.length,
+    pop: () => createStack(items.slice(0, -1)),
+    push: (item: V) => createStack([...items, item]),
+    replaceTop: (item: V) => createStack([...items.slice(0, -1), item]),
+    top: () => items[items.length - 1],
+    update: (fn: (items: V[]) => V[]) => createStack(fn(items)),
 });
 
 export type TIndex<T> = {

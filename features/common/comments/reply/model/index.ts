@@ -1,11 +1,8 @@
 import {forward, sample, split} from 'effector';
 import {
-    changeValue,
     closeOpened,
     getReplies,
     hideReplies,
-    onChange,
-    onKeyDown,
     onOpen,
     onReply,
     onSend,
@@ -52,19 +49,6 @@ forward({
 });
 
 sample({
-    clock: onChange,
-    source: $replyId,
-    fn: (key, e) => ({key, value: e.target.value}),
-    target: changeValue,
-});
-
-sample({
-    clock: onKeyDown,
-    filter: e => e.keyCode === 13 && (e.metaKey || e.ctrlKey),
-    target: onSend,
-});
-
-sample({
     clock: onSend,
     source: {
         discussion_id: $discussionId,
@@ -72,7 +56,6 @@ sample({
         text: $text,
     },
     filter: ({text}) => !!text,
-    fn: ({text, ...comment}) => ({...comment, text: text.trim()}),
     target: sendReply,
 });
 

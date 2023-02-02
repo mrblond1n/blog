@@ -4,20 +4,9 @@ import {
     getCommentsCollection,
     getRemovedComments,
     removeComment,
-    sendComment,
 } from 'features/common/comments/state/model/events';
 import {$commentsIndex} from 'features/common/comments/state/model/stores';
-import {submitForm} from 'features/common/form/model/events';
-import {$form} from 'features/common/form/model/stores';
 import {iterate} from 'utils/effector/iterate';
-
-sample({
-    clock: submitForm,
-    source: $form,
-    filter: ({text}) => !!text,
-    fn: ({text}) => ({text}),
-    target: sendComment,
-});
 
 const newCommentEvent = iterate(getCommentsCollection);
 

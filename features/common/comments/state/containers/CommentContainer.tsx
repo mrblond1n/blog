@@ -6,6 +6,7 @@ import {ButtonContainer} from 'features/common/comments/reply/containers/ButtonC
 import {FieldContainer} from 'features/common/comments/reply/containers/FieldContainer';
 import {SendButtonContainer} from 'features/common/comments/reply/containers/SendButtonContainer';
 import {ToggleButtonContainer} from 'features/common/comments/reply/containers/ToggleButtonContainer';
+import {onSend} from 'features/common/comments/reply/model/events';
 import {$commentsIndex} from 'features/common/comments/state/model/stores';
 import {CommentBodyWrapper} from 'features/common/comments/state/ui/atoms/CommentBodyWrapper';
 import {CommentFooterWrapper} from 'features/common/comments/state/ui/atoms/CommentFooterWrapper';
@@ -18,6 +19,7 @@ import {Avatar} from 'ui/atoms/Avatar';
 import {Body} from 'ui/atoms/Body';
 import {Caption} from 'ui/atoms/Caption';
 import {Stack} from 'ui/atoms/Stack';
+import {Form} from 'ui/molecules/Form';
 import {dateFromNow} from 'utils/date';
 
 export const CommentContainer = React.memo(({id}: {id: string}) => {
@@ -93,9 +95,11 @@ const CommentFooter = React.memo(({id}: {id: string}) => {
 const CommentActions = React.memo(({id}: {id: string}) => {
     return (
         <Stack direction="column">
-            <FieldContainer id={id} />
-            <SendButtonContainer id={id} />
-            <ToggleButtonContainer id={id} />
+            <Form onSubmit={onSend}>
+                <FieldContainer id={id} />
+                <SendButtonContainer id={id} />
+                <ToggleButtonContainer id={id} />
+            </Form>
         </Stack>
     );
 });

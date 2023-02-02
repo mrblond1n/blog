@@ -1,8 +1,8 @@
 import {forward, sample} from 'effector';
 import {createGate} from 'effector-react';
 import {$displayName, $uid} from 'features/app/model/stores';
-import {resetForm, selectFile, submitForm} from 'features/common/form/model/events';
-import {$form, $inputsApi} from 'features/common/form/model/stores';
+import {addField, addFields, clearValues, onSubmit, resetForm} from 'features/common/form/model/events';
+import {$valueIndex} from 'features/common/form/model/stores';
 import {resetPaginationIndexes} from 'features/firebase/pagination/models/events';
 import {addPostFx, getPostsFx, removePostFx, saveImageFx} from 'features/pages/posts/model/effects';
 import {
@@ -16,16 +16,17 @@ import {
     resetDisable,
     setMode,
 } from 'features/pages/posts/model/events';
-import {$idsList, $mode, $tags} from 'features/pages/posts/model/stores';
+import {$idsList, $mode} from 'features/pages/posts/model/stores';
+import {fields} from 'features/pages/posts/utils/form';
 import {iterate} from 'utils/effector/iterate';
 import {getId} from 'utils/uniqueId';
-import {getUrl} from 'utils/window/url';
 
 export const Gate = createGate();
 
-forward({
-    from: Gate.open,
-    to: [getPosts, $inputsApi.setCreatePostInputs],
+sample({
+    clock: Gate.open,
+    fn: () => fields,
+    target: [getPosts, addFields],
 });
 
 forward({
@@ -35,10 +36,16 @@ forward({
 
 forward({
     from: Gate.close,
-    to: [clearIndex, resetPaginationIndexes],
+    to: [resetForm, clearIndex, resetPaginationIndexes],
 });
 
 const newPostEvent = iterate(getPostsFx.doneData);
+const newFieldEvent = iterate(addFields);
+
+forward({
+    from: newFieldEvent,
+    to: addField,
+});
 
 forward({
     from: newPostEvent,
@@ -51,26 +58,33 @@ forward({
 });
 
 sample({
-    clock: submitForm,
-    source: selectFile,
+    clock: onSubmit,
+    source: $valueIndex,
     filter: Gate.status,
-    fn: file => ({file, url: `${getId()}/${file?.name}`}),
+    fn: ({img}) => {
+        const file = typeof img === 'object' && !Array.isArray(img) ? img : null;
+
+        return {file, url: `${getId()}/${file?.name}`};
+    },
     target: saveImageFx,
 });
 
 sample({
     clock: saveImageFx.doneData,
-    source: {author: $displayName, form: $form, tags: $tags, uid: $uid},
-    filter: ({form}) => !!form.text && !!form.title,
-    fn: ({form, ...source}, img) => ({...source, ...(form as {text: string; title: string}), img}),
+    source: {author: $displayName, form: $valueIndex, uid: $uid},
+    filter: Gate.status,
+    fn: ({form, ...source}, img) => ({...source, ...form, img}),
     target: addPostFx,
 });
 
 sample({
     clock: addPostFx.doneData,
-    source: selectFile,
-    fn: (file, post) => ({...post, img: getUrl(file)}),
-    target: [addNewPost, resetForm],
+    target: addNewPost,
+});
+
+forward({
+    from: addNewPost,
+    to: clearValues,
 });
 
 forward({
@@ -108,13 +122,6 @@ sample({
     filter: mode => mode === 'NOT_FOUND',
     target: setMode.prepend(() => 'SUCCESS'),
 });
-
-// sample({
-//     clock: addPostFx.doneData,
-//     source: $formElem,
-//     filter: Boolean,
-//     target: resetForm,
-// });
 
 forward({
     from: getPostsFx.failData,

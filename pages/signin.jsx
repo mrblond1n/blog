@@ -2,7 +2,7 @@ import {useGate, useStore} from 'effector-react';
 import {$appState} from 'features/app/model/stores';
 import {LinkContainer} from 'features/pages/signin/containers/LinkContainer';
 import {Gate} from 'features/pages/signin/model';
-import {FormContainer} from 'features/common/form/containers/FormContainer';
+import {FormContainer, FormFieldsContainer} from 'features/common/form/containers/FormContainer';
 import React from 'react';
 import {SubmitButtonContainer} from 'features/pages/signin/containers/SubmitButtonContainer';
 import {SectionTemplate} from 'ui/templates/SectionTemplate';
@@ -18,6 +18,8 @@ export default () => {
         <SectionTemplate title={<h1>{'SIGN IN PAGE'}</h1>}>
             <Stack justifyContent="center">
                 <FormContainer>
+                    <FormFieldsContainer />
+
                     <SubmitButtonContainer />
                 </FormContainer>
             </Stack>
