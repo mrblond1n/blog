@@ -2,23 +2,13 @@ import {comment, comments, reply} from '__mocks__/comments';
 import {admin} from '__mocks__/user';
 import {setUser} from 'features/app/model/events';
 import 'features/common/comments';
-import {
-    addReply,
-    changeValue,
-    clearReply,
-    closeOpened,
-    onOpen,
-    onReply,
-    onToggle,
-} from 'features/common/comments/reply/model/events';
+import {addReply, closeOpened, onOpen, onReply, onToggle} from 'features/common/comments/reply/model/events';
 import {
     $discussionId,
     $openedIndex,
     $prevReplyId,
     $replyId,
     $replyIdsIndex,
-    $text,
-    $valueIndex,
     $viewedRepliesIndex,
 } from 'features/common/comments/reply/model/stores';
 import {clearComments, getCommentsCollection, removeComment} from 'features/common/comments/state/model/events';
@@ -70,20 +60,6 @@ describe('$viewedRepliesIndex', () => {
     });
 });
 
-describe('$valueIndex', () => {
-    comments.forEach(({id}) => {
-        test('must be changed value to "test"', () => {
-            changeValue({key: id, value: 'test'});
-            expect($valueIndex.getState()[id]).toEqual('test');
-        });
-
-        test('value must be cleared after executing clear function', () => {
-            clearReply(id);
-            expect($valueIndex.getState()[id]).toEqual('');
-        });
-    });
-});
-
 describe('$replyIdsIndex', () => {
     test('reply should be added to $replyIdsIndex', () => {
         addReply(reply);
@@ -131,15 +107,4 @@ describe('$discussionIdHistory', () => {
                 expect($discussionId.getState()).toEqual(item.discussion_id);
             });
         });
-});
-
-describe('todo', () => {
-    comments.forEach(item => {
-        test('$text must be equal changed value', () => {
-            onReply(item.id);
-
-            changeValue({key: item.id, value: item.text});
-            expect($text.getState()).toEqual(item.text);
-        });
-    });
 });

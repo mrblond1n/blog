@@ -1,38 +1,19 @@
-import {createApi, createStore, restore} from 'effector';
-import {fieldSet, resetForm, setInputs} from 'features/common/form/model/events';
-import {FormGate} from 'features/common/form/model/index';
-import {createIndex} from 'utils/stack';
+import {createStore} from 'effector';
+import {addField, addFields, clearValues, onChange, resetForm} from 'features/common/form/model/events';
+import {TField, TValue} from 'types';
+import {createIndex, createStack} from 'utils/stack';
 
-export const $form = createStore(createIndex<string>())
-    .on(fieldSet, (index, {key, value}) => index.set({key, value}))
-    .on(resetForm, index => index.clear())
+export const $valueIndex = createStore(createIndex<TValue>())
+    .on(onChange, (index, payload) => index.set(payload))
+    .on([clearValues, resetForm], index => index.clear())
     .map(value => value.getRaw());
 
-export const signInInputs = [
-    {name: 'email', label: 'E-mail', required: true, type: 'email'},
-    {autoComplete: 'on', name: 'password', label: 'Password', required: true, type: 'password'},
-];
+export const $fieldIndex = createStore(createIndex<TField>())
+    .on(addField, (index, payload) => index.set({key: payload.id, value: payload}))
+    .on(resetForm, index => index.clear())
+    .map(index => index.getRaw());
 
-export const signUpInputs = [
-    {autoComplete: 'on', name: 'firstName', label: 'First name', required: true, type: 'text'},
-    {autoComplete: 'on', name: 'lastName', label: 'Last name', required: true, type: 'text'},
-    {name: 'email', label: 'E-mail', required: true, type: 'email'},
-    {autoComplete: 'on', name: 'password', label: 'Password', required: true, type: 'password'},
-    {autoComplete: 'on', name: 'confirmPassword', label: 'Repeat password', required: true, type: 'password'},
-];
-
-export const createPostInputs = [
-    {name: 'title', required: true, type: 'text', label: 'Title'},
-    {name: 'text', required: true, type: 'text', label: 'Text'},
-    {name: 'img', required: true, type: 'file', label: '', inputProps: {'aria-label': 'image'}},
-];
-
-export const addCommentInputs = [{name: 'text', label: 'Comment', required: true, type: 'textarea'}];
-
-export const $inputs = restore(setInputs, []).reset(FormGate.close);
-export const $inputsApi = createApi($inputs, {
-    setSignInInputs: () => signInInputs,
-    setSignUpInputs: () => signUpInputs,
-    setCreatePostInputs: () => createPostInputs,
-    setAddCommentInputs: () => addCommentInputs,
-});
+export const $fieldIdsStack = createStore(createStack<TField['id']>())
+    .on(addFields, (stack, fields) => stack.update(() => fields.map(({id}) => id)))
+    .on(resetForm, index => index.clear())
+    .map(stack => stack.getRaw());

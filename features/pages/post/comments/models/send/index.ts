@@ -1,8 +1,8 @@
 import {forward, sample} from 'effector';
 import {$displayName, $uid} from 'features/app/model/stores';
-import {addReply, clearReply, closeOpened, sendReply} from 'features/common/comments/reply/model/events';
+import {addReply, closeOpened, sendReply} from 'features/common/comments/reply/model/events';
 import {addComment, sendComment} from 'features/common/comments/state/model/events';
-import {resetForm} from 'features/common/form/model/events';
+import {clearValues} from 'features/common/form/model/events';
 import {$id, Gate} from 'features/pages/post/index';
 import {sendCommentFx, sendReplyFx} from 'features/pages/post/comments/models/send/effects';
 
@@ -34,11 +34,11 @@ forward({
 
 forward({
     from: sendCommentFx.doneData,
-    to: resetForm,
+    to: clearValues,
 });
 
 sample({
     clock: sendReplyFx.doneData.map(({reply_id}) => reply_id),
     filter: Boolean,
-    target: [clearReply, closeOpened],
+    target: closeOpened,
 });

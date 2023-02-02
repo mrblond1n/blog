@@ -19,9 +19,7 @@ export const INTL = {
                 REMOVE: 'remove',
             },
         },
-        PLACEHOLDER: {
-            COMMENT: 'Write your comment',
-        },
+        PLACEHOLDER: 'Write your comment',
     },
     ERROR: {
         NOT_FOUND_PAGE: {

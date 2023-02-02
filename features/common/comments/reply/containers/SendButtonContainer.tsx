@@ -1,6 +1,5 @@
 import {INTL} from 'constants/intl';
 import {useStoreMap} from 'effector-react';
-import {onSend} from 'features/common/comments/reply/model/events';
 import {$openedIndex} from 'features/common/comments/reply/model/stores';
 
 import React from 'react';
@@ -15,13 +14,12 @@ export const SendButtonContainer = React.memo(({id}: {id: string}) => {
         defaultValue: false,
         fn: (state, [id]) => state[id],
     });
-    const handleClick = React.useCallback(() => onSend(), []);
 
     if (!isOpened) return null;
 
     return (
         <Stack justifyContent="flex-end">
-            <Button onClick={handleClick}>{intl(INTL.COMMENT.ACTION.SEND)}</Button>
+            <Button type="submit">{intl(INTL.COMMENT.ACTION.SEND)}</Button>
         </Stack>
     );
 });

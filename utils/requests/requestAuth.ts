@@ -1,21 +1,21 @@
 import {createUserWithEmailAndPassword, signOut} from '@firebase/auth';
 import {auth, getCurrentUser} from 'config';
 import {signInWithEmailAndPassword} from 'firebase/auth';
+import {TData} from 'types';
 import {defaultInterceptor, TInterceptor, TResponse} from 'utils/requests';
 import {TOverloadedReturnType} from 'utils/typescript/overload';
 
-type TUser = {[key: string]: string};
 type TType = 'CHECK' | 'SIGN_OUT' | 'SIGN_IN' | 'SIGN_UP';
-type TConfig = {data: TUser; src: string};
+type TConfig = {data: TData; src: string};
 type TConfigType<K extends keyof TConfig | void, T extends TType> = K extends string
     ? Pick<TConfig, K> & {type: T}
     : {type: T};
 
 export function createAuthRequest(type: 'CHECK' | 'SIGN_OUT'): TConfigType<void, typeof type>;
 
-export function createAuthRequest(type: 'SIGN_IN' | 'SIGN_UP', data: TUser): TConfigType<'data', typeof type>;
+export function createAuthRequest(type: 'SIGN_IN' | 'SIGN_UP', data: TData): TConfigType<'data', typeof type>;
 
-export function createAuthRequest(type: TType, data?: TUser) {
+export function createAuthRequest(type: TType, data?: TData) {
     switch (type) {
         case 'CHECK':
         case 'SIGN_OUT':
@@ -38,14 +38,18 @@ export const authRequest = async <Result>(
 
     switch (type) {
         case 'SIGN_IN': {
-            const userCredential = await signInWithEmailAndPassword(auth, config.data.email, config.data.password);
+            const email = config.data.email as string;
+            const password = config.data.password as string;
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
             response = userCredential.user;
             break;
         }
 
         case 'SIGN_UP': {
-            const userCredential = await createUserWithEmailAndPassword(auth, config.data.email, config.data.password);
+            const email = config.data.email as string;
+            const password = config.data.password as string;
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
             response = userCredential.user;
             break;

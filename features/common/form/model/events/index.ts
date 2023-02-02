@@ -1,14 +1,12 @@
 import {createEvent} from 'effector';
-import {createPostInputs, signInInputs, signUpInputs} from 'features/common/form/model/stores';
-import React from 'react';
+import {FormEvent} from 'react';
+import {TField, TValue} from 'types';
 
-export const fieldSet = createEvent<{key: string; value: string}>();
+export const addFields = createEvent<TField[]>();
+export const addField = createEvent<TField>();
+export const onChange = createEvent<{key: string; value: TValue}>();
+export const clearValues = createEvent();
 
-type TInputs = typeof signInInputs | typeof signUpInputs | typeof createPostInputs;
-export const setInputs = createEvent<TInputs>();
-
-export const onChange = createEvent<React.ChangeEvent<HTMLInputElement>>();
-export const selectFile = createEvent<File | void>();
-
-export const resetForm = createEvent<void>();
-export const submitForm = createEvent();
+export const resetForm = createEvent();
+export const submitForm = createEvent<FormEvent<HTMLFormElement>>();
+export const onSubmit = createEvent<void>();

@@ -2,10 +2,12 @@ import {forward, guard, sample} from 'effector';
 import {createGate} from 'effector-react';
 import {setUser} from 'features/app/model/events';
 import {$appState, setAppState} from 'features/app/model/stores';
-import {resetForm, submitForm} from 'features/common/form/model/events';
-import {$form, $inputsApi} from 'features/common/form/model/stores';
-import {toMain} from 'features/router/model/events';
+import {addField, addFields, onSubmit, resetForm} from 'features/common/form/model/events';
+import {$valueIndex} from 'features/common/form/model/stores';
 import {createUserFx, signUpFx} from 'features/pages/signup/model/effects';
+import {fields} from 'features/pages/signup/utils/form';
+import {toMain} from 'features/router/model/events';
+import {iterate} from 'utils/effector/iterate';
 
 export const Gate = createGate();
 
@@ -16,14 +18,21 @@ guard({
     target: toMain,
 });
 
-forward({
-    from: Gate.open,
-    to: $inputsApi.setSignUpInputs,
+sample({
+    clock: Gate.open,
+    fn: () => fields,
+    target: addFields,
 });
 
+const newFieldEvent = iterate(addFields);
+
+forward({
+    from: newFieldEvent,
+    to: addField,
+});
 sample({
-    clock: submitForm,
-    source: $form,
+    clock: onSubmit,
+    source: $valueIndex,
     filter: Gate.status,
     fn: data => {
         if (data.password === data.confirmPassword) return {...data, displayName: `${data.firstName} ${data.lastName}`};

@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "firebase emulators:exec \"next dev\"",
     "dev:external": "sh -c 'export IP=$(ipconfig getifaddr en0); next dev -H $IP -p 4283'",
-    "start": "next dev",
+    "start": "next dev & tsc --noEmit --incremental --watch",
     "firebase:emulators": "firebase emulators:start --only auth,firestore,storage",
     "build": "next build && next export -o build/",
     "lint": "eslint \"./**/*.{ts, tsx}\"",

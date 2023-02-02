@@ -1,33 +1,17 @@
-import {useGate, useList} from 'effector-react';
-import {FormGate} from 'features/common/form/model';
-import {onChange, submitForm} from 'features/common/form/model/events';
-import {$inputs} from 'features/common/form/model/stores';
+import {useList} from 'effector-react';
+import {FieldContainer} from 'features/common/form/containers/FieldContainer';
+import {submitForm} from 'features/common/form/model/events';
+import {$fieldIdsStack} from 'features/common/form/model/stores';
 
-import React from 'react';
-import {TextField} from 'ui/atoms/TextField';
+import React, {FormEvent} from 'react';
 import {Form} from 'ui/molecules/Form';
 
-export const FormContainer = React.memo(({children}) => {
-    const ref = React.useRef<HTMLFormElement>(null);
+export const FormContainer: React.FC = ({children}) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => submitForm(e);
 
-    useGate(FormGate, {form: ref});
+    return <Form onSubmit={handleSubmit}>{children}</Form>;
+};
 
-    const handleSubmit = React.useCallback(e => submitForm(e), []);
-    const handleChange = React.useCallback(e => onChange(e), []);
-
-    const onKeyDown = React.useCallback(e => {
-        if (e.keyCode === 13 && (e.metaKey || e.ctrlKey)) {
-            ref.current && submitForm(ref.current as any);
-        }
-    }, []);
-
-    return (
-        <Form onSubmit={handleSubmit} refWrapper={ref}>
-            {useList($inputs, input => (
-                <TextField onChange={handleChange} onKeyDown={onKeyDown} {...input} />
-            ))}
-
-            {children}
-        </Form>
-    );
-});
+export const FormFieldsContainer = () => {
+    return useList($fieldIdsStack, id => <FieldContainer id={id} />);
+};

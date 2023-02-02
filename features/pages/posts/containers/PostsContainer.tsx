@@ -44,7 +44,7 @@ export const PostContainer = React.memo(({id}: {id: string}) => {
 
             <PostMedia img={post.img} />
 
-            <PostContent text={post.text} title={post.title} />
+            <PostContent description={post.description} title={post.title} />
 
             <Card.Actions>
                 <Badge badgeContent={post.watches_count} color="primary">

@@ -1,13 +1,16 @@
 import {LIMITS} from 'constants/business';
-import {TPostDto} from 'types/dtos/posts.dto';
+import {TData, TNullable} from 'types';
+
 import {createFirestoreRequest} from 'utils/requests/requestFirestore';
 import {createStorageRequest} from 'utils/requests/requestStorage';
 
-export const addPostRequest = (data: Omit<TPostDto, 'id' | 'watches_count' | 'comments_count' | 'created_at'>) =>
-    createFirestoreRequest('ADD', 'posts', data);
+export const addPostRequest = (data: TData) => createFirestoreRequest('ADD', 'posts', data);
 
-export const savePostImageRequest = ({url, file}: {url: string; file: any}) =>
-    createStorageRequest('UPLOAD', url, file);
+export const savePostImageRequest = ({url, file}: {url: string; file: TNullable<File>}) => {
+    if (!file) throw new Error('file not found');
+
+    return createStorageRequest('UPLOAD', url, file);
+};
 
 export const getPostsRequest = () =>
     createFirestoreRequest('GET_LIST', 'posts', {order: ['created_at', 'desc'], limit: LIMITS.POSTS});

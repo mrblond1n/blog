@@ -1,10 +1,10 @@
-import {TPostDto} from 'types/dtos/posts.dto';
+import {TData} from 'types';
 import {createFirestoreRequest} from 'utils/requests/requestFirestore';
 
 export const getPostRequest = (id: string) => createFirestoreRequest('GET', 'posts', id);
 
-export const updatePostWatchesRequest = ({id, ...data}: Pick<TPostDto, 'id' | 'watches_count'>) =>
+export const updatePostWatchesRequest = ({id, ...data}: TData & {id: string}) =>
     createFirestoreRequest('UPDATE', 'posts', data, id);
 
-export const updatePostCommentsRequest = ({id, ...data}: Pick<TPostDto, 'id' | 'comments_count'>) =>
+export const updatePostCommentsRequest = ({id, ...data}: TData & {id: string}) =>
     createFirestoreRequest('UPDATE', 'posts', data, id);

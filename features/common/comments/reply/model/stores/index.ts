@@ -1,8 +1,6 @@
 import {createStore} from 'effector';
 import {
     addReply,
-    changeValue,
-    clearReply,
     closeOpened,
     onOpen,
     onReply,
@@ -11,6 +9,7 @@ import {
 } from 'features/common/comments/reply/model/events';
 import {addComment, clearComments, removeComment} from 'features/common/comments/state/model/events';
 import {$commentsIndex} from 'features/common/comments/state/model/stores';
+import {$valueIndex} from 'features/common/form/model/stores';
 import {getById} from 'utils/effector/getById';
 import {createIndex} from 'utils/stack';
 
@@ -26,12 +25,6 @@ export const $viewedRepliesIndex = createStore(createIndex<boolean>())
 
         return index.set({key: id, value: !state[id]});
     })
-    .on(clearComments, index => index.clear())
-    .map(value => value.getRaw());
-
-export const $valueIndex = createStore(createIndex<string>())
-    .on(changeValue, (index, {key, value}) => index.set({key, value}))
-    .on(clearReply, (index, key) => index.set({key, value: ''}))
     .on(clearComments, index => index.clear())
     .map(value => value.getRaw());
 

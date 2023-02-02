@@ -10,7 +10,7 @@ import {
     strikethrough,
     unorderedListCommand,
 } from '@uiw/react-md-editor/lib/commands';
-// import {image} from 'utils/markdown/image'
+// import {image} from 'utils/markdown/image';
 
 export const commands = [
     bold,
