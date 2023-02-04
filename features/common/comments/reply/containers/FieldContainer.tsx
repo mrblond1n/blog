@@ -5,13 +5,8 @@ import {$valueIndex} from 'features/common/form/model/stores';
 
 import React from 'react';
 import {TValue} from 'types';
-import {Markdown} from 'ui/molecules/Markdown';
+import {TextField} from 'ui/atoms/TextField';
 import {getStoreById} from 'utils/effector/getById';
-
-const textareaProps = {
-    required: true,
-    placeholder: 'Write your reply',
-};
 
 export const FieldContainer = ({id}: {id: string}) => {
     const isOpened = useStoreMap({
@@ -24,9 +19,9 @@ export const FieldContainer = ({id}: {id: string}) => {
     const $value = React.useMemo(() => getStoreById($valueIndex, id), [id]);
     const value = (useStore($value) as string) || '';
 
-    const handleChange = (value?: TValue<string>) => onChange({key: id, value});
+    const handleChange = (value?: TValue) => onChange({key: id, value});
 
     if (!isOpened) return null;
 
-    return <Markdown onChange={handleChange} textareaProps={textareaProps} value={value} />;
+    return <TextField onChange={handleChange} value={value} />;
 };
