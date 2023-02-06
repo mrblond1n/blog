@@ -1,1 +1,1 @@
-export {withFallback} from 'io-ts-types';
+export {withFallback} from 'io-ts-types'

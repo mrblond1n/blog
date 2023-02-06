@@ -1,1 +1,1 @@
-export {selectWord} from '@uiw/react-md-editor/lib/utils/markdownUtils';
+export {selectWord} from '@uiw/react-md-editor/lib/utils/markdownUtils'

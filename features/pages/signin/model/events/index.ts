@@ -1,3 +1,3 @@
-import {createEvent} from 'effector';
+import {createEvent} from 'effector'
 
-export const signOut = createEvent<void>();
+export const signOut = createEvent<void>()

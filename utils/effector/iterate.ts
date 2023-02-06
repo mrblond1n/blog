@@ -1,29 +1,29 @@
-import {createEvent, Event, forward, restore, sample} from 'effector';
+import {createEvent, Event, forward, restore, sample} from 'effector'
 
 export const iterate = <V>(source: Event<V[]>) => {
-    const target = createEvent<V>();
-    const $trigger = restore(
-        sample({
-            source,
-            filter: array => Boolean(array.length),
-        }),
-        []
-    );
-
+  const target = createEvent<V>()
+  const $trigger = restore(
     sample({
-        clock: sample({
-            source: $trigger,
-            filter: array => array.length > 1,
-        }),
-        source: $trigger,
-        fn: array => array.slice(1),
-        target: $trigger,
-    });
+      source,
+      filter: array => Boolean(array.length),
+    }),
+    []
+  )
 
-    forward({
-        from: $trigger.map(([data]) => data),
-        to: target,
-    });
+  sample({
+    clock: sample({
+      source: $trigger,
+      filter: array => array.length > 1,
+    }),
+    source: $trigger,
+    fn: array => array.slice(1),
+    target: $trigger,
+  })
 
-    return target;
-};
+  forward({
+    from: $trigger.map(([data]) => data),
+    to: target,
+  })
+
+  return target
+}

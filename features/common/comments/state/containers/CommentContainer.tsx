@@ -1,105 +1,105 @@
-import {useStoreMap} from 'effector-react';
-import {ButtonDislikeContainer} from 'features/common/comments/liked/containers/ButtonDislikeContainer';
-import {ButtonLikeContainer} from 'features/common/comments/liked/containers/ButtonLikeContainer';
-import {MenuContainer} from 'features/common/comments/menu/containers/MenuContainer';
-import {ButtonContainer} from 'features/common/comments/reply/containers/ButtonContainer';
-import {FieldContainer} from 'features/common/comments/reply/containers/FieldContainer';
-import {SendButtonContainer} from 'features/common/comments/reply/containers/SendButtonContainer';
-import {ToggleButtonContainer} from 'features/common/comments/reply/containers/ToggleButtonContainer';
-import {onSend} from 'features/common/comments/reply/model/events';
-import {$commentsIndex} from 'features/common/comments/state/model/stores';
-import {CommentBodyWrapper} from 'features/common/comments/state/ui/atoms/CommentBodyWrapper';
-import {CommentFooterWrapper} from 'features/common/comments/state/ui/atoms/CommentFooterWrapper';
-import {CommentHeaderWrapper} from 'features/common/comments/state/ui/atoms/CommentHeaderWrapper';
-import {CommentMainWrapper} from 'features/common/comments/state/ui/atoms/CommentMainWrapper';
-import {CommentWrapper} from 'features/common/comments/state/ui/atoms/CommentWrapper';
-import {getInitials} from 'features/common/comments/state/utils';
-import React from 'react';
-import {Avatar} from 'ui/atoms/Avatar';
-import {Body} from 'ui/atoms/Body';
-import {Caption} from 'ui/atoms/Caption';
-import {Stack} from 'ui/atoms/Stack';
-import {Form} from 'ui/molecules/Form';
-import {dateFromNow} from 'utils/date';
+import {useStoreMap} from 'effector-react'
+import {ButtonDislikeContainer} from 'features/common/comments/liked/containers/ButtonDislikeContainer'
+import {ButtonLikeContainer} from 'features/common/comments/liked/containers/ButtonLikeContainer'
+import {MenuContainer} from 'features/common/comments/menu/containers/MenuContainer'
+import {ButtonContainer} from 'features/common/comments/reply/containers/ButtonContainer'
+import {FieldContainer} from 'features/common/comments/reply/containers/FieldContainer'
+import {SendButtonContainer} from 'features/common/comments/reply/containers/SendButtonContainer'
+import {ToggleButtonContainer} from 'features/common/comments/reply/containers/ToggleButtonContainer'
+import {onSend} from 'features/common/comments/reply/model/events'
+import {$commentsIndex} from 'features/common/comments/state/model/stores'
+import {CommentBodyWrapper} from 'features/common/comments/state/ui/atoms/CommentBodyWrapper'
+import {CommentFooterWrapper} from 'features/common/comments/state/ui/atoms/CommentFooterWrapper'
+import {CommentHeaderWrapper} from 'features/common/comments/state/ui/atoms/CommentHeaderWrapper'
+import {CommentMainWrapper} from 'features/common/comments/state/ui/atoms/CommentMainWrapper'
+import {CommentWrapper} from 'features/common/comments/state/ui/atoms/CommentWrapper'
+import {getInitials} from 'features/common/comments/state/utils'
+import React from 'react'
+import {Avatar} from 'ui/atoms/Avatar'
+import {Body} from 'ui/atoms/Body'
+import {Caption} from 'ui/atoms/Caption'
+import {Stack} from 'ui/atoms/Stack'
+import {Form} from 'ui/molecules/Form'
+import {dateFromNow} from 'utils/date'
 
 export const CommentContainer = React.memo(({id}: {id: string}) => {
-    return (
-        <CommentWrapper>
-            <CommentAvatar id={id} />
+  return (
+    <CommentWrapper>
+      <CommentAvatar id={id} />
 
-            <CommentMainWrapper>
-                <Stack justifyContent="space-between">
-                    <CommentHeader id={id} />
-                    <MenuContainer id={id} />
-                </Stack>
+      <CommentMainWrapper>
+        <Stack justifyContent="space-between">
+          <CommentHeader id={id} />
+          <MenuContainer id={id} />
+        </Stack>
 
-                <CommentBodyContainer id={id} />
+        <CommentBodyContainer id={id} />
 
-                <CommentFooter id={id} />
+        <CommentFooter id={id} />
 
-                <CommentActions id={id} />
-            </CommentMainWrapper>
-        </CommentWrapper>
-    );
-});
+        <CommentActions id={id} />
+      </CommentMainWrapper>
+    </CommentWrapper>
+  )
+})
 
 export const CommentBodyContainer = React.memo(({id}: {id: string}) => {
-    const comment = useStoreMap({
-        store: $commentsIndex,
-        keys: [id],
-        fn: (state, [id]) => state[id],
-    });
+  const comment = useStoreMap({
+    store: $commentsIndex,
+    keys: [id],
+    fn: (state, [id]) => state[id],
+  })
 
-    return <CommentBodyWrapper>{comment.text}</CommentBodyWrapper>;
-});
+  return <CommentBodyWrapper>{comment.text}</CommentBodyWrapper>
+})
 
 const CommentAvatar = React.memo(({id}: {id: string}) => {
-    const comment = useStoreMap({
-        store: $commentsIndex,
-        keys: [id],
-        fn: (state, [id]) => state[id],
-    });
+  const comment = useStoreMap({
+    store: $commentsIndex,
+    keys: [id],
+    fn: (state, [id]) => state[id],
+  })
 
-    const initials = getInitials(comment.author);
+  const initials = getInitials(comment.author)
 
-    return <Avatar>{initials}</Avatar>;
-});
+  return <Avatar>{initials}</Avatar>
+})
 
 const CommentHeader = React.memo(({id}: {id: string}) => {
-    const comment = useStoreMap({
-        store: $commentsIndex,
-        keys: [id],
-        fn: (state, [id]) => state[id],
-    });
+  const comment = useStoreMap({
+    store: $commentsIndex,
+    keys: [id],
+    fn: (state, [id]) => state[id],
+  })
 
-    const date = dateFromNow(comment.created_at);
+  const date = dateFromNow(comment.created_at)
 
-    return (
-        <CommentHeaderWrapper>
-            <Body>{comment.author}</Body>
-            <Caption>{date}</Caption>
-        </CommentHeaderWrapper>
-    );
-});
+  return (
+    <CommentHeaderWrapper>
+      <Body>{comment.author}</Body>
+      <Caption>{date}</Caption>
+    </CommentHeaderWrapper>
+  )
+})
 
 const CommentFooter = React.memo(({id}: {id: string}) => {
-    return (
-        <CommentFooterWrapper>
-            <ButtonLikeContainer id={id} />
-            <ButtonDislikeContainer id={id} />
-            <ButtonContainer id={id} />
-        </CommentFooterWrapper>
-    );
-});
+  return (
+    <CommentFooterWrapper>
+      <ButtonLikeContainer id={id} />
+      <ButtonDislikeContainer id={id} />
+      <ButtonContainer id={id} />
+    </CommentFooterWrapper>
+  )
+})
 
 const CommentActions = React.memo(({id}: {id: string}) => {
-    return (
-        <Stack direction="column">
-            <Form onSubmit={onSend}>
-                <FieldContainer id={id} />
-                <SendButtonContainer id={id} />
-                <ToggleButtonContainer id={id} />
-            </Form>
-        </Stack>
-    );
-});
+  return (
+    <Stack direction="column">
+      <Form onSubmit={onSend}>
+        <FieldContainer id={id} />
+        <SendButtonContainer id={id} />
+        <ToggleButtonContainer id={id} />
+      </Form>
+    </Stack>
+  )
+})
