@@ -1,1 +1,1 @@
-export const isNumeric = (val: string) => /^-?\d+$/.test(String(val));
+export const isNumeric = (val: string) => /^-?\d+$/.test(String(val))

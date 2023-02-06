@@ -1,1 +1,1 @@
-export * as Icons from '@mui/icons-material';
+export * as Icons from '@mui/icons-material'

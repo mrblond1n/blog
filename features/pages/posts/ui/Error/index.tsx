@@ -1,3 +1,3 @@
 export const Error = () => {
-    return <div>{'Ошибка загрузки'}</div>;
-};
+  return <div>{'Ошибка загрузки'}</div>
+}

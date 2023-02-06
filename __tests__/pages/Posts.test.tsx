@@ -1,12 +1,12 @@
-import {render, screen} from '@testing-library/react';
-import Posts from 'pages/posts';
-import React from 'react';
+import {render, screen} from '@testing-library/react'
+import Posts from 'pages/posts'
+import React from 'react'
 
 describe('<Posts />', () => {
-    test('should display posts page', async () => {
-        render(<Posts />);
-        const divElement = screen.getByRole('heading');
+  test('should display posts page', async () => {
+    render(<Posts />)
+    const divElement = screen.getByRole('heading')
 
-        expect(divElement.innerHTML).toBe('POSTS');
-    });
-});
+    expect(divElement.innerHTML).toBe('POSTS')
+  })
+})

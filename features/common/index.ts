@@ -1,2 +1,2 @@
-import './form/model';
-import './comments';
+import './comments'
+import './form/model'

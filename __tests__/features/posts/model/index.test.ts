@@ -1,105 +1,105 @@
-import {post, posts} from '__mocks__/post';
-import {admin} from '__mocks__/user';
-import {makeIndex} from '__mocks__/utils';
-import {setUser} from 'features/app/model/events';
-import 'features/pages/posts/model';
-import {getPostsFx, removePostFx} from 'features/pages/posts/model/effects';
-import {addPost, clearIndex, onRemove, removePost, resetDisable} from 'features/pages/posts/model/events';
-import {$disabledIndex, $idsList, $ownedIndex, $postsIndex} from 'features/pages/posts/model/stores';
+import {post, posts} from '__mocks__/post'
+import {admin} from '__mocks__/user'
+import {makeIndex} from '__mocks__/utils'
+import {setUser} from 'features/app/model/events'
+import 'features/pages/posts/model'
+import {getPostsFx, removePostFx} from 'features/pages/posts/model/effects'
+import {addPost, clearIndex, onRemove, removePost, resetDisable} from 'features/pages/posts/model/events'
+import {$disabledIndex, $idsList, $ownedIndex, $postsIndex} from 'features/pages/posts/model/stores'
 
 beforeEach(async () => {
-    setUser(admin);
-    getPostsFx.use(() => posts);
-    await getPostsFx(null);
-});
+  setUser(admin)
+  getPostsFx.use(() => posts)
+  await getPostsFx(null)
+})
 
 afterEach(() => {
-    clearIndex();
-});
+  clearIndex()
+})
 
 afterAll(() => {
-    $postsIndex.off(clearIndex);
-});
+  $postsIndex.off(clearIndex)
+})
 
 describe('$postsIndexes', () => {
-    test(`should be ${posts.length} posts in index`, () => {
-        expect($postsIndex.getState()).toEqual(makeIndex(posts));
-    });
+  test(`should be ${posts.length} posts in index`, () => {
+    expect($postsIndex.getState()).toEqual(makeIndex(posts))
+  })
 
-    test(`should $postsIndex be one less item`, async () => {
-        const postId = posts[0].id;
+  test(`should $postsIndex be one less item`, async () => {
+    const postId = posts[0].id
 
-        removePostFx.use(() => postId);
-        await removePostFx(postId);
+    removePostFx.use(() => postId)
+    await removePostFx(postId)
 
-        expect($postsIndex.getState()).toEqual(makeIndex(posts.filter(({id}) => id !== postId)));
-    });
+    expect($postsIndex.getState()).toEqual(makeIndex(posts.filter(({id}) => id !== postId)))
+  })
 
-    test(`should $postsIndex be one more item`, async () => {
-        addPost(post);
+  test(`should $postsIndex be one more item`, async () => {
+    addPost(post)
 
-        expect($postsIndex.getState()).toEqual(makeIndex([...posts, post]));
-    });
-});
+    expect($postsIndex.getState()).toEqual(makeIndex([...posts, post]))
+  })
+})
 
 describe('$idsList', () => {
-    test(`should be ${posts.length} posts in list`, async () => {
-        expect($idsList.getState().length).toEqual(posts.filter(Boolean).length);
-    });
+  test(`should be ${posts.length} posts in list`, async () => {
+    expect($idsList.getState().length).toEqual(posts.filter(Boolean).length)
+  })
 
-    test(`should be ${posts.length - 1} posts in list after remove post`, async () => {
-        const item = posts[0];
+  test(`should be ${posts.length - 1} posts in list after remove post`, async () => {
+    const item = posts[0]
 
-        removePostFx.use(() => item.id);
-        await removePostFx(item.id);
+    removePostFx.use(() => item.id)
+    await removePostFx(item.id)
 
-        expect($idsList.getState().length).toEqual(posts.length - 1);
-    });
+    expect($idsList.getState().length).toEqual(posts.length - 1)
+  })
 
-    test(`should be ${posts.length + 1} posts in list after add post`, async () => {
-        addPost(post);
+  test(`should be ${posts.length + 1} posts in list after add post`, async () => {
+    addPost(post)
 
-        expect($idsList.getState().length).toEqual(posts.length + 1);
-    });
-});
+    expect($idsList.getState().length).toEqual(posts.length + 1)
+  })
+})
 
 describe('$disabledIndex', () => {
-    test(`should set true on new added post`, async () => {
-        const {id} = posts[1];
+  test(`should set true on new added post`, async () => {
+    const {id} = posts[1]
 
-        onRemove(id);
+    onRemove(id)
 
-        expect($disabledIndex.getState()[id]).toBeTruthy();
-    });
+    expect($disabledIndex.getState()[id]).toBeTruthy()
+  })
 
-    test(`should set false on new added post`, async () => {
-        const {id} = posts[0];
+  test(`should set false on new added post`, async () => {
+    const {id} = posts[0]
 
-        removePost(id);
+    removePost(id)
 
-        expect($disabledIndex.getState()[id]).toBeUndefined();
-    });
+    expect($disabledIndex.getState()[id]).toBeUndefined()
+  })
 
-    test(`should set false on reset`, async () => {
-        const {id} = posts[0];
+  test(`should set false on reset`, async () => {
+    const {id} = posts[0]
 
-        resetDisable(id);
+    resetDisable(id)
 
-        expect($disabledIndex.getState()[id]).toBeFalsy();
-    });
-});
+    expect($disabledIndex.getState()[id]).toBeFalsy()
+  })
+})
 
 describe('$ownedIndex', () => {
-    test(`should be falsy if uid !== uid of post`, async () => {
-        addPost(post);
-        expect($ownedIndex.getState()[post.id]).not.toBeTruthy();
-    });
+  test(`should be falsy if uid !== uid of post`, async () => {
+    addPost(post)
+    expect($ownedIndex.getState()[post.id]).not.toBeTruthy()
+  })
 
-    test(`should set false on new added post`, async () => {
-        const {id} = posts[0];
+  test(`should set false on new added post`, async () => {
+    const {id} = posts[0]
 
-        removePost(id);
+    removePost(id)
 
-        expect($ownedIndex.getState()[id]).toBeUndefined();
-    });
-});
+    expect($ownedIndex.getState()[id]).toBeUndefined()
+  })
+})

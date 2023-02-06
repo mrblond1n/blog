@@ -1,155 +1,155 @@
-import {FieldPath, limit, orderBy, OrderByDirection, setDoc, startAfter, updateDoc} from '@firebase/firestore';
-import db from 'config';
-import {LIMITS} from 'constants/business';
-import {setLastItem} from 'features/firebase/pagination/models/events';
-import {$paginationIndex} from 'features/firebase/pagination/models/stores';
-import {addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, where, WhereFilterOp} from 'firebase/firestore';
-import {TData} from 'types';
-import {defaultInterceptor, TInterceptor, TResponse} from 'utils/requests';
-import {TOverloadedReturnType} from 'utils/typescript/overload';
+import {FieldPath, limit, orderBy, OrderByDirection, setDoc, startAfter, updateDoc} from '@firebase/firestore'
+import db from 'config'
+import {LIMITS} from 'constants/business'
+import {setLastItem} from 'features/firebase/pagination/models/events'
+import {$paginationIndex} from 'features/firebase/pagination/models/stores'
+import {addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, where, WhereFilterOp} from 'firebase/firestore'
+import {TData} from 'types'
+import {defaultInterceptor, TInterceptor, TResponse} from 'utils/requests'
+import {TOverloadedReturnType} from 'utils/typescript/overload'
 
 type TCollection =
-    | 'example'
-    | 'posts'
-    | `posts/${string}/comments`
-    | `posts/${string}/comments/${string}/comments`
-    | 'users';
+  | 'example'
+  | 'posts'
+  | `posts/${string}/comments`
+  | `posts/${string}/comments/${string}/comments`
+  | 'users'
 type TOptions = {
-    condition?: [fieldPath: string | FieldPath, opString: WhereFilterOp, value: unknown];
-    limit?: number;
-    order?: [fieldPath: string | FieldPath, directionStr: OrderByDirection];
-};
-
-type TType = 'GET_LIST' | 'ADD' | 'SET' | 'GET' | 'REMOVE' | 'UPDATE';
-
-type TConfig = {collection: TCollection; data: TData; options: TOptions; id: string};
-type TConfigType<K extends keyof TConfig, T extends TType> = Pick<TConfig, K> & {type: T};
-
-export function createFirestoreRequest(
-    type: 'GET_LIST',
-    collection: TCollection,
-    options?: TOptions
-): TConfigType<'collection' | 'options', typeof type>;
-
-export function createFirestoreRequest(
-    type: 'ADD',
-    collection: TCollection,
-    data: TData
-): TConfigType<'collection' | 'data', typeof type>;
-
-export function createFirestoreRequest(
-    type: 'GET' | 'REMOVE',
-    collection: TCollection,
-    id: string
-): TConfigType<'collection' | 'id', typeof type>;
-
-export function createFirestoreRequest(
-    type: 'UPDATE' | 'SET',
-    collection: TCollection,
-    data: TData,
-    id: string
-): TConfigType<'collection' | 'data' | 'id', typeof type>;
-
-export function createFirestoreRequest(
-    type: TType,
-    collection: TCollection,
-    data?: TData | string | TOptions,
-    id?: string
-) {
-    switch (type) {
-        case 'GET_LIST':
-            return {collection, options: data, type};
-        case 'ADD':
-            return {collection, data, type};
-        case 'SET':
-        case 'UPDATE':
-            return {collection, id, data, type};
-        case 'GET':
-        case 'REMOVE':
-            return {collection, id: data, type};
-    }
+  condition?: [fieldPath: string | FieldPath, opString: WhereFilterOp, value: unknown]
+  limit?: number
+  order?: [fieldPath: string | FieldPath, directionStr: OrderByDirection]
 }
 
-export type TFirestoreRequestConfig = TOverloadedReturnType<typeof createFirestoreRequest>;
+type TType = 'GET_LIST' | 'ADD' | 'SET' | 'GET' | 'REMOVE' | 'UPDATE'
+
+type TConfig = {collection: TCollection; data: TData; options: TOptions; id: string}
+type TConfigType<K extends keyof TConfig, T extends TType> = Pick<TConfig, K> & {type: T}
+
+export function createFirestoreRequest(
+  type: 'GET_LIST',
+  collection: TCollection,
+  options?: TOptions
+): TConfigType<'collection' | 'options', typeof type>
+
+export function createFirestoreRequest(
+  type: 'ADD',
+  collection: TCollection,
+  data: TData
+): TConfigType<'collection' | 'data', typeof type>
+
+export function createFirestoreRequest(
+  type: 'GET' | 'REMOVE',
+  collection: TCollection,
+  id: string
+): TConfigType<'collection' | 'id', typeof type>
+
+export function createFirestoreRequest(
+  type: 'UPDATE' | 'SET',
+  collection: TCollection,
+  data: TData,
+  id: string
+): TConfigType<'collection' | 'data' | 'id', typeof type>
+
+export function createFirestoreRequest(
+  type: TType,
+  collection: TCollection,
+  data?: TData | string | TOptions,
+  id?: string
+) {
+  switch (type) {
+    case 'GET_LIST':
+      return {collection, options: data, type}
+    case 'ADD':
+      return {collection, data, type}
+    case 'SET':
+    case 'UPDATE':
+      return {collection, id, data, type}
+    case 'GET':
+    case 'REMOVE':
+      return {collection, id: data, type}
+  }
+}
+
+export type TFirestoreRequestConfig = TOverloadedReturnType<typeof createFirestoreRequest>
 
 export const firestoreRequest = async <Result>(
-    config: TFirestoreRequestConfig,
-    interceptor?: TInterceptor
+  config: TFirestoreRequestConfig,
+  interceptor?: TInterceptor
 ): Promise<TResponse<Result>> => {
-    const interceptorToUse = interceptor || defaultInterceptor;
-    let response;
+  const interceptorToUse = interceptor || defaultInterceptor
+  let response
 
-    const {type} = config;
+  const {type} = config
 
-    switch (type) {
-        case 'ADD': {
-            const data = {
-                ...config.data,
-                created_at: new Date().getTime(),
-            };
+  switch (type) {
+    case 'ADD': {
+      const data = {
+        ...config.data,
+        created_at: new Date().getTime(),
+      }
 
-            const querySnapshot = await addDoc(collection(db, config.collection), data);
+      const querySnapshot = await addDoc(collection(db, config.collection), data)
 
-            response = {...data, id: querySnapshot.id};
-            break;
-        }
-
-        case 'GET': {
-            const querySnapshot = await getDoc(doc(db, config.collection, config.id));
-
-            response = {...querySnapshot.data(), id: config.id};
-            break;
-        }
-
-        case 'GET_LIST': {
-            const key = config.collection.split('/').slice(-2, -1)[0] || config.collection;
-            const currentLastItem = $paginationIndex.getState()[key];
-            const {options} = config;
-
-            const params = [
-                collection(db, config.collection),
-                options?.condition ? where(...options.condition) : where('created_at', '!=', ''),
-                options?.limit ? limit(options.limit) : limit(LIMITS.DEFAULT),
-                options?.order ? orderBy(...options.order) : orderBy('created_at', 'asc'),
-            ] as const;
-
-            if (currentLastItem) {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                params.push(startAfter(currentLastItem));
-            }
-
-            const querySnapshot = await getDocs(query(...params));
-
-            const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-
-            setLastItem({key, value: lastVisible});
-
-            response = querySnapshot.docs.map(doc => ({...doc.data(), id: doc.id}));
-            break;
-        }
-
-        case 'REMOVE': {
-            await deleteDoc(doc(db, config.collection, config.id));
-
-            response = config.id;
-            break;
-        }
-
-        case 'SET': {
-            await setDoc(doc(db, config.collection, config.id), config.data);
-
-            response = config.data;
-            break;
-        }
-
-        case 'UPDATE': {
-            await updateDoc(doc(db, config.collection, config.id), config.data);
-
-            response = true;
-            break;
-        }
+      response = {...data, id: querySnapshot.id}
+      break
     }
 
-    return interceptorToUse(response);
-};
+    case 'GET': {
+      const querySnapshot = await getDoc(doc(db, config.collection, config.id))
+
+      response = {...querySnapshot.data(), id: config.id}
+      break
+    }
+
+    case 'GET_LIST': {
+      const key = config.collection.split('/').slice(-2, -1)[0] || config.collection
+      const currentLastItem = $paginationIndex.getState()[key]
+      const {options} = config
+
+      const params = [
+        collection(db, config.collection),
+        options?.condition ? where(...options.condition) : where('created_at', '!=', ''),
+        options?.limit ? limit(options.limit) : limit(LIMITS.DEFAULT),
+        options?.order ? orderBy(...options.order) : orderBy('created_at', 'asc'),
+      ] as const
+
+      if (currentLastItem) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        params.push(startAfter(currentLastItem))
+      }
+
+      const querySnapshot = await getDocs(query(...params))
+
+      const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1]
+
+      setLastItem({key, value: lastVisible})
+
+      response = querySnapshot.docs.map(doc => ({...doc.data(), id: doc.id}))
+      break
+    }
+
+    case 'REMOVE': {
+      await deleteDoc(doc(db, config.collection, config.id))
+
+      response = config.id
+      break
+    }
+
+    case 'SET': {
+      await setDoc(doc(db, config.collection, config.id), config.data)
+
+      response = config.data
+      break
+    }
+
+    case 'UPDATE': {
+      await updateDoc(doc(db, config.collection, config.id), config.data)
+
+      response = true
+      break
+    }
+  }
+
+  return interceptorToUse(response)
+}

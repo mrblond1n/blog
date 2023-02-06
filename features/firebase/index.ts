@@ -1,1 +1,1 @@
-import './pagination/models';
+import './pagination/models'

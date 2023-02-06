@@ -10,24 +10,12 @@
   "rules": {
     "import/no-anonymous-default-export": [2, {"allowArrowFunction": true}],
 
-    "@typescript-eslint/camelcase": "off",
-    "@typescript-eslint/no-var-requires": "off",
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/naming-convention": [
       "error",
       {"selector": "interface", "format": ["PascalCase"], "custom": {"regex": "^I[A-Z]", "match": true}},
       {"selector": "typeAlias", "format": ["PascalCase"], "custom": {"regex": "^T[A-Z]", "match": true}},
       {"selector": "enum", "format": ["PascalCase"], "custom": {"regex": "^E[A-Z]", "match": true}},
       {"selector": "variable", "format": ["camelCase", "UPPER_CASE", "PascalCase"]}
-    ],
-    "@typescript-eslint/member-delimiter-style": [
-      "error",
-      {
-        "multiline": {"delimiter": "semi", "requireLast": true},
-        "singleline": {"delimiter": "semi", "requireLast": false}
-      }
     ],
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-use-before-define": "off",
@@ -61,7 +49,6 @@
       {"blankLine": "always", "prev": "import", "next": "export"},
       {"blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"]}
     ],
-    "semi": "error",
     "prettier/prettier": "error"
   }
 }

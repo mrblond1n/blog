@@ -1,4 +1,4 @@
-import {createEvent} from 'effector';
-import {TUserDto} from 'types/dtos/user.dto';
+import {createEvent} from 'effector'
+import {TUserDto} from 'types/dtos/user.dto'
 
-export const setUser = createEvent<TUserDto>();
+export const setUser = createEvent<TUserDto>()
