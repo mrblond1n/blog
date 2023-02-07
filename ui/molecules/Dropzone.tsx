@@ -6,6 +6,7 @@ import {IconButton} from 'ui/atoms/IconButton'
 import {Stack} from 'ui/atoms/Stack'
 import {alpha, styled} from 'utils/styles'
 import {Img} from 'ui/atoms/Image'
+import {CropImage} from 'ui/molecules/CropImage'
 
 type TProps = {
   value?: TValue
@@ -13,32 +14,58 @@ type TProps = {
 }
 
 export const Dropzone = ({onChange, ...props}: TProps) => {
+  const [state, setState] = React.useState<'INITIAL' | 'LOADED' | 'CROP'>('INITIAL')
+  const [originUrl, setOriginUrl] = React.useState<string>()
   const ref = React.useRef<HTMLInputElement>(null)
-  const value = typeof props.value === 'object' && !Array.isArray(props.value) ? props.value : ''
+  const value = typeof props.value === 'object' && !Array.isArray(props.value) && props.value ? props.value : void 0
   const imageUrl = value ? URL.createObjectURL(value) : void 0
+  const onSelect = (file: File) => {
+    onChange(file)
+    if (!originUrl) setOriginUrl(URL.createObjectURL(file))
+    setState('LOADED')
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     const [file = null] = files ? Array.from(files) : []
 
-    onChange(file)
+    if (file) {
+      setOriginUrl(URL.createObjectURL(file))
+      onSelect(file)
+    }
   }
 
   const handleClick = () => ref.current?.click()
-  const handleDrop = (file: File) => onChange(file)
+  const handleDrop = (file: File) => onSelect(file)
   const handleRemove = () => onChange(null)
+  const handleCrop = () => setState('CROP')
+  const handleCancel = () => setState('LOADED')
+
+  React.useEffect(() => {
+    if (!props.value) setState('INITIAL')
+  }, [props.value])
 
   return (
     <Wrapper>
-      {!value && <EmptyDropzone onClick={handleClick} onDrop={handleDrop} />}
+      {state === 'INITIAL' && (
+        <>
+          <EmptyDropzone onClick={handleClick} onDrop={handleDrop} />
+          <input ref={ref} accept="image/*" hidden onChange={handleChange} type="file" />
+        </>
+      )}
 
-      {value && (
+      {state === 'LOADED' && (
         <FilledDropzone url={imageUrl}>
-          <DropzoneActions onEdit={handleClick} onRemove={handleRemove} />
+          <DropzoneActions onCrop={handleCrop} onEdit={handleClick} onRemove={handleRemove} />
+          <input ref={ref} accept="image/*" hidden onChange={handleChange} type="file" />
         </FilledDropzone>
       )}
 
-      <input ref={ref} hidden onChange={handleChange} type="file" />
+      {state === 'CROP' && (
+        <CropWrapped>
+          <CropImage file={value} onCancel={handleCancel} onSelect={handleDrop} url={originUrl} />
+        </CropWrapped>
+      )}
     </Wrapper>
   )
 }
@@ -78,8 +105,18 @@ const FilledDropzone = ({children, url}: {children: React.ReactNode; url?: strin
   )
 }
 
-const DropzoneActions = ({onRemove, onEdit}: {onRemove: () => void; onEdit: () => void}) => (
+type TActions = {
+  onRemove: () => void
+  onEdit: () => void
+  onCrop: () => void
+}
+
+const DropzoneActions = ({onCrop, onEdit, onRemove}: TActions) => (
   <WrapperDropzoneActions alignItems="center" justifyContent="center">
+    <IconButton onClick={onCrop}>
+      <Icons.Crop />
+    </IconButton>
+
     <IconButton onClick={onEdit}>
       <Icons.Edit />
     </IconButton>
@@ -92,7 +129,8 @@ const DropzoneActions = ({onRemove, onEdit}: {onRemove: () => void; onEdit: () =
 
 const Wrapper = styled(Paper)(({theme}) => ({
   position: 'relative',
-  minHeight: 200,
+  height: 400,
+  maxWidth: 344,
   background: alpha(theme.palette.secondary.main, 0.1),
   boxShadow: 'unset',
 }))
@@ -103,6 +141,7 @@ const styles = {
   justifyContent: 'center',
   height: '100%',
   borderRadius: '4px',
+  overflow: 'hidden',
 } as const
 
 const WrapperEmptyDropzone = styled(Stack)(({theme}) => {
@@ -120,6 +159,10 @@ const WrapperFilledDropzone = styled(Stack)(({theme}) => ({
   '&:hover > *:last-of-type': {
     opacity: 1,
   },
+}))
+
+const CropWrapped = styled(Stack)(() => ({
+  ...styles,
 }))
 
 const WrapperDropzoneActions = styled(Stack)(({theme}) => ({
