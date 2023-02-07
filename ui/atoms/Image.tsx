@@ -10,6 +10,7 @@ export const Img = React.memo((props: ImgHTMLAttributes<HTMLImageElement>) => {
 const Container = styled('div')(() => ({
   position: 'relative',
   width: '100%',
+  height: '100%',
   paddingTop: '56.25%',
 }))
 
@@ -17,9 +18,10 @@ const Image = styled('img')(() => ({
   position: 'absolute',
   width: 'auto',
   maxHeight: '100%',
+  maxWidth: '100%',
   left: '50%',
   top: '50%',
   height: '100%',
-  objectFit: 'cover',
+  objectFit: 'contain',
   transform: 'translate(-50%, -50%)',
 }))
