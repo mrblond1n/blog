@@ -4,7 +4,10 @@ import React from 'react'
 export default function Document() {
   return (
     <Html lang="en">
-      <Head />
+      <Head>
+        <link href="/manifest.json" rel="manifest" />
+        <link href="/icon.png" rel="apple-touch-icon"></link>
+      </Head>
       <body>
         <Main />
         <NextScript />
