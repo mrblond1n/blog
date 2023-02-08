@@ -33,4 +33,9 @@ export const PostContainer = () => {
 const Wrapper = styled(Paper)(() => ({
   width: '100%',
   padding: 24,
+
+  '& img': {
+    maxHeight: '500px',
+    objectFit: 'contain',
+  },
 }))
