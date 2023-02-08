@@ -1,13 +1,12 @@
 import {useList} from 'effector-react'
 import {FieldContainer} from 'features/common/form/containers/FieldContainer'
-import {submitForm} from 'features/common/form/model/events'
+import {onSubmit} from 'features/common/form/model/events'
 import {$fieldIdsStack} from 'features/common/form/model/stores'
-
 import React, {FormEvent} from 'react'
-import {Form} from 'ui/molecules/Form'
+import {Form} from 'ui/atoms/Form'
 
 export const FormContainer: React.FC = ({children}) => {
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => submitForm(e)
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => onSubmit(e)
 
   return <Form onSubmit={handleSubmit}>{children}</Form>
 }

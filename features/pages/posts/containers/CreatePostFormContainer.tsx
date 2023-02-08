@@ -12,7 +12,7 @@ export const CreatePostFormContainer = React.memo(() => {
   if (!isAdmin || state !== 'AUTHORIZED') return null
 
   return (
-    <Stack justifyContent="center">
+    <Stack maxWidth="500px" width="100%">
       <FormContainer>
         <FormFieldsContainer />
 

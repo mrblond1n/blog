@@ -18,8 +18,8 @@ import React from 'react'
 import {Avatar} from 'ui/atoms/Avatar'
 import {Body} from 'ui/atoms/Body'
 import {Caption} from 'ui/atoms/Caption'
+import {Form} from 'ui/atoms/Form'
 import {Stack} from 'ui/atoms/Stack'
-import {Form} from 'ui/molecules/Form'
 import {dateFromNow} from 'utils/date'
 
 export const CommentContainer = React.memo(({id}: {id: string}) => {
