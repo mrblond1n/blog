@@ -51,11 +51,11 @@ export const CropImage = ({url, file, onSelect, onCancel}: TProps) => {
 
   return (
     <>
-      <ReactCrop crop={crop} onChange={setCrop} onComplete={handleComplete}>
+      <StyledReactCrop crop={crop} onChange={setCrop} onComplete={handleComplete}>
         <img ref={imgRef} alt="cropped" height="100%" src={url} />
 
         <canvas ref={canvasRef} hidden />
-      </ReactCrop>
+      </StyledReactCrop>
 
       <ButtonsContainer onCancel={handleCancel} onSave={handleClick} />
     </>
@@ -74,4 +74,10 @@ const ButtonsContainer = ({onSave, onCancel}: {onSave: () => void; onCancel: () 
 const StyledButtonsWrapper = styled(Stack)(() => ({
   position: 'absolute',
   bottom: 0,
+}))
+
+const StyledReactCrop = styled(ReactCrop)(() => ({
+  '& > *': {
+    height: '100%',
+  },
 }))

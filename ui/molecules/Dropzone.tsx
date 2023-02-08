@@ -163,6 +163,7 @@ const WrapperFilledDropzone = styled(Stack)(({theme}) => ({
 
 const CropWrapped = styled(Stack)(() => ({
   ...styles,
+  border: `solid 1px transparent`,
 }))
 
 const WrapperDropzoneActions = styled(Stack)(({theme}) => ({
