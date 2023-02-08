@@ -22,9 +22,6 @@ export const lightTheme = createTheme({
     primary: deepPurple,
     secondary: grey,
     divider: deepPurple[300],
-    background: {
-      default: '#020202',
-    },
     text: {
       primary: '#000',
       secondary: grey[700],
