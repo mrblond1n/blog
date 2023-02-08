@@ -1,5 +1,6 @@
 import React, {FormEvent, InputHTMLAttributes} from 'react'
-import style from './style.module.css'
+import {Stack} from 'ui/atoms/Stack'
+import {styled} from 'utils/styles'
 
 interface IProps extends InputHTMLAttributes<HTMLFormElement> {
   refWrapper?: React.RefObject<HTMLFormElement>
@@ -12,8 +13,12 @@ export const Form = React.memo(({children, onSubmit, refWrapper, ...props}: IPro
   }
 
   return (
-    <form {...props} ref={refWrapper} aria-label="form" className={style.container} onSubmit={handleSubmit}>
-      {children}
-    </form>
+    <FormStyled {...props} ref={refWrapper} aria-label="form" onSubmit={handleSubmit}>
+      <Stack direction="column">{children}</Stack>
+    </FormStyled>
   )
 })
+
+const FormStyled = styled('form')(() => ({
+  width: '100%',
+}))

@@ -130,7 +130,6 @@ const DropzoneActions = ({onCrop, onEdit, onRemove}: TActions) => (
 const Wrapper = styled(Paper)(({theme}) => ({
   position: 'relative',
   height: 400,
-  maxWidth: 344,
   background: alpha(theme.palette.secondary.main, 0.1),
   boxShadow: 'unset',
 }))
@@ -170,7 +169,7 @@ const WrapperDropzoneActions = styled(Stack)(({theme}) => ({
   ...styles,
   flexDirection: 'row',
   position: 'absolute',
-  background: alpha(theme.palette.common.black, 0.4),
+  background: alpha(theme.palette.background.default, 0.7),
   opacity: 0,
   transition: '0.2s',
   margin: 'unset !important',

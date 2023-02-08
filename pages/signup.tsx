@@ -16,7 +16,7 @@ export default () => {
 
   return (
     <SectionTemplate title={<h1>{'SIGN UP PAGE'}</h1>}>
-      <Stack justifyContent="center">
+      <Stack maxWidth="344px" width="100%">
         <FormContainer>
           <FormFieldsContainer />
 

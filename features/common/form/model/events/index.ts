@@ -8,5 +8,4 @@ export const onChange = createEvent<{key: string; value: TValue}>()
 export const clearValues = createEvent()
 
 export const resetForm = createEvent()
-export const submitForm = createEvent<FormEvent<HTMLFormElement>>()
-export const onSubmit = createEvent<void>()
+export const onSubmit = createEvent<FormEvent<HTMLFormElement>>()
