@@ -1,4 +1,4 @@
-import {ThemeOptions} from 'types'
+import {ThemeOptions, Theme} from 'types'
 import {createTheme, deepOrange, deepPurple, grey} from 'utils/styles'
 
 const defaultTheme: ThemeOptions = {
@@ -12,7 +12,7 @@ const defaultTheme: ThemeOptions = {
 }
 
 const darkTheme = createTheme({
-  components: defaultTheme.components,
+  ...defaultTheme,
   palette: {
     mode: 'dark',
     primary: deepOrange,
@@ -28,8 +28,8 @@ const darkTheme = createTheme({
   },
 })
 
-export const lightTheme = createTheme({
-  components: defaultTheme.components,
+export const lightTheme: Theme = createTheme({
+  ...defaultTheme,
   palette: {
     mode: 'light',
     primary: deepPurple,
