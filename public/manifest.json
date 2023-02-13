@@ -1,8 +1,6 @@
 {
   "name": "Ninja Developer Blog",
   "short_name": "NDB",
-  "theme_color": "#3c566a",
-  "background_color": "#000000",
   "display": "fullScreen",
   "orientation": "",
   "scope": "/",
