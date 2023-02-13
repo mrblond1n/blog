@@ -1,7 +1,0 @@
-.container {
-    width: 100%;
-}
-
-.container > *:not(:first-child) {
-    margin-left: 56px;
-}

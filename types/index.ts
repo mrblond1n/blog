@@ -1,7 +1,7 @@
 import {TextFieldProps} from '@mui/material'
 import {MDEditorProps} from '@uiw/react-md-editor'
 
-export type {Theme} from '@mui/material'
+export type {Theme, ThemeOptions} from '@mui/material'
 
 export type TNullable<T> = null | undefined | T
 export type TOptions = string[]
