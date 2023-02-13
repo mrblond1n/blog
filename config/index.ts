@@ -2,6 +2,7 @@
 import {getApp, getApps, initializeApp} from 'firebase/app'
 import {Auth, connectAuthEmulator, getAuth, User} from 'firebase/auth'
 import {connectFirestoreEmulator, getFirestore} from 'firebase/firestore'
+import {getPerformance} from 'firebase/performance'
 import {connectStorageEmulator, getStorage} from 'firebase/storage'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -25,6 +26,8 @@ const db = getFirestore()
 
 export const auth = getAuth(app)
 export const storage = getStorage(app)
+
+export const perf = typeof window != undefined ? () => getPerformance(app) : void 0
 
 //https://stackoverflow.com/questions/65066963/firebase-firestore-emulator-error-host-has-been-set-in-both-settings-and-usee
 const EMULATORS_STARTED = 'EMULATORS_STARTED'
