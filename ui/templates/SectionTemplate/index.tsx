@@ -1,5 +1,5 @@
+import {styled} from 'utils/styles'
 import React from 'react'
-import style from './style.module.css'
 
 type TProps = {
   children: React.ReactNode
@@ -8,9 +8,23 @@ type TProps = {
 
 export const SectionTemplate = React.memo(({children, title}: TProps) => {
   return (
-    <section className={style.section}>
+    <Section>
       {title}
       {children}
-    </section>
+    </Section>
   )
 })
+
+const Section = styled('section')(({theme}) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  maxWidth: '1440px',
+
+  padding: theme.spacing(5),
+  [theme.breakpoints.down('md')]: {
+    padding: theme.spacing(1),
+  },
+
+  paddingTop: theme.spacing(2),
+}))
