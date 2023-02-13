@@ -19,6 +19,7 @@ export const Form = React.memo(({children, onSubmit, refWrapper, ...props}: IPro
   )
 })
 
-const FormStyled = styled('form')(() => ({
+const FormStyled = styled('form')(({theme}) => ({
   width: '100%',
+  margin: `${theme.spacing(2)} 0`,
 }))
