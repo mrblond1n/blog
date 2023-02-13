@@ -8,11 +8,6 @@ import {SendButtonContainer} from 'features/common/comments/reply/containers/Sen
 import {ToggleButtonContainer} from 'features/common/comments/reply/containers/ToggleButtonContainer'
 import {onSend} from 'features/common/comments/reply/model/events'
 import {$commentsIndex} from 'features/common/comments/state/model/stores'
-import {CommentBodyWrapper} from 'features/common/comments/state/ui/atoms/CommentBodyWrapper'
-import {CommentFooterWrapper} from 'features/common/comments/state/ui/atoms/CommentFooterWrapper'
-import {CommentHeaderWrapper} from 'features/common/comments/state/ui/atoms/CommentHeaderWrapper'
-import {CommentMainWrapper} from 'features/common/comments/state/ui/atoms/CommentMainWrapper'
-import {CommentWrapper} from 'features/common/comments/state/ui/atoms/CommentWrapper'
 import {getInitials} from 'features/common/comments/state/utils'
 import React from 'react'
 import {Avatar} from 'ui/atoms/Avatar'
@@ -24,10 +19,10 @@ import {dateFromNow} from 'utils/date'
 
 export const CommentContainer = React.memo(({id}: {id: string}) => {
   return (
-    <CommentWrapper>
+    <Stack>
       <CommentAvatar id={id} />
 
-      <CommentMainWrapper>
+      <Stack direction="column" spacing={1} width="100%">
         <Stack justifyContent="space-between">
           <CommentHeader id={id} />
           <MenuContainer id={id} />
@@ -38,8 +33,8 @@ export const CommentContainer = React.memo(({id}: {id: string}) => {
         <CommentFooter id={id} />
 
         <CommentActions id={id} />
-      </CommentMainWrapper>
-    </CommentWrapper>
+      </Stack>
+    </Stack>
   )
 })
 
@@ -50,7 +45,7 @@ export const CommentBodyContainer = React.memo(({id}: {id: string}) => {
     fn: (state, [id]) => state[id],
   })
 
-  return <CommentBodyWrapper>{comment.text}</CommentBodyWrapper>
+  return <Body>{comment.text}</Body>
 })
 
 const CommentAvatar = React.memo(({id}: {id: string}) => {
@@ -75,20 +70,20 @@ const CommentHeader = React.memo(({id}: {id: string}) => {
   const date = dateFromNow(comment.created_at)
 
   return (
-    <CommentHeaderWrapper>
+    <Stack alignItems="center">
       <Body>{comment.author}</Body>
       <Caption>{date}</Caption>
-    </CommentHeaderWrapper>
+    </Stack>
   )
 })
 
 const CommentFooter = React.memo(({id}: {id: string}) => {
   return (
-    <CommentFooterWrapper>
+    <Stack spacing={0.5}>
       <ButtonLikeContainer id={id} />
       <ButtonDislikeContainer id={id} />
       <ButtonContainer id={id} />
-    </CommentFooterWrapper>
+    </Stack>
   )
 })
 
