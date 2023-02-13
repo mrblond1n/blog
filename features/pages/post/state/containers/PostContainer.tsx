@@ -25,8 +25,9 @@ export const PostContainer = () => {
       <PostHeader initials={initials} subtitle={headerTitle} title={title} />
       <PostMedia img={img} />
 
-      <PostContent description={body} title={title} />
-      <MarkdownPreview value={text} />
+      <PostContent description={body} title={title}>
+        <MarkdownPreview value={text} />
+      </PostContent>
     </Wrapper>
   )
 }

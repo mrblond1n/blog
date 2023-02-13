@@ -22,7 +22,7 @@ const Section = styled('section')(({theme}) => ({
   maxWidth: '1440px',
 
   padding: theme.spacing(5),
-  [theme.breakpoints.down('md')]: {
+  [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(1),
   },
 
