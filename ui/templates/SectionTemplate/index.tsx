@@ -18,6 +18,7 @@ export const SectionTemplate = React.memo(({children, title}: TProps) => {
 const Section = styled('section')(({theme}) => ({
   display: 'flex',
   flexDirection: 'column',
+  margin: 'auto',
   alignItems: 'center',
   maxWidth: '1440px',
 
