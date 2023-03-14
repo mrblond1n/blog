@@ -8,6 +8,7 @@ import {sendCommentFx, sendReplyFx} from 'features/pages/post/comments/models/se
 import {updateCommentLikesFx, updateCommentRepliesFx} from 'features/pages/post/comments/models/update/effects'
 import {updatePostCommentsFx} from 'features/pages/post/state/model/effects'
 import {$post} from 'features/pages/post/state/model/stores'
+import {updateDiscussion} from './events'
 
 sample({
   clock: [sendCommentFx.doneData, sendReplyFx.doneData],
@@ -39,7 +40,7 @@ sample({
 
     return {id: discussion.id, replies, path: post.id}
   },
-  target: updateCommentRepliesFx,
+  target: [updateCommentRepliesFx, updateDiscussion],
 })
 
 sample({

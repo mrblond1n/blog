@@ -3,7 +3,7 @@ import {onRemove} from 'features/common/comments/menu/model/events'
 import {removeComment} from 'features/common/comments/state/model/events'
 import {$commentsIndex} from 'features/common/comments/state/model/stores'
 import {removeCommentFx} from 'features/pages/post/comments/models/remove/effects'
-import {$id} from 'features/pages/post/index'
+import {$id} from 'features/pages/post'
 
 sample({
   clock: onRemove,
