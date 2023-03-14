@@ -33,6 +33,20 @@
     "no-extra-boolean-cast": "error",
     "no-empty-pattern": "error",
     "no-console": ["warn"],
+    "no-restricted-imports": ["error",
+      { "paths": [
+        {
+          "name": "@mui/system",
+          "importNames": ["styled"],
+          "message": "Please import 'styled' from 'utils/styles' instead."
+        },
+        {
+          "name": "@mui/material",
+          "importNames": ["styled"],
+          "message": "Please import 'styled' from 'utils/styles' instead."
+        }
+      ]
+    }],
 
     "react/prop-types": "off",
     "react/display-name": "off",
