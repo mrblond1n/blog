@@ -6,6 +6,7 @@ import {PostHeader} from 'features/pages/post/state/ui/molecules/PostHeader'
 import {PostMedia} from 'features/pages/post/state/ui/molecules/PostMedia'
 import {concatStrings, getInitials} from 'features/pages/post/utils'
 import React from 'react'
+import {Stack} from 'ui/atoms/Stack'
 import {MarkdownPreview} from 'ui/molecules/Markdown'
 import {styled} from 'utils/styles'
 
@@ -22,12 +23,14 @@ export const PostContainer = () => {
 
   return (
     <Wrapper>
-      <PostHeader initials={initials} subtitle={headerTitle} title={title} />
-      <PostMedia img={img} />
+      <Stack direction="column">
+        <PostHeader initials={initials} subtitle={headerTitle} title={title} />
+        <PostMedia img={img} />
 
-      <PostContent description={body} title={title}>
-        <MarkdownPreview value={text} />
-      </PostContent>
+        <PostContent description={body} title={title}>
+          <MarkdownPreview value={text} />
+        </PostContent>
+      </Stack>
     </Wrapper>
   )
 }

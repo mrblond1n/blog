@@ -1,5 +1,6 @@
-import '@uiw/react-markdown-preview/markdown.css'
+import {styled} from '@mui/system'
 import {MarkdownPreviewProps} from '@uiw/react-markdown-preview'
+import '@uiw/react-markdown-preview/markdown.css'
 import {ICommand, MDEditorProps} from '@uiw/react-md-editor'
 import '@uiw/react-md-editor/markdown-editor.css'
 import {useTheme} from 'next-themes'
@@ -30,9 +31,9 @@ export const Markdown = (props: TProps) => {
   const value = typeof props.value === 'string' ? props.value : ''
 
   return (
-    <div className="container" data-color-mode={theme}>
+    <Wrapper data-color-mode={theme}>
       <MDEditor commands={commands} {...props} value={value} />
-    </div>
+    </Wrapper>
   )
 }
 
@@ -41,8 +42,12 @@ export const MarkdownPreview = (props: {value?: TValue<string | null>}) => {
   const value = props.value || ''
 
   return (
-    <div className="container" data-color-mode={theme}>
+    <Wrapper data-color-mode={theme}>
       <MDPreviewer source={value} />
-    </div>
+    </Wrapper>
   )
 }
+
+const Wrapper = styled('div')({
+  '& > *': {background: 'transparent'},
+})
