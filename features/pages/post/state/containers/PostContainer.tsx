@@ -11,29 +11,46 @@ import {MarkdownPreview} from 'ui/molecules/Markdown'
 import {styled} from 'utils/styles'
 
 export const PostContainer = () => {
-  const author = useStore($author)
-  const body = useStore($body)
-  const title = useStore($title)
-  const img = useStore($img)
-  const text = useStore($text)
-  const date = useStore($createdAt)
-
-  const headerTitle = React.useMemo(() => concatStrings(author, date), [author, date])
-  const initials = React.useMemo(() => getInitials(author), [author])
-
   return (
     <Wrapper>
       <Stack direction="column">
-        <PostHeader initials={initials} subtitle={headerTitle} title={title} />
-        <PostMedia img={img} />
-
-        <PostContent description={body} title={title}>
-          <MarkdownPreview value={text} />
-        </PostContent>
+        <HeaderContainer />
+        <ImageContainer />
+        <BodyContainer />
       </Stack>
     </Wrapper>
   )
 }
+
+const BodyContainer = () => {
+  const body = useStore($body)
+  const title = useStore($title)
+  const text = useStore($text)
+
+  return (
+    <PostContent description={body} title={title}>
+      <MarkdownPreview value={text} />
+    </PostContent>
+  )
+}
+
+const HeaderContainer = () => {
+  const author = useStore($author)
+  const date = useStore($createdAt)
+  const title = useStore($title)
+
+  const headerTitle = React.useMemo(() => concatStrings(author, date), [author, date])
+  const initials = React.useMemo(() => getInitials(author), [author])
+
+  return <PostHeader initials={initials} subtitle={headerTitle} title={title} />
+}
+
+const ImageContainer = () => {
+  const img = useStore($img)
+
+  return <PostMedia img={img} />
+}
+
 const Wrapper = styled(Paper)(() => ({
   width: '100%',
   padding: 24,
