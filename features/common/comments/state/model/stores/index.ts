@@ -3,10 +3,12 @@ import {addReply} from 'features/common/comments/reply/model/events'
 import {addComment, clearComments, clearDiscussion, removeComment} from 'features/common/comments/state/model/events'
 import {TCommentDto} from 'types/dtos/comments.dto'
 import {createIndex} from 'utils/stack'
+import {updateDiscussion} from 'features/pages/post/comments/models/update/events'
 
 export const $commentsIndex = createStore(createIndex<TCommentDto>())
   .on([addComment, addReply], (index, comment) => index.set({key: comment.id, value: comment}))
   .on(removeComment, (index, {id}) => index.remove({key: id}))
+  .on(updateDiscussion, (index, {id, replies}) => index.update({key: id, fn: prev => ({...prev, replies})}))
   .on(clearComments, index => index.clear())
   .map(value => value.getRaw())
 

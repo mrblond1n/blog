@@ -4,7 +4,7 @@ import {addReply, closeOpened, sendReply} from 'features/common/comments/reply/m
 import {addComment, sendComment} from 'features/common/comments/state/model/events'
 import {clearValues} from 'features/common/form/model/events'
 import {sendCommentFx, sendReplyFx} from 'features/pages/post/comments/models/send/effects'
-import {$id, Gate} from 'features/pages/post/index'
+import {$id, Gate} from 'features/pages/post'
 
 sample({
   clock: sendReply,
