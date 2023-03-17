@@ -1,20 +1,19 @@
-import {INTL} from 'constants/intl'
-import {useStore} from 'effector-react'
-import {$appState, $displayName} from 'features/app/model/stores'
+import {useGate} from 'effector-react'
+import {ContentContainer} from 'features/pages/posts/containers/ContentContainer'
+import {CreatePostFormContainer} from 'features/pages/posts/containers/CreatePostFormContainer'
+import {LoadButtonContainer} from 'features/pages/posts/containers/LoadButtonContainer'
+import {Gate} from 'features/pages/posts/model'
 import React from 'react'
-import {Body} from 'ui/atoms/Body'
 import {SectionTemplate} from 'ui/templates/SectionTemplate'
-import {intl} from 'utils/intl'
 
 export default () => {
-  const displayName = useStore($displayName)
-  const state = useStore($appState)
+  useGate(Gate)
 
   return (
-    <SectionTemplate title={<h1>{'Welcome page'}</h1>}>
-      <h1>{`Hi, ${displayName}!`}</h1>
-
-      {state === 'UNAUTHORIZED' && <Body>{intl(INTL.WELCOME.UNAUTHORIZED_USER)}</Body>}
+    <SectionTemplate title={<h1>{'POSTS'}</h1>}>
+      <CreatePostFormContainer />
+      <ContentContainer />
+      <LoadButtonContainer />
     </SectionTemplate>
   )
 }

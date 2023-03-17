@@ -1,13 +1,13 @@
 import {Wrapper} from 'features/app/ui/atoms/Wrapper'
-import {NavigationContainer} from 'features/router/containers/NavigationContainer'
-import {ThemeSwitcherButtonContainer} from 'features/theme/container/ThemeSwitcherButtonContainer'
+import {LoginButtonContainer} from 'features/pages/signin/containers/LoginButtonContainer'
 import {LogoutButtonContainer} from 'features/pages/signin/containers/LogoutButtonContainer'
+import {ThemeSwitcherButtonContainer} from 'features/theme/container/ThemeSwitcherButtonContainer'
 import React from 'react'
 
 export const HeaderContainer = React.memo(() => {
   return (
     <Wrapper>
-      <NavigationContainer />
+      <LoginButtonContainer />
       <LogoutButtonContainer />
       <ThemeSwitcherButtonContainer />
     </Wrapper>
