@@ -9,5 +9,6 @@ export const useDebounceEffect = (fn: () => void, waitTime = 100, deps?: Depende
     return () => {
       clearTimeout(t)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)
 }

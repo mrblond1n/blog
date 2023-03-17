@@ -62,9 +62,11 @@ sample({
   source: $valueIndex,
   filter: Gate.status,
   fn: ({img}) => {
-    const file = typeof img === 'object' && !Array.isArray(img) ? img : null
+    const file = (typeof img === 'object' && !Array.isArray(img) ? img : null) as File | null
 
-    return {file, url: `${getId()}/${file?.name}`}
+    if (!file) throw new Error('file not found')
+
+    return {file, url: `${getId()}/${file.name}`}
   },
   target: saveImageFx,
 })

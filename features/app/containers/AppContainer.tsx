@@ -8,7 +8,7 @@ import {PageLoader} from 'ui/organisms/PageLoader'
 import {MainTemplate} from 'ui/templates/MainTemplate'
 import {PageTemplate} from 'ui/templates/PageTemplate'
 
-export const AppContainer = React.memo(({children}) => {
+export const AppContainer = ({children}: {children: React.ReactNode}) => {
   useGate(Gate)
   const state = useStore($appState)
 
@@ -21,4 +21,4 @@ export const AppContainer = React.memo(({children}) => {
       <NotifyContainer />
     </PageTemplate>
   )
-})
+}

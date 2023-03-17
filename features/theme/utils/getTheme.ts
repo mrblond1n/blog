@@ -28,7 +28,7 @@ const darkTheme = createTheme({
   },
 })
 
-export const lightTheme: Theme = createTheme({
+export const lightTheme = createTheme({
   ...defaultTheme,
   palette: {
     mode: 'light',
@@ -42,4 +42,5 @@ export const lightTheme: Theme = createTheme({
   },
 })
 
-export const getTheme = (value: 'dark' | 'light') => ({...defaultTheme, ...(value === 'dark' ? darkTheme : lightTheme)})
+export const getTheme = (value: 'dark' | 'light') =>
+  ({...defaultTheme, ...(value === 'dark' ? darkTheme : lightTheme)} as Theme)

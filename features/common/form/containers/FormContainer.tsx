@@ -5,7 +5,7 @@ import {$fieldIdsStack} from 'features/common/form/model/stores'
 import React, {FormEvent} from 'react'
 import {Form} from 'ui/atoms/Form'
 
-export const FormContainer: React.FC = ({children}) => {
+export const FormContainer = ({children}: {children: React.ReactNode}) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => onSubmit(e)
 
   return <Form onSubmit={handleSubmit}>{children}</Form>

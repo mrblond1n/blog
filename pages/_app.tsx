@@ -6,7 +6,7 @@ import {ThemeProviderContainer} from 'features/theme/container/ThemeProviderCont
 import type {AppProps} from 'next/app'
 import 'normalize.css/normalize.css'
 import React from 'react'
-import 'styles/index.scss'
+import 'styles/index.css'
 
 const App = ({Component, pageProps}: AppProps) => {
   React.useEffect(() => {
