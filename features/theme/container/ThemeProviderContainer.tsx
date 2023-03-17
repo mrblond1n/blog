@@ -5,7 +5,7 @@ import {ThemeProvider} from 'next-themes'
 import React from 'react'
 import {ThemeProvider as MuiThemeProvider} from 'ui/atoms'
 
-export const ThemeProviderContainer = React.memo(({children}) => {
+export const ThemeProviderContainer = ({children}: {children: React.ReactNode}) => {
   useGate(Gate)
   const theme = useStore($appTheme)
 
@@ -14,4 +14,4 @@ export const ThemeProviderContainer = React.memo(({children}) => {
       <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>
     </ThemeProvider>
   )
-})
+}

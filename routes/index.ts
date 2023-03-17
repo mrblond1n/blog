@@ -8,5 +8,4 @@ export const ROUTES = {
 
 const routesList = Object.values(ROUTES)
 
-export type TDeepRoutes = `/posts/${string}`
-export type TRoutes = typeof routesList[number]
+export type TRoutes = (typeof routesList)[number]

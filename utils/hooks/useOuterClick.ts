@@ -11,8 +11,8 @@ export const useOuterClick = <T extends HTMLElement = HTMLElement>(callback?: (e
     callbackRef.current = callback
   })
 
-  const handleClick = React.useCallback(e => {
-    if (innerRef.current && callbackRef.current && !innerRef.current.contains(e.target)) callbackRef.current(e)
+  const handleClick = React.useCallback((e: TAnyEvent) => {
+    if (innerRef.current && callbackRef.current && !innerRef.current.contains(e.target as Node)) callbackRef.current(e)
   }, [])
 
   React.useEffect(() => {

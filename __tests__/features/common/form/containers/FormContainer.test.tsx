@@ -4,7 +4,11 @@ import React from 'react'
 
 describe('<FormContainer />', () => {
   test('should render AuthFormContainer', () => {
-    render(<FormContainer />)
+    render(
+      <FormContainer>
+        <></>
+      </FormContainer>
+    )
     const element = screen.getByRole('form')
 
     expect(element).toBeInTheDocument()
