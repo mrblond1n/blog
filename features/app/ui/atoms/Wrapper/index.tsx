@@ -3,7 +3,7 @@ import React from 'react'
 import {Stack} from 'ui/atoms/Stack'
 
 export const Wrapper = React.memo(({children}) => (
-  <Stack alignItems="center" className={style.container} justifyContent="center">
+  <Stack alignItems="center" className={style.container} justifyContent="flex-end">
     {children}
   </Stack>
 ))

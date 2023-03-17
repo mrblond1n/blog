@@ -1,5 +1,5 @@
 import {render, screen} from '@testing-library/react'
-import Posts from 'pages/posts'
+import Posts from 'pages'
 import React from 'react'
 
 describe('<Posts />', () => {
