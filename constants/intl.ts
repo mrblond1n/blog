@@ -2,6 +2,7 @@ import {ROUTES} from 'routes'
 
 export const INTL = {
   APP: {
+    NAME: 'Ninja-Blog',
     HEADER: {
       THEME_BUTTON: 'Theme switcher',
     },
