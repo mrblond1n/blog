@@ -13,7 +13,7 @@ export const Logo = ({onClick}: {onClick?: () => void}) => (
 
 const StyledLogo = styled('div')<{active: boolean}>(({active, theme}) => {
   const color = theme.palette.primary.main
-  const border = `1px solid ${color}`
+  const border = `2px solid ${color}`
 
   return {
     position: 'relative',
