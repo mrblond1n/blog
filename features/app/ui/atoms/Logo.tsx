@@ -4,22 +4,20 @@ import {intl} from 'utils/intl'
 import {styled} from 'utils/styles'
 
 export const Logo = ({onClick}: {onClick?: () => void}) => (
-  <StyledLogo active={!!onClick} onClick={onClick}>
+  <StyledLogo onClick={onClick}>
     <Typography fontSize={12} fontWeight="bold" noWrap textTransform="uppercase">
       {intl(INTL.APP.NAME)}
     </Typography>
   </StyledLogo>
 )
 
-const StyledLogo = styled('div')<{active: boolean}>(({active, theme}) => {
+const StyledLogo = styled('div')(({theme}) => {
   const color = theme.palette.primary.main
   const border = `2px solid ${color}`
 
   return {
     position: 'relative',
     padding: '10px 20px',
-    transition: '.3s',
-    cursor: active ? 'pointer' : 'default',
     '&:after': {
       ...borderStyled,
       border,
@@ -32,11 +30,6 @@ const StyledLogo = styled('div')<{active: boolean}>(({active, theme}) => {
       top: -5,
       left: -5,
     },
-    '&:hover': active
-      ? {
-          opacity: 0.7,
-        }
-      : void 0,
   }
 })
 

@@ -171,7 +171,7 @@ const WrapperDropzoneActions = styled(Stack)(({theme}) => ({
   position: 'absolute',
   background: alpha(theme.palette.background.default, 0.7),
   opacity: 0,
-  transition: '0.2s',
+  transition: theme.transitions.duration.short + 'ms',
   margin: 'unset !important',
   width: '100%',
 }))

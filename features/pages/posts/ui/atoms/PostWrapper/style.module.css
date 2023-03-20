@@ -10,16 +10,6 @@
     max-height: 500px;
 }
 
-.container a {
-    text-decoration: none;
-    transition: .4s;
-}
-
-.container a:hover,
-.container a:focus {
-    opacity: .7;
-}
-
 .container a:focus img,
 .container a:hover img {
     transform: scale(1.02);

@@ -15,5 +15,11 @@ export const NavLink = React.memo(({children, ...props}: TProps) => {
 })
 
 const StyledLink = styled(Link)(({theme}) => ({
-  color: theme.palette.primary.main,
+  color: 'unset',
+  transition: theme.transitions.duration.standard + 'ms',
+  cursor: 'pointer',
+
+  '&:hover, &:focus': {
+    opacity: 0.7,
+  },
 }))
