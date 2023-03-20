@@ -9,7 +9,7 @@ export const SubmitButtonContainer = React.memo(() => {
   const disabled = useStore(signUpFx.pending)
 
   return (
-    <Button disabled={disabled} type="submit">
+    <Button disabled={disabled} type="submit" variant="contained">
       {intl(INTL.SIGN_UP.SUBMIT)}
     </Button>
   )
