@@ -30,7 +30,8 @@ export const HeaderContainer = React.memo(() => {
 const StyledHeader = styled(Stack)(({theme}) => ({
   position: 'fixed',
   top: '0',
+  left: 0,
   width: '100%',
-  zIndex: 1,
-  background: theme.palette.background.paper,
+  zIndex: 2,
+  background: theme.palette.background.default,
 }))
