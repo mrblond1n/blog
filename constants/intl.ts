@@ -50,7 +50,7 @@ export const INTL = {
   },
   SIGN_OUT: 'Sign out',
   SIGN_UP: {
-    SUBMIT: 'Sign in',
+    SUBMIT: 'Sign up',
     TO: "Already have account? Let's sign in",
   },
   WELCOME: {
