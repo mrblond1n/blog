@@ -8,8 +8,8 @@ import React from 'react'
 
 export const HeaderContainer = React.memo(() => {
   return (
-    <Wrapper mb={2}>
-      <StyledHeader height={40} justifyContent="flex-end" pr={2}>
+    <Wrapper>
+      <StyledHeader justifyContent="flex-end" p={1}>
         <LoginButtonContainer />
         <LogoutButtonContainer />
         <ThemeSwitcherButtonContainer />
