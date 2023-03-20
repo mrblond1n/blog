@@ -1,3 +1,6 @@
+import {Logo} from 'features/app/ui/atoms/Logo'
+import {useRouter} from 'next/router'
+import {ROUTES} from 'routes'
 import {Stack} from 'ui/atoms/Stack'
 import {styled} from 'utils/styles'
 import {Wrapper} from 'features/app/ui/atoms/Wrapper'
@@ -7,9 +10,15 @@ import {ThemeSwitcherButtonContainer} from 'features/theme/container/ThemeSwitch
 import React from 'react'
 
 export const HeaderContainer = React.memo(() => {
+  const router = useRouter()
+
+  const handleClick = () => router.push(ROUTES.HOME)
+
   return (
     <Wrapper>
-      <StyledHeader justifyContent="flex-end" p={1}>
+      <StyledHeader justifyContent="flex-end" p={2}>
+        <Logo onClick={handleClick} />
+        <div style={{width: '100%'}} />
         <LoginButtonContainer />
         <LogoutButtonContainer />
         <ThemeSwitcherButtonContainer />

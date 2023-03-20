@@ -1,5 +1,5 @@
 {
-  "name": "blog",
+  "name": "ninja-blog",
   "version": "1.0.0",
   "scripts": {
     "dev": "firebase emulators:exec \"next dev\"",
