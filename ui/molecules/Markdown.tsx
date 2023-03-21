@@ -1,4 +1,3 @@
-import {styled} from '@mui/system'
 import {MarkdownPreviewProps} from '@uiw/react-markdown-preview'
 import '@uiw/react-markdown-preview/markdown.css'
 import {ICommand, MDEditorProps} from '@uiw/react-md-editor'
@@ -8,6 +7,7 @@ import dynamic from 'next/dynamic'
 import React from 'react'
 import {TValue} from 'types'
 import {commands} from 'utils/markdown/commands'
+import {styled} from 'utils/styles'
 
 const MDEditor = dynamic<MDEditorProps>(() => import('@uiw/react-md-editor').then(mod => mod.default), {ssr: false})
 const MDPreviewer = dynamic<MarkdownPreviewProps>(
@@ -48,6 +48,6 @@ export const MarkdownPreview = (props: {value?: TValue<string | null>}) => {
   )
 }
 
-const Wrapper = styled('div')({
-  '& > *': {background: 'transparent'},
-})
+const Wrapper = styled('div')(({theme}) => ({
+  '& > *': {background: theme.palette.background.paper},
+}))
