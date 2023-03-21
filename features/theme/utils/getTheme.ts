@@ -19,7 +19,7 @@ const darkTheme = createTheme({
     secondary: grey,
     divider: deepOrange[700],
     background: {
-      default: 'black',
+      default: '#000000',
     },
     text: {
       primary: grey['A100'],
