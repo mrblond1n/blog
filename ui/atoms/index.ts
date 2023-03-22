@@ -13,6 +13,8 @@ export {
   Link,
   Menu,
   MenuItem,
+  Modal,
+  Paper,
   Stack,
   TextField,
   ThemeProvider,
