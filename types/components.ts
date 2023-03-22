@@ -12,6 +12,7 @@ export type {
   LinkProps,
   MenuItemProps,
   MenuProps,
+  ModalProps,
   StackProps,
   TextFieldProps,
   TypographyProps,
