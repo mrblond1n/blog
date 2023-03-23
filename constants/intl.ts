@@ -1,6 +1,9 @@
 import {ROUTES} from 'routes'
 
 export const INTL = {
+  ACTION: {
+    CANCEL: 'Cancel',
+  },
   APP: {
     NAME: 'Ninja-Blog',
     HEADER: {
@@ -55,5 +58,8 @@ export const INTL = {
   },
   WELCOME: {
     UNAUTHORIZED_USER: 'To fully try all the features of the service, please log in',
+  },
+  QUESTIONS: {
+    REMOVE_POST: 'Next operation removes post. Are you sure?',
   },
 }
