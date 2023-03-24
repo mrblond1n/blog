@@ -1,5 +1,6 @@
 import {
   getPostRequest,
+  removePostRequest,
   updatePostCommentsRequest,
   updatePostWatchesRequest,
 } from 'features/pages/post/state/model/requests'
@@ -10,6 +11,11 @@ import {t} from 'utils/validation'
 export const getPostFx = createFirebaseEffect({
   codec: PostCodec,
   request: getPostRequest,
+})
+
+export const removePostFx = createFirebaseEffect({
+  codec: t.string,
+  request: removePostRequest,
 })
 
 export const updatePostCommentsFx = createFirebaseEffect({
