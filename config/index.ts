@@ -16,7 +16,7 @@ const firebaseConfig = {
   projectId: process.env.NEXT_PUBLIC_PROJECT_ID || 'local',
   storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET || 'local',
   messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_APP_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID || 'local',
   measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
 }
 
