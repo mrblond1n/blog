@@ -67,3 +67,5 @@ node_modules/
 
 build/
 /next-env.d.ts
+.next/
+.idea/
