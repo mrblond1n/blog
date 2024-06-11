@@ -1,9 +1,13 @@
 /* eslint @typescript-eslint/no-var-requires: "off" */
 const removeImports = require('next-remove-imports')()
-/** @type {import('next').NextConfig} */
 const withPWA = require('next-pwa')({
   dest: 'public',
   disable: process.env.NODE_ENV !== 'production',
 })
+/** @type {import('next').NextConfig} */
+const config = {
+  output: 'export',
+  distDir: 'build',
+}
 
-module.exports = removeImports(withPWA())
+module.exports = removeImports({...withPWA(), ...config})
