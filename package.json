@@ -39,7 +39,7 @@
     "classnames": "^2.3.2",
     "effector": "^22.7.0",
     "effector-react": "^22.5.1",
-    "firebase": "^9.6.10",
+    "firebase": "^10.9.0",
     "fp-ts": "^2.13.1",
     "io-ts": "^2.2.20",
     "io-ts-types": "^0.5.19",
